@@ -76,7 +76,7 @@ const Header = () => {
           clientId={constants.GOOGLE_CLIENT_ID}
           buttonText="Logout"
           onLogoutSuccess={handleGoogleLogoutSuccess}
-          onSuccess={handleGoogleLogoutFailure}
+          onFailure={handleGoogleLogoutFailure}
         />
       )}
     </div>
