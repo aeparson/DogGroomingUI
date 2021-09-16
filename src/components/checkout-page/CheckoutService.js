@@ -17,6 +17,8 @@ export default async function makePurchase(products, deliveryAddress, billingAdd
   })
     .then((response) => response.json())
     .catch(() => {
-      console.error('Failed to purchase');
+      /* eslint-disable no-console */
+      console.log('Failed to purchase');
+      /* eslint-enable no-console */
     });
 }

@@ -14,10 +14,8 @@ default:
 
 lint:
   script:
-    - npm install
     - CI=true npm run lint
 
 test:
   script:
-    - npm install
-    - CI=true npm run test a
+    - CI=true npm run test -- --coverage --watchAll=false

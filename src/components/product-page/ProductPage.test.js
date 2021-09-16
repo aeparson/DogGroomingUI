@@ -1,3 +1,4 @@
+import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 import ProductPage from './ProductPage';
