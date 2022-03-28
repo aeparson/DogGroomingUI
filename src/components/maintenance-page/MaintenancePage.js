@@ -51,18 +51,17 @@ const MaintenancePage = () => {
             <th>Material</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th>Primary Color Code</th>
-            <th>Secondary Color Code</th>
+            <th>Primary Color</th>
+            <th>Secondary Color</th>
             <th>Style Number</th>
             <th>Image Source</th>
-            <th>Date Created</th>
-            <th>Date Modified</th>
-            <th>Release Date</th>
+            <th>Created</th>
+            <th>Modified</th>
+            <th>Released</th>
           </tr>
           {products.sort((productA, productB) => productA.id - productB.id)
             .map((product) => (
               <tr>
-                {console.log(product)}
                 <td>{product.id}</td>
                 <td>{product.active ? 'Active' : 'Inactive'}</td>
                 <td>{product.name}</td>
@@ -74,7 +73,7 @@ const MaintenancePage = () => {
                 <td>{product.globalProductCode}</td>
                 <td>{product.sku}</td>
                 <td>{product.material}</td>
-                <td>{product.price}</td>
+                <td>{product.price.toFixed(2)}</td>
                 <td>{product.quantity}</td>
                 <td>{product.primaryColorCode}</td>
                 <td>{product.secondaryColorCode}</td>
