@@ -1,20 +1,23 @@
 table {
-    position: relative;
+    /* border-collapse: collapse; */
+    border-spacing: 0px;
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid #000000;
     text-align: left;
-    padding: 8px;
+    padding: 2px 2px 4px;
     white-space: nowrap; 
 }
 
 th {
     position: sticky;
-    top: 0px;
-    background: white;
+    top: 42px;
+    background-clip: padding-box;
+    /* padding: 4px 3px 4px 2px; */
+    background: lightgrey;
 }
   
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #ecd5ab;
 }
