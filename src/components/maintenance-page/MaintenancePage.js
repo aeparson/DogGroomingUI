@@ -14,6 +14,14 @@ const MaintenancePage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
 
+  // Converts date string from YYYY-MM-DDTHH:MM:SS.SSSSSS to YYYY-MM-DD
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
   useEffect(() => {
     fetchProducts(setProducts, setApiError);
     // const sampleItem = {
@@ -49,7 +57,7 @@ const MaintenancePage = () => {
             <th>Global Product Code</th>
             <th>SKU</th>
             <th>Material</th>
-            <th>Price</th>
+            <th>Price ($)</th>
             <th>Quantity</th>
             <th>Primary Color</th>
             <th>Secondary Color</th>
@@ -79,9 +87,9 @@ const MaintenancePage = () => {
                 <td>{product.secondaryColorCode}</td>
                 <td>{product.styleNumber}</td>
                 <td>{product.imageSrc}</td>
-                <td>{product.dateCreated}</td>
-                <td>{product.dateModified}</td>
-                <td>{product.releaseDate}</td>
+                <td>{formatDate(product.dateCreated)}</td>
+                <td>{formatDate(product.dateModified)}</td>
+                <td>{formatDate(product.releaseDate)}</td>
               </tr>
             ))}
         </table>
