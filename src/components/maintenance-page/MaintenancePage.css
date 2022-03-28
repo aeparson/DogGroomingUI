@@ -6,18 +6,23 @@ table {
 td, th {
     border: 1px solid #000000;
     text-align: left;
-    padding: 2px 2px 4px;
+    padding: 2px 2px 4px 3px;
     white-space: nowrap; 
+    height: 35px;
 }
 
 th {
     position: sticky;
     top: 42px;
     background-clip: padding-box;
-    /* padding: 4px 3px 4px 2px; */
-    background: lightgrey;
+    padding: 4px 3px 4px 3px;
+    background: pink;
 }
   
 tr:nth-child(even) {
-    background-color: #ecd5ab;
+    background-color: lightyellow;
+}
+
+tr:nth-child(odd) {
+    background-color: lightblue;
 }
