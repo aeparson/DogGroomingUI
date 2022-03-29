@@ -1,0 +1,21 @@
+div{
+  position: sticky;
+  top: 0px;
+  text-align: center;
+}
+
+.home-item{
+  text-align: left;
+  color: red;
+  image-orientation: left;
+}
+
+.checkout-item{
+  text-align: right;
+  color: green;
+}
+
+.login-item{
+  text-align:right;
+  color: yellow;
+}

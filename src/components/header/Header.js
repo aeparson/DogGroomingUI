@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import loginUser from './HeaderService';
 import constants from '../../utils/constants';
+import './Header.css';
+import companyLogo from './arrayOfSunshine.jpg';
 
 /**
  * @name Header
@@ -57,28 +59,44 @@ const Header = () => {
 
   return (
     <div>
-      <NavLink to="/home">Home</NavLink>
-      <NavLink to="/checkout">Cart</NavLink>
-      {user && <span>{user.firstName}</span>}
-      {user && <span>{user.lastName}</span>}
-      {googleError && <span>{googleError}</span>}
-      {apiError && <span>Api Error</span>}
-      {!user ? (
-        <GoogleLogin
-          clientId={constants.GOOGLE_CLIENT_ID}
-          buttonText="Login"
-          onSuccess={handleGoogleLoginSuccess}
-          onFailure={handleGoogleLoginFailure}
-          cookiePolicy="single_host_origin"
-        />
-      ) : (
-        <GoogleLogout
-          clientId={constants.GOOGLE_CLIENT_ID}
-          buttonText="Logout"
-          onLogoutSuccess={handleGoogleLogoutSuccess}
-          onFailure={handleGoogleLogoutFailure}
-        />
-      )}
+      <div>
+        <NavLink
+          to="/home"
+        >
+          <img src={companyLogo} alt="pic" />
+        </NavLink>
+      </div>
+      <div>
+        <NavLink
+          class="checkout-item"
+          to="/checkout"
+        >
+          Cart
+        </NavLink>
+      </div>
+      <div>
+        {user && <span>{user.firstName}</span>}
+        {user && <span>{user.lastName}</span>}
+        {googleError && <span>{googleError}</span>}
+        {apiError && <span>Api Error</span>}
+        {!user ? (
+          <GoogleLogin
+            clientId={constants.GOOGLE_CLIENT_ID}
+            buttonText="Login"
+            class="login-item"
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
+            cookiePolicy="single_host_origin"
+          />
+        ) : (
+          <GoogleLogout
+            clientId={constants.GOOGLE_CLIENT_ID}
+            buttonText="Logout"
+            onLogoutSuccess={handleGoogleLogoutSuccess}
+            onFailure={handleGoogleLogoutFailure}
+          />
+        )}
+      </div>
     </div>
   );
 };
