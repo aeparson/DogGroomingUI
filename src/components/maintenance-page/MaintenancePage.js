@@ -5,20 +5,18 @@ import styles from './MaintenancePage.css';
 import fetchProducts from '../product-page/ProductPageService';
 
 /**
- * @name MaintenancePage
  * @description fetches products from API and displays in a table
- * @return component
+ * @returns component
  */
 
 const MaintenancePage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
 
-  // Converts date string from YYYY-MM-DDTHH:MM:SS.SSSSSS to YYYY-MM-DD
-
   useEffect(() => {
     fetchProducts(setProducts, setApiError);
   }, []);
+
   return (
     <>
       {apiError && (
@@ -37,6 +35,10 @@ const MaintenancePage = () => {
   );
 };
 
+/**
+ * @description a row of column title headers
+ * @returns component
+ */
 const TableHeadings = () => (
   <tr>
     <th>ID</th>
@@ -62,6 +64,11 @@ const TableHeadings = () => (
   </tr>
 );
 
+/**
+ *
+ * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
+ * @returns {string} Formatted date (YYYY-MM-DD)
+ */
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -71,6 +78,11 @@ const formatDate = (dateString) => {
   return `${year}-${month}-${day}`;
 };
 
+/**
+ * @description a row of table data for a product
+ * @param {Object} props Contains a product object
+ * @returns component
+ */
 const TableData = (props) => {
   const { product } = props;
   return (
