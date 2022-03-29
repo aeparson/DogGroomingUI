@@ -18,23 +18,13 @@ const MaintenancePage = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
+    // months are zero-indexed
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
   useEffect(() => {
     fetchProducts(setProducts, setApiError);
-    // const sampleItem = {
-    //   active: true, brand: 'BRAND', category: 'Sport', dateCreated: '2022-03-28T16:11:08.849769',
-    // dateModified: '2022-03-28T16:11:08.849769', demographic: 'Human',
-    // description: 'This is a test product.', globalProductCode: 'po-LETTERS',
-    // id: 0, imageSrc: 'www.example.com/example.jpg', material: 'Cloth', name: 'PRODUCT',
-    // price: 19.99, primaryColorCode: '#ffffff', quantity: 99,
-    // releaseDate: '2022-03-28T16:11:08.849769', secondaryColorCode: '#000000', sku: 'LET-TER-SS',
-    // styleNumber: 'scWORDS', type: 'Clothes'
-    // };
-    // setProducts([sampleItem]);
-    // setApiError(false);
   }, []);
   return (
     <>
