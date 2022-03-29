@@ -1,28 +1,63 @@
 table {
-    /* border-collapse: collapse; */
+    /* border-collapse: collapse would be simpler, 
+       but the borders on the header disappear. */
+    border-collapse: separate;
     border-spacing: 0px;
+    color: white;
+    table-layout: auto;
+    width: 100%;
 }
 
-td, th {
-    border: 1px solid #000000;
+td {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
     text-align: left;
     padding: 2px 3px 4px 3px;
     white-space: nowrap; 
-    height: 35px;
+    /* display:block; */
+    overflow: scroll;
 }
 
 th {
     position: sticky;
-    top: 42px;
-    background-clip: padding-box;
+    top: 0px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+    white-space: nowrap; 
+    /* background-clip: padding-box; */
     padding: 4px 3px 4px 3px;
-    background: pink;
+    background: #d0a800;
+    overflow: auto;
+    /* display:block; */
+}
+
+th:first-child, td:first-child {
+  border-left: 1px solid black;
 }
   
 tr:nth-child(even) {
-    background-color: lightyellow;
+    background-color: #179297;
 }
 
 tr:nth-child(odd) {
-    background-color: lightblue;
+    background-color: #1db9bf;
 }
+
+.scrollable {
+    width: 100%;
+    height: calc(100vh - 43.5px);
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+}
+
+/*
+Brighter Background/Darker Text
+#255b5e
+#fff25e
+#a2ffff
+#dcffff
+Darker Background/Brighter Text
+*/

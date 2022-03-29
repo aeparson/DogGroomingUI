@@ -33,7 +33,7 @@ const MaintenancePage = () => {
         {Constants.API_ERROR}
       </p>
       )}
-      <div className="box">
+      <div className="scrollable">
         <table style={styles}>
           <tr>
             <th>ID</th>
@@ -51,7 +51,7 @@ const MaintenancePage = () => {
             <th>Quantity</th>
             <th>Primary Color</th>
             <th>Secondary Color</th>
-            <th>Style Number</th>
+            <th>Style</th>
             <th>Image Source</th>
             <th>Created</th>
             <th>Modified</th>
@@ -60,7 +60,7 @@ const MaintenancePage = () => {
           {products.sort((productA, productB) => productA.id - productB.id)
             .map((product) => (
               <tr>
-                <td>{product.id}</td>
+                <td style={{ textAlign: 'right' }}>{product.id}</td>
                 <td>{product.active ? 'Active' : 'Inactive'}</td>
                 <td>{product.name}</td>
                 <td>{product.brand}</td>
@@ -71,8 +71,8 @@ const MaintenancePage = () => {
                 <td>{product.globalProductCode}</td>
                 <td>{product.sku}</td>
                 <td>{product.material}</td>
-                <td>{product.price.toFixed(2)}</td>
-                <td>{product.quantity}</td>
+                <td style={{ textAlign: 'right' }}>{product.price.toFixed(2)}</td>
+                <td style={{ textAlign: 'right' }}>{product.quantity}</td>
                 <td>{product.primaryColorCode}</td>
                 <td>{product.secondaryColorCode}</td>
                 <td>{product.styleNumber}</td>
@@ -87,4 +87,5 @@ const MaintenancePage = () => {
     </>
   );
 };
+
 export default MaintenancePage;
