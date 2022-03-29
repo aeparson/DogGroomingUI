@@ -1,21 +1,26 @@
-div{
+h1{
   position: sticky;
   top: 0px;
-  text-align: center;
+  margin: 20px;
+  display:flex;
+  
 }
 
-.home-item{
+.inline
+{
+ display:flex;
+}
+
+#home-item{
   text-align: left;
-  color: red;
   image-orientation: left;
 }
 
-.checkout-item{
+#checkout-item{
   text-align: right;
-  color: green;
+  text-align-last: right;
 }
 
-.login-item{
-  text-align:right;
-  color: yellow;
+#login-item{
+  image-orientation: right;
 }

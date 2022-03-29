@@ -4,7 +4,8 @@ import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import loginUser from './HeaderService';
 import constants from '../../utils/constants';
 import './Header.css';
-import companyLogo from './arrayOfSunshine.jpg';
+import companyLogo from './arrayOfSunshine.png';
+import ShoppingCartIcon from './shopping-cart.png';
 
 /**
  * @name Header
@@ -58,20 +59,14 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <h1>
       <div>
         <NavLink
+          class="inline"
+          id="home-item"
           to="/home"
         >
-          <img src={companyLogo} alt="pic" />
-        </NavLink>
-      </div>
-      <div>
-        <NavLink
-          class="checkout-item"
-          to="/checkout"
-        >
-          Cart
+          <img src={companyLogo} alt="pic" width="50%" />
         </NavLink>
       </div>
       <div>
@@ -83,7 +78,8 @@ const Header = () => {
           <GoogleLogin
             clientId={constants.GOOGLE_CLIENT_ID}
             buttonText="Login"
-            class="login-item"
+            class="inline"
+            id="login-item"
             onSuccess={handleGoogleLoginSuccess}
             onFailure={handleGoogleLoginFailure}
             cookiePolicy="single_host_origin"
@@ -97,7 +93,16 @@ const Header = () => {
           />
         )}
       </div>
-    </div>
+      <div>
+        <NavLink
+          class="inline"
+          id="checkout-item"
+          to="/checkout"
+        >
+          <img src={ShoppingCartIcon} alt="cart" width="5%" height="5%" />
+        </NavLink>
+      </div>
+    </h1>
   );
 };
 
