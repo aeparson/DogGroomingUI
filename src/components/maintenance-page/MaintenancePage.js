@@ -26,9 +26,13 @@ const MaintenancePage = () => {
       )}
       <div className="scrollable">
         <table style={styles}>
-          <TableHeadings />
-          {products.sort((productA, productB) => productA.id - productB.id)
-            .map((product) => <TableData product={product} />)}
+          <thead>
+            <TableHeadings />
+          </thead>
+          <tbody>
+            {products.sort((productA, productB) => productA.id - productB.id)
+              .map((product) => <TableData key={product.id} product={product} />)}
+          </tbody>
         </table>
       </div>
     </>

@@ -30,4 +30,16 @@ describe('Maintenance Page Component Tests', () => {
     );
     expect(screen.getByTestId('errMsg')).toHaveTextContent('Oops, something went wrong');
   });
+
+  it('shows 20 columns in each row and one row per product', () => {
+    fetchProducts.mockImplementation((setProducts, setApiError) => {
+      setApiError(false);
+      setProducts([{ id: 0, price: 80.00 }, { id: 1, price: 80.00 }]);
+    });
+    render(
+      <MaintenancePage />, container
+    );
+    expect(screen.getAllByRole('columnheader').length).toBe(20);
+    expect(screen.getAllByRole('row').length).toEqual(3);
+  });
 });
