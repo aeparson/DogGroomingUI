@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import MaintenancePage from './MaintenancePage';
 import fetchProducts from '../product-page/ProductPageService';
 
-jest.mock('../product-page/ProductPage');
+jest.mock('../product-page/ProductPageService');
 let container = null;
 
 describe('Maintenance Page Component Tests', () => {

@@ -20,7 +20,7 @@ const MaintenancePage = () => {
   return (
     <>
       {apiError && (
-      <p>
+      <p data-testid="errMsg">
         {Constants.API_ERROR}
       </p>
       )}
