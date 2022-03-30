@@ -59,16 +59,14 @@ const Header = () => {
   };
 
   return (
-    <h1>
-      <div>
+    <header>
+      <h1>
         <NavLink
-          class="inline"
-          id="home-item"
           to="/home"
         >
-          <img src={companyLogo} alt="pic" width="50%" />
+          <img src={companyLogo} alt="pic" width="25%" />
         </NavLink>
-      </div>
+      </h1>
       <div>
         {user && <span>{user.firstName}</span>}
         {user && <span>{user.lastName}</span>}
@@ -78,8 +76,6 @@ const Header = () => {
           <GoogleLogin
             clientId={constants.GOOGLE_CLIENT_ID}
             buttonText="Login"
-            class="inline"
-            id="login-item"
             onSuccess={handleGoogleLoginSuccess}
             onFailure={handleGoogleLoginFailure}
             cookiePolicy="single_host_origin"
@@ -95,14 +91,12 @@ const Header = () => {
       </div>
       <div>
         <NavLink
-          class="inline"
-          id="checkout-item"
           to="/checkout"
         >
-          <img src={ShoppingCartIcon} alt="cart" width="5%" height="5%" />
+          <img src={ShoppingCartIcon} alt="cart" width="10%" height="10%" />
         </NavLink>
       </div>
-    </h1>
+    </header>
   );
 };
 

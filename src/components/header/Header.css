@@ -1,26 +1,13 @@
-h1{
+header{
   position: sticky;
   top: 0px;
   margin: 20px;
   display:flex;
-  
+  align-items: flex-start;
+  z-index: 1;
+  background-color: #5CE1F6;
+  font-size: calc(1%);
+
+; 
 }
 
-.inline
-{
- display:flex;
-}
-
-#home-item{
-  text-align: left;
-  image-orientation: left;
-}
-
-#checkout-item{
-  text-align: right;
-  text-align-last: right;
-}
-
-#login-item{
-  image-orientation: right;
-}
