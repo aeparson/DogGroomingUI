@@ -59,22 +59,4 @@ describe('Maintenance Page Component Tests', () => {
     expect(rows[2].firstChild.textContent).toBe('5');
     expect(rows[3].firstChild.textContent).toBe('999999999');
   });
-
-  // it('has a scrollbar', () => {
-  //   // Construct sample data
-  //   const products = new Array(5);
-  //   for (let id = 0; id < 5; id += 1) {
-  //     products.push({ id, price: 1.00 });
-  //   }
-  //   fetchProducts.mockImplementation((setProducts, setApiError) => {
-  //     setApiError(false);
-  //     setProducts([]);
-  //   });
-  //   render(
-  //     <MaintenancePage />, container
-  //   );
-  //   const table = screen.getByTestId('maintenance table');
-  //   table.scrollTop = 1;
-  //   expect(table.scrollTop).toBe(1);
-  // });
 });
