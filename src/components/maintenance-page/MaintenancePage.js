@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Constants from '../../utils/constants';
 import styles from './MaintenancePage.css';
 
-import fetchProducts from '../product-page/ProductPageService';
+import fetchAllProducts from './MaintenancePageService';
 
 /**
  * @description fetches products from API and displays in a table
@@ -14,7 +14,7 @@ const MaintenancePage = () => {
   const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
-    fetchProducts(setProducts, setApiError);
+    fetchAllProducts(setProducts, setApiError);
   }, []);
 
   return (
