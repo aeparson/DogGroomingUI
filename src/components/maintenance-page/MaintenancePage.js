@@ -12,16 +12,10 @@ import fetchAllProducts from './MaintenancePageService';
 const MaintenancePage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
     fetchAllProducts(setProducts, setApiError);
   }, []);
-
-  const header = document.getElementById('header');
-  useEffect(() => {
-    setHeaderHeight(document.getElementById('header').clientHeight);
-  }, [header]);
 
   return (
     <>
@@ -30,7 +24,7 @@ const MaintenancePage = () => {
         {Constants.API_ERROR}
       </p>
       )}
-      <div style={{ ...styles.scrollable, height: `calc(100vh - ${headerHeight}px` }} className="scrollable">
+      <div style={styles} className="scrollable">
         <table>
           <thead>
             <TableHeadings />

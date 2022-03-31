@@ -56,7 +56,7 @@ const Header = () => {
   };
 
   return (
-    <div id="header" style={{ height: '150px' }}>
+    <div>
       <NavLink to="/home">Home</NavLink>
       <NavLink to="/checkout">Cart</NavLink>
       {user && <span>{user.firstName}</span>}
