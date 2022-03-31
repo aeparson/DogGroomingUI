@@ -2,9 +2,9 @@ import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 import MaintenancePage from './MaintenancePage';
-import fetchProducts from '../product-page/ProductPageService';
+import fetchAllProducts from './MaintenancePageService';
 
-jest.mock('../product-page/ProductPageService');
+jest.mock('./MaintenancePageService');
 let container = null;
 
 describe('Maintenance Page Component Tests', () => {
@@ -22,7 +22,7 @@ describe('Maintenance Page Component Tests', () => {
   });
 
   it('shows error msg text when an error is thrown', () => {
-    fetchProducts.mockImplementation((setProducts, setApiError) => {
+    fetchAllProducts.mockImplementation((setProducts, setApiError) => {
       setApiError(true);
     });
     render(
@@ -32,7 +32,7 @@ describe('Maintenance Page Component Tests', () => {
   });
 
   it('shows 20 columns in each row and one row per product', () => {
-    fetchProducts.mockImplementation((setProducts, setApiError) => {
+    fetchAllProducts.mockImplementation((setProducts, setApiError) => {
       setApiError(false);
       setProducts([{ id: 0, price: 80.00 }, { id: 1, price: 80.00 }]);
     });
@@ -44,7 +44,7 @@ describe('Maintenance Page Component Tests', () => {
   });
 
   it('sorts products based on id', () => {
-    fetchProducts.mockImplementation((setProducts, setApiError) => {
+    fetchAllProducts.mockImplementation((setProducts, setApiError) => {
       setApiError(false);
       setProducts([{ id: 5, price: 80.00 },
         { id: 999999999, price: 80.00 },
