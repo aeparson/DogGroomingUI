@@ -4,19 +4,21 @@
   align-items: center;
   top: 0px;
   margin: 20px;
+  height: 50px;
   z-index: 1;
   background-color: #5CE1E6;
 }
 
 .logo{
-order:0;
+  order:1;
 }
 
 .loginlogout{
-
+  order:2;
+ 
 
 }
-.chekout-item{
-
-justify-self: right;
+.checkoutItem{
+  
+  order:3;
 }

@@ -62,7 +62,7 @@ const Header = () => {
     <section className="header">
       <div className="logo">
         <NavLink to="/home">
-          <img src={companyLogo} alt="Logo" width="25%" />
+          <img src={companyLogo} alt="Logo" height="45px" />
         </NavLink>
       </div>
       <div className="loginlogout">
@@ -87,9 +87,8 @@ const Header = () => {
           />
         )}
       </div>
-      <div>
+      <div className="checkoutItem">
         <NavLink
-          class="CheckoutItem"
           to="/checkout"
         >
           <img src={ShoppingCartIcon} alt="cart" width="40px" />
