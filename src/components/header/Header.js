@@ -5,7 +5,7 @@ import loginUser from './HeaderService';
 import constants from '../../utils/constants';
 import './Header.css';
 import companyLogo from './arrayOfSunshine.png';
-import ShoppingCartIcon from './shopping-cart.png';
+import ShoppingCartIcon from './shopping-trolley.png';
 
 /**
  * @name Header
@@ -60,45 +60,41 @@ const Header = () => {
 
   return (
     <section className="header">
-      <nav>
-        <div className="logo">
-          <NavLink to="/home">
-            <img src={companyLogo} alt="Logo" width="25%" />
-          </NavLink>
-        </div>
-        <section className="header-right">
-          <div>
-            {user && <span>{user.firstName}</span>}
-            {user && <span>{user.lastName}</span>}
-            {googleError && <span>{googleError}</span>}
-            {apiError && <span>Api Error</span>}
-            {!user ? (
-              <GoogleLogin
-                clientId={constants.GOOGLE_CLIENT_ID}
-                buttonText="Login"
-                onSuccess={handleGoogleLoginSuccess}
-                onFailure={handleGoogleLoginFailure}
-                cookiePolicy="single_host_origin"
-              />
-            ) : (
-              <GoogleLogout
-                clientId={constants.GOOGLE_CLIENT_ID}
-                buttonText="Logout"
-                onLogoutSuccess={handleGoogleLogoutSuccess}
-                onFailure={handleGoogleLogoutFailure}
-              />
-            )}
-          </div>
-          <div>
-            <NavLink
-              class="CheckoutItem"
-              to="/checkout"
-            >
-              <img src={ShoppingCartIcon} alt="cart" width="10%" height="10%" />
-            </NavLink>
-          </div>
-        </section>
-      </nav>
+      <div className="logo">
+        <NavLink to="/home">
+          <img src={companyLogo} alt="Logo" width="25%" />
+        </NavLink>
+      </div>
+      <div className="loginlogout">
+        {user && <span>{user.firstName}</span>}
+        {user && <span>{user.lastName}</span>}
+        {googleError && <span>{googleError}</span>}
+        {apiError && <span>Api Error</span>}
+        {!user ? (
+          <GoogleLogin
+            clientId={constants.GOOGLE_CLIENT_ID}
+            buttonText="Login"
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
+            cookiePolicy="single_host_origin"
+          />
+        ) : (
+          <GoogleLogout
+            clientId={constants.GOOGLE_CLIENT_ID}
+            buttonText="Logout"
+            onLogoutSuccess={handleGoogleLogoutSuccess}
+            onFailure={handleGoogleLogoutFailure}
+          />
+        )}
+      </div>
+      <div>
+        <NavLink
+          class="CheckoutItem"
+          to="/checkout"
+        >
+          <img src={ShoppingCartIcon} alt="cart" width="40px" />
+        </NavLink>
+      </div>
     </section>
   );
 };

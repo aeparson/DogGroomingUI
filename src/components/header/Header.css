@@ -1,20 +1,22 @@
 .header{
-  position: sticky;
+  position: sticky;  
+  display:flex;
+  align-items: center;
   top: 0px;
   margin: 20px;
   z-index: 1;
   background-color: #5CE1E6;
-  font-size: calc(1%);
-
-
 }
 
 .logo{
+order:0;
 }
 
-.header-right{
-  display:flex;
-  justify-content: right;
-  align-items: center;
+.loginlogout{
 
+
+}
+.chekout-item{
+
+justify-self: right;
 }
