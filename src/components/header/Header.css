@@ -2,23 +2,19 @@
   position: sticky;
   top: 0px;
   margin: 20px;
-  display:flex;
-  flex-direction:row;
-  align-items: flex-start;
   z-index: 1;
-  background-color: #5CE1F6;
+  background-color: #5CE1E6;
   font-size: calc(1%);
+
+
 }
 
 .logo{
-  display:flex;
-  justify-content: flex-start;
-  align-items: inline;
 }
 
 .header-right{
   display:flex;
-  justify-content: flex-end;
+  justify-content: right;
   align-items: center;
-}
 
+}
