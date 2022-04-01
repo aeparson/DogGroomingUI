@@ -40,6 +40,6 @@ tr:nth-child(odd) {
 .scrollable {
     width: 100%;
     /* The total height of the viewport minus the height of the header */
-    height: calc(100vh - 90px);
+    height: calc(100vh - 50px);
     overflow: auto;
 }
