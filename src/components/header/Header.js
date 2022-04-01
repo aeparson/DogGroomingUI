@@ -65,7 +65,7 @@ const Header = () => {
           <img src={companyLogo} alt="Logo" height="45px" />
         </NavLink>
       </div>
-      <div className="loginlogout">
+      <div className="loginLogout">
         {user && <span>{user.firstName}</span>}
         {user && <span>{user.lastName}</span>}
         {googleError && <span>{googleError}</span>}
@@ -88,9 +88,7 @@ const Header = () => {
         )}
       </div>
       <div className="checkoutItem">
-        <NavLink
-          to="/checkout"
-        >
+        <NavLink to="/checkout">
           <img src={ShoppingCartIcon} alt="cart" width="40px" />
         </NavLink>
       </div>
