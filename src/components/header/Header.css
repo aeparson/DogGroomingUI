@@ -1,0 +1,23 @@
+.header{
+  position: sticky;  
+  display:flex;
+  align-items: center;
+  top: 0px;
+  height: 50px;
+  z-index: 1;
+  background-color: #5CE1E6;
+}
+
+.logo{
+  order:1;
+}
+
+.loginLogout{
+  order:2;
+  margin-left: auto;
+}
+
+.checkoutItem{
+  order:3;
+  margin: 10px;
+}
