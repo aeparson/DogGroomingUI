@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import loginUser from './HeaderService';
 import constants from '../../utils/constants';
+import './Header.css';
+import companyLogo from './arrayOfSunshine.png';
+import ShoppingCartIcon from './shopping-trolley.png';
 
 /**
  * @name Header
@@ -56,30 +59,40 @@ const Header = () => {
   };
 
   return (
-    <div>
-      <NavLink to="/home">Home</NavLink>
-      <NavLink to="/checkout">Cart</NavLink>
-      {user && <span>{user.firstName}</span>}
-      {user && <span>{user.lastName}</span>}
-      {googleError && <span>{googleError}</span>}
-      {apiError && <span>Api Error</span>}
-      {!user ? (
-        <GoogleLogin
-          clientId={constants.GOOGLE_CLIENT_ID}
-          buttonText="Login"
-          onSuccess={handleGoogleLoginSuccess}
-          onFailure={handleGoogleLoginFailure}
-          cookiePolicy="single_host_origin"
-        />
-      ) : (
-        <GoogleLogout
-          clientId={constants.GOOGLE_CLIENT_ID}
-          buttonText="Logout"
-          onLogoutSuccess={handleGoogleLogoutSuccess}
-          onFailure={handleGoogleLogoutFailure}
-        />
-      )}
-    </div>
+    <section className="header">
+      <div className="logo">
+        <NavLink to="/home">
+          <img src={companyLogo} alt="Logo" height="45px" />
+        </NavLink>
+      </div>
+      <div className="loginLogout">
+        {user && <span>{user.firstName}</span>}
+        {user && <span>{user.lastName}</span>}
+        {googleError && <span>{googleError}</span>}
+        {apiError && <span>Api Error</span>}
+        {!user ? (
+          <GoogleLogin
+            clientId={constants.GOOGLE_CLIENT_ID}
+            buttonText="Login"
+            onSuccess={handleGoogleLoginSuccess}
+            onFailure={handleGoogleLoginFailure}
+            cookiePolicy="single_host_origin"
+          />
+        ) : (
+          <GoogleLogout
+            clientId={constants.GOOGLE_CLIENT_ID}
+            buttonText="Logout"
+            onLogoutSuccess={handleGoogleLogoutSuccess}
+            onFailure={handleGoogleLogoutFailure}
+          />
+        )}
+      </div>
+      <div className="checkoutItem">
+        <NavLink to="/checkout">
+          <img src={ShoppingCartIcon} alt="cart" width="40px" />
+        </NavLink>
+      </div>
+    </section>
   );
 };
 
