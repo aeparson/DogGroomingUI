@@ -10,7 +10,7 @@ import Constants from '../../utils/constants';
  * @returns sets state for products if 200 response, else sets state for apiError
  */
 export default async function fetchProducts(setProducts, setApiError) {
-  await HttpHelper(Constants.RUNNING_SHORTS_ENDPOINT, 'GET')
+  await HttpHelper(Constants.PRODUCT_ENDPOINT, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
