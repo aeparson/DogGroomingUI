@@ -14,6 +14,7 @@ const DeliveryAddress = ({ onChange, deliveryData }) => {
   return (
 
     <div className={styles.deliveryAddress}>
+
       <FormItem
         type="text"
         id="firstName"

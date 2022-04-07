@@ -5,7 +5,18 @@ const isEmpty = (field) => {
   return false;
 };
 
-const validateAddress = (address) => {
+const validateDeliveryAddress = (address) => {
+  const invalidFields = [];
+  const requiredFields = ['firstName', 'lastName', 'street', 'city', 'state', 'zip'];
+  requiredFields.forEach((field) => {
+    if (isEmpty(address[field])) {
+      invalidFields.push({ field, error: 'Required field' });
+    }
+  });
+  return invalidFields;
+};
+
+const validateBillingAddress = (address) => {
   const invalidFields = [];
   const requiredFields = ['street', 'city', 'state', 'zip'];
   requiredFields.forEach((field) => {
@@ -29,8 +40,8 @@ const validateCreditCard = (creditCard) => {
 
 const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCreditFields = validateCreditCard(creditCard);
-  const invalidDeliveryFields = validateAddress(deliveryAddress);
-  const invalidBillingFields = validateAddress(billingAddress);
+  const invalidDeliveryFields = validateDeliveryAddress(deliveryAddress);
+  const invalidBillingFields = validateBillingAddress(billingAddress);
   if (isEmpty(billingAddress.email)) {
     invalidBillingFields.push({ field: 'email', error: 'Required field' });
   }

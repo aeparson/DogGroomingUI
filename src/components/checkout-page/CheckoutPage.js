@@ -96,7 +96,7 @@ const CheckoutPage = () => {
         <DeliveryAddress
           onChange={onDeliveryChange}
           deliveryData={deliveryData}
-          props={fieldErrors.delivery}
+          errors={fieldErrors.delivery}
         />
         <label htmlFor="useSame" className={styles.sameAddressText}>
           <div className={styles.useSameAddress}>
@@ -116,7 +116,7 @@ const CheckoutPage = () => {
           onChange={onBillingChange}
           billingData={billingData}
           useShippingForBilling={checked}
-          props={fieldErrors.billing}
+          errors={fieldErrors.billing}
         />
       </div>
       <div className={styles.payNow}>
