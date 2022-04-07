@@ -31,9 +31,14 @@ const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCreditFields = validateCreditCard(creditCard);
   const invalidDeliveryFields = validateAddress(deliveryAddress);
   const invalidBillingFields = validateAddress(billingAddress);
+  if (isEmpty(billingAddress.email)) {
+    invalidBillingFields.push({ field: 'email', error: 'Required field' });
+  }
+  if (isEmpty(billingAddress.phone)) {
+    invalidBillingFields.push({ field: 'phone', error: 'Required field' });
+  }
 
-  console.log(invalidCreditFields.concat(invalidDeliveryFields).concat(invalidBillingFields));
-  return invalidCreditFields.concat(invalidDeliveryFields).concat(invalidBillingFields);
+  return [invalidDeliveryFields, invalidBillingFields.concat(invalidCreditFields)];
 };
 
 export default validatePurchase;
