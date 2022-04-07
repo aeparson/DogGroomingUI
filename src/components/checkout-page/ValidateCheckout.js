@@ -27,13 +27,13 @@ const validateCreditCard = (creditCard) => {
   return invalidFields;
 };
 
-const validatePurchase = (setInvalidFields, deliveryAddress, billingAddress, creditCard) => {
+const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCreditFields = validateCreditCard(creditCard);
   const invalidDeliveryFields = validateAddress(deliveryAddress);
   const invalidBillingFields = validateAddress(billingAddress);
 
   console.log(invalidCreditFields.concat(invalidDeliveryFields).concat(invalidBillingFields));
-  setInvalidFields(invalidCreditFields.concat(invalidDeliveryFields).concat(invalidBillingFields));
+  return invalidCreditFields.concat(invalidDeliveryFields).concat(invalidBillingFields);
 };
 
 export default validatePurchase;

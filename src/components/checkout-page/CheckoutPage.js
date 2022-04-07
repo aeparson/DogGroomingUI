@@ -32,7 +32,7 @@ const CheckoutPage = () => {
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
-  const [invalidFields, setInvalidFields] = React.useState([]);
+  const [fieldErrors, setFieldErrors] = React.useState([]);
   const [checked, setChecked] = React.useState(false);
   const handleCheck = () => {
     setChecked(true);
@@ -72,9 +72,9 @@ const CheckoutPage = () => {
       expiration: billingData.expiration,
       cardholder: billingData.cardholder
     };
-    validatePurchase(setInvalidFields, deliveryAddress, billingAddress, creditCard);
+    const invalidFields = validatePurchase(deliveryAddress, billingAddress, creditCard);
     if (invalidFields.length === 0) {
-      console.log(invalidFields);
+      setFieldErrors(invalidFields);
       makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
     }
   };
@@ -90,7 +90,7 @@ const CheckoutPage = () => {
         <DeliveryAddress
           onChange={onDeliveryChange}
           deliveryData={deliveryData}
-          props={invalidFields}
+          props={fieldErrors}
         />
         <label htmlFor="useSame" className={styles.sameAddressText}>
           <div className={styles.useSameAddress}>
