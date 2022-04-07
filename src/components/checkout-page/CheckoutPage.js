@@ -7,6 +7,10 @@ import DeliveryAddress from './forms/DeliveryAddress';
 import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
 
+const validatePurchase = (deliveryAddress, billingAddress, creditCard, setInvalidFields) => {
+  setInvalidFields([]);
+};
+
 /**
  * @name CheckoutPage
  * @description A view that contains details needed to process a transaction for items
@@ -31,6 +35,7 @@ const CheckoutPage = () => {
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
+  const [invalidFields, setInvalidFields] = React.useState([]);
   const [checked, setChecked] = React.useState(false);
   const handleCheck = () => {
     setChecked(true);
@@ -70,6 +75,7 @@ const CheckoutPage = () => {
       expiration: billingData.expiration,
       cardholder: billingData.cardholder
     };
+    validatePurchase(deliveryAddress, billingAddress, creditCard, setInvalidFields);
     makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
   };
 
@@ -81,7 +87,11 @@ const CheckoutPage = () => {
       </div>
       <div className={`${styles.step} ${styles.delivery}`}>
         <h3 className={styles.title}>2. Delivery Address</h3>
-        <DeliveryAddress onChange={onDeliveryChange} deliveryData={deliveryData} />
+        <DeliveryAddress
+          onChange={onDeliveryChange}
+          deliveryData={deliveryData}
+          props={invalidFields}
+        />
         <label htmlFor="useSame" className={styles.sameAddressText}>
           <div className={styles.useSameAddress}>
             <input
