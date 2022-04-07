@@ -9,6 +9,6 @@
   color: #666666;
 }
 
-.invalid {
-  color: red;
+.invalid input {
+  box-shadow: 0px 0px 5px red;
 }
