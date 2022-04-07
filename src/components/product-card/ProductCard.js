@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
  * @param {*} props product
  * @return component
  */
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, ...props }) => {
   const classes = useStyles();
 
   const { dispatch } = useCart();
@@ -71,7 +71,7 @@ const ProductCard = ({ product }) => {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={props.onClick}>
       <CardHeader
         avatar={(
           <Avatar aria-label="demographics" className={classes.avatar}>

@@ -17,13 +17,18 @@ const ProductPage = () => {
     fetchProducts(setProducts, setApiError);
   }, []);
 
+  const openDialog = (product, event) => {
+    console.log(product);
+    console.log(event);
+  };
+
   return (
     <div>
       {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
       <div className={styles.app}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCard product={product} />
+            <ProductCard product={product} onClick={(event) => openDialog(product, event)} />
           </div>
         ))}
       </div>
