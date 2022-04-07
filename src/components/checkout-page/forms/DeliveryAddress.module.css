@@ -9,6 +9,9 @@
   color: #666666;
 }
 
-.invalid input {
+.invalid {
+  position: relative;
+}
+.invalid input, .invalid select {
   box-shadow: 0px 0px 5px red;
 }
