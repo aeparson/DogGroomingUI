@@ -6,10 +6,7 @@ import ReviewOrderWidget from './ReviewOrderWidget';
 import DeliveryAddress from './forms/DeliveryAddress';
 import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
-
-const validatePurchase = (deliveryAddress, billingAddress, creditCard, setInvalidFields) => {
-  setInvalidFields([]);
-};
+import validatePurchase from './ValidateCheckout';
 
 /**
  * @name CheckoutPage
@@ -75,8 +72,11 @@ const CheckoutPage = () => {
       expiration: billingData.expiration,
       cardholder: billingData.cardholder
     };
-    validatePurchase(deliveryAddress, billingAddress, creditCard, setInvalidFields);
-    makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
+    validatePurchase(setInvalidFields, deliveryAddress, billingAddress, creditCard);
+    if (invalidFields.length === 0) {
+      console.log(invalidFields);
+      makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
+    }
   };
 
   return (
