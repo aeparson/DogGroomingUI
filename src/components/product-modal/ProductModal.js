@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import QuantityPicker from '../quantity-picker/QuantityPicker';
 
 const ProductModal = ({
   open, product, handleClose, addToCart
@@ -23,6 +24,7 @@ const ProductModal = ({
       </DialogContentText>
     </DialogContent>
     <DialogActions>
+      <QuantityPicker />
       <IconButton aria-label="add to shopping cart" onClick={addToCart}>
         <AddShoppingCartIcon />
       </IconButton>
