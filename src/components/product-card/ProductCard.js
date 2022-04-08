@@ -116,4 +116,5 @@ const ProductCard = ({ product, ...props }) => {
   );
 };
 
-export default ProductCard;
+// export default ProductCard;
+export default React.memo(ProductCard);

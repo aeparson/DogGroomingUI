@@ -36,7 +36,7 @@ const ProductPage = () => {
       <div className={styles.app}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCard product={product} onClick={openModal} />
+            <ProductCard product={product} onClick={() => openModal(product)} />
           </div>
         ))}
       </div>
