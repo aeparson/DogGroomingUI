@@ -30,7 +30,6 @@ const validateCVV = (cvv) => {
   if (isEmpty(cvv)) {
     return 'Required';
   }
-  // Must be 3 digits
   if (cvv.match(/^[0-9]{3}$/)) {
     return true;
   }
@@ -124,7 +123,7 @@ const validateCardHolder = (cardHolder) => {
 
 /**
  * Validates all of the fields on a credit card
- * @param {Object} creditCard
+ * @param {Object} creditCard {cvv, cardNumber, cardholder, expiration}
  * @returns a list of error objects {field, message}
  */
 const validateCreditCard = (creditCard) => {
@@ -153,8 +152,10 @@ const validateCreditCard = (creditCard) => {
  * @param {Object} deliveryAddress {firstName, lastName, street, street2, city, state, zip}
  * @param {Object} billingAddress {street, street2, city, state, zip, email, phone}
  * @param {Object} creditCard {cardNumber, cvv, cardholder, expiration}
- * @returns A list of invalid fields in the delivery form
- *          and a list of invalid fields in the billing form (including credit card)
+ * @returns A list of invalid field objects in the delivery form
+ *          and a list of invalid field objects in the billing form (including credit card)
+ *          Each invalid field has one corresponding error message
+ *          [[{field, message}, {field2, message}], [{field, message}]]
  */
 const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCredit = validateCreditCard(creditCard);

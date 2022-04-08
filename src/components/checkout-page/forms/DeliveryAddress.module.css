@@ -10,6 +10,7 @@
 }
 
 .invalid {
+  /* Necessary for error message positioning */
   position: relative;
 }
 .invalid input, .invalid select {
@@ -20,6 +21,6 @@
   color: red;
   font-size: 14px;
   position: absolute; 
-  right: 5px; 
+  right: 0px; 
   top: -10px;
 }

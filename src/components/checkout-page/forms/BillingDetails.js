@@ -39,7 +39,7 @@ const BillingDetails = ({
     <div className={styles.deliveryAddress}>
       {!useShippingForBilling && (
         <>
-          <div className={streetError === undefined ? '' : styles.invalid}>
+          <div className={streetError !== undefined && styles.invalid}>
             <p className={styles.errorMessage}>
               {streetError !== undefined && streetError.message}
             </p>
@@ -62,7 +62,7 @@ const BillingDetails = ({
             value={billingData.billingStreet2}
           />
 
-          <div className={cityError === undefined ? '' : styles.invalid}>
+          <div className={cityError !== undefined && styles.invalid}>
             <p className={styles.errorMessage}>
               {cityError !== undefined && cityError.message}
             </p>
@@ -75,7 +75,7 @@ const BillingDetails = ({
             />
           </div>
 
-          <div className={stateError === undefined ? '' : styles.invalid}>
+          <div className={stateError !== undefined && styles.invalid}>
             <p className={styles.errorMessage}>
               {stateError !== undefined && stateError.message}
             </p>
@@ -88,7 +88,7 @@ const BillingDetails = ({
             />
           </div>
 
-          <div className={zipError === undefined ? '' : styles.invalid}>
+          <div className={zipError !== undefined && styles.invalid}>
             <p className={styles.errorMessage}>
               {zipError !== undefined && zipError.message}
             </p>
@@ -103,7 +103,7 @@ const BillingDetails = ({
           </div>
         </>
       )}
-      <div className={emailError === undefined ? '' : styles.invalid}>
+      <div className={emailError !== undefined && styles.invalid}>
         <p className={styles.errorMessage}>
           {emailError !== undefined && emailError.message}
         </p>
@@ -117,7 +117,7 @@ const BillingDetails = ({
         />
       </div>
 
-      <div className={phoneError === undefined ? '' : styles.invalid}>
+      <div className={phoneError !== undefined && styles.invalid}>
         <p className={styles.errorMessage}>
           {phoneError !== undefined && phoneError.message}
         </p>
@@ -131,7 +131,7 @@ const BillingDetails = ({
         />
       </div>
 
-      <div className={cardNumberError === undefined ? '' : styles.invalid}>
+      <div className={cardNumberError !== undefined && styles.invalid}>
         <p className={styles.errorMessage}>
           {cardNumberError !== undefined && cardNumberError.message}
         </p>
@@ -145,7 +145,7 @@ const BillingDetails = ({
         />
       </div>
 
-      <div className={cvvError === undefined ? '' : styles.invalid}>
+      <div className={cvvError !== undefined && styles.invalid}>
         <p className={styles.errorMessage}>
           {cvvError !== undefined && cvvError.message}
         </p>
@@ -159,7 +159,7 @@ const BillingDetails = ({
         />
       </div>
 
-      <div className={expirationError === undefined ? '' : styles.invalid}>
+      <div className={expirationError !== undefined && styles.invalid}>
         <p className={styles.errorMessage}>
           {expirationError !== undefined && expirationError.message}
         </p>
@@ -173,7 +173,7 @@ const BillingDetails = ({
         />
       </div>
 
-      <div className={cardHolderError === undefined ? '' : styles.invalid}>
+      <div className={cardHolderError !== undefined && styles.invalid}>
         <p className={styles.errorMessage}>
           {cardHolderError !== undefined && cardHolderError.message}
         </p>
