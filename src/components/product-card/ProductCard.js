@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,6 +15,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Constants from '../../utils/constants';
 import { useCart } from '../checkout-page/CartContext';
+import ProductModal from '../product-modal/ProductModal';
 
 /**
  * @name useStyles
@@ -50,12 +51,15 @@ const useStyles = makeStyles((theme) => ({
  * @param {*} props product
  * @return component
  */
-const ProductCard = ({ product, ...props }) => {
+const ProductCard = ({ product }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const classes = useStyles();
 
   const { dispatch } = useCart();
 
-  const onAdd = () => {
+  const onAdd = (event) => {
+    event.stopPropagation();
     dispatch(
       {
         type: 'add',
@@ -70,51 +74,62 @@ const ProductCard = ({ product, ...props }) => {
     );
   };
 
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalIsOpen(false);
+  };
+
   return (
-    <Card className={classes.root} onClick={props.onClick}>
-      <CardHeader
-        avatar={(
-          <Avatar aria-label="demographics" className={classes.avatar}>
-            {product.demographic.charAt(0)}
-          </Avatar>
+    <>
+      <ProductModal open={modalIsOpen} product={product} handleClose={handleModalClose} />
+      <Card className={classes.root} onClick={openModal}>
+        <CardHeader
+          avatar={(
+            <Avatar aria-label="demographics" className={classes.avatar}>
+              {product.demographic.charAt(0)}
+            </Avatar>
         )}
-        action={(
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          action={(
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+        )}
+          title={product.name}
+          subheader={`${product.demographic} ${product.category} ${product.type}`}
+        />
+        <CardMedia
+          className={classes.media}
+          image={Constants.PLACEHOLDER_IMAGE}
+          title="placeholder"
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {product.description}
+          </Typography>
+          <br />
+          <Typography variant="body2" color="textSecondary" component="p">
+            Price: $
+            {product.price}
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
           </IconButton>
-        )}
-        title={product.name}
-        subheader={`${product.demographic} ${product.category} ${product.type}`}
-      />
-      <CardMedia
-        className={classes.media}
-        image={Constants.PLACEHOLDER_IMAGE}
-        title="placeholder"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {product.description}
-        </Typography>
-        <br />
-        <Typography variant="body2" color="textSecondary" component="p">
-          Price: $
-          {product.price}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton aria-label="add to shopping cart" onClick={onAdd}>
-          <AddShoppingCartIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+          <IconButton aria-label="add to shopping cart" onClick={onAdd}>
+            <AddShoppingCartIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </>
   );
 };
 
-// export default ProductCard;
-export default React.memo(ProductCard);
+export default ProductCard;
+// export default React.memo(ProductCard);

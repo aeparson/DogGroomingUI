@@ -3,7 +3,6 @@ import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
 import fetchProducts from './ProductPageService';
-import ProductModal from '../product-modal/ProductModal';
 
 /**
  * @name ProductPage
@@ -13,30 +12,18 @@ import ProductModal from '../product-modal/ProductModal';
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalProduct, setModalProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts(setProducts, setApiError);
   }, []);
 
-  const openModal = (product) => {
-    setModalProduct(product);
-    setModalIsOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setModalIsOpen(false);
-  };
-
   return (
     <div>
       {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
-      <ProductModal open={modalIsOpen} product={modalProduct} handleClose={handleModalClose} />
       <div className={styles.app}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCard product={product} onClick={() => openModal(product)} />
+            <ProductCard product={product} />
           </div>
         ))}
       </div>
