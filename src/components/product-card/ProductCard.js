@@ -84,7 +84,12 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-      <ProductModal open={modalIsOpen} product={product} handleClose={handleModalClose} />
+      <ProductModal
+        open={modalIsOpen}
+        product={product}
+        handleClose={handleModalClose}
+        addToCart={onAdd}
+      />
       <Card className={classes.root} onClick={openModal}>
         <CardHeader
           avatar={(
