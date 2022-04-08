@@ -20,8 +20,7 @@ const ProductPage = () => {
     fetchProducts(setProducts, setApiError);
   }, []);
 
-  // eslint-disable-next-line no-unused-vars
-  const openModal = (product, event) => {
+  const openModal = (product) => {
     setModalProduct(product);
     setModalIsOpen(true);
   };
@@ -37,7 +36,7 @@ const ProductPage = () => {
       <div className={styles.app}>
         {products.map((product) => (
           <div key={product.id}>
-            <ProductCard product={product} onClick={() => openModal(product)} />
+            <ProductCard product={product} onClick={openModal} />
           </div>
         ))}
       </div>
