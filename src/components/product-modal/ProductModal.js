@@ -8,14 +8,14 @@ import CloseIcon from '@material-ui/icons/Close';
 const ProductModal = ({ open, product, handleClose }) => (
   <Dialog open={open} onClose={handleClose}>
     <DialogTitle>
-      {product?.name}
+      {product.name}
       <IconButton aria-label="close" onClick={handleClose}>
         <CloseIcon />
       </IconButton>
     </DialogTitle>
     <DialogContent>
       <DialogContentText>
-        {product?.description}
+        {product.description}
       </DialogContentText>
     </DialogContent>
   </Dialog>
