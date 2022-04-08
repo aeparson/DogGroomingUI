@@ -1,17 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import postNewProduct from './CreateProductPageService';
+import React, { Component } from 'react';
+import { Form } from 'react-bootstrap';
 
-const CreateProduct = () => {
-//   const [products, setProduct] = useState([]);
-//   const [apiError, setApiError] = useState(false);
+class CreateProductPage extends Component {
+  constructor(props) {
+    super(props);
+    this.State = {
+      Brand: '',
+      Category: '',
+      Demographic: '',
+      Description: ''
 
-  useEffect(() => {
-    postNewProduct(setProduct, setApiError);
-  }, []);
+    };
+  }
 
-  return (
-    <div className="createProductForm">Create New Product</div>
-  );
-};
+    handleInput = (e) => {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+    }
 
-export default CreateProduct;
+    handleSumbit = (event) => {
+      event.preventDefault();
+    }
+
+    render() {
+      return (
+        <Form onSubmit={this.handleSumbit}>
+          <Form.Control type="text" name="Brand" value={Brand} onChange={this.handleInput} />
+          <Form.Control type="text" name="Category" value={Category} onChange={this.handleInput} />
+          <Form.Control type="text" name="Demographic" value={Demographic} onChange={this.handleInput} />
+          <Form.Control type="text" name="Description" value={Description} onChange={this.handleInput} />
+          <Form.Control type="text" name="ImageSrc" value={ImageSrc} onChange={this.handleInput} />
+          <Form.Control type="text" name="Material" value={Material} onChange={this.handleInput} />
+          <Form.Control type="text" name="Name" value={Name} onChange={this.handleInput} />
+          <Form.Control type="text" name="Price" value={Price} onChange={this.handleInput} />
+          <Form.Control type="text" name="PrimaryColorCode" value={PrimaryColorCode} onChange={this.handleInput} />
+          <Form.Control type="text" name="SecondaryColorCode" value={SecondaryColorCode} onChange={this.handleInput} />
+          <Form.Control type="text" name="Quantity" value={Quantity} onChange={this.handleInput} />
+          <Form.Control type="text" name="ReleaseDate" value={ReleaseDate} onChange={this.handleInput} />
+          <Form.Control type="text" name="Type" value={Type} onChange={this.handleInput} />
+        </Form>
+      );
+    }
+}
+
+export default CreateProductPage;

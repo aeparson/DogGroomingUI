@@ -26,7 +26,7 @@ const MaintenancePage = () => {
       )}
       <div className="MaintenanceMenu">
         {' '}
-        <button type="button" a href="CreateProductPage.js">Create New Product</button>
+        <button className="button" type="button" a href="CreateProductPage.js">Create</button>
         {' '}
       </div>
       <div style={styles} className="scrollable">
