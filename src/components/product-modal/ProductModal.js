@@ -9,7 +9,7 @@ const ProductModal = ({ open, product, handleClose }) => (
   <Dialog open={open} onClose={handleClose}>
     <DialogTitle>
       {product?.name}
-      <IconButton onClick={handleClose}>
+      <IconButton aria-label="close" onClick={handleClose}>
         <CloseIcon />
       </IconButton>
     </DialogTitle>
