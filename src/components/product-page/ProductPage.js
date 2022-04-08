@@ -22,7 +22,6 @@ const ProductPage = () => {
 
   // eslint-disable-next-line no-unused-vars
   const openModal = (product, event) => {
-    console.log(product);
     setModalProduct(product);
     setModalIsOpen(true);
   };
