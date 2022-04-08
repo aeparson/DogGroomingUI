@@ -1,0 +1,18 @@
+.footer{
+  position: sticky;  
+  display:flex;
+  align-items: center;
+  top: 0px;
+  height: 50px;
+  z-index: 1;
+  background-color: #F9DB47;
+}
+
+#footerText {
+    display: flex-box;
+    margin: auto;
+    color: white;
+    font-weight: bold;
+    padding-left: 15px;
+    border: 5px solid #F9DB47;
+}

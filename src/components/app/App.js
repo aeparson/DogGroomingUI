@@ -6,6 +6,7 @@ import CheckoutPage from '../checkout-page/CheckoutPage';
 import ConfirmationPage from '../confirmation-page/ConfirmationPage';
 import MaintenancePage from '../maintenance-page/MaintenancePage';
 import Header from '../header/Header';
+import Footer from '../footer/footer';
 
 /**
  * @name App
@@ -20,6 +21,7 @@ const App = () => (
       <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
       <Route exact path="/maintenance" render={() => <MaintenancePage />} />
     </Switch>
+    <Footer />
   </BrowserRouter>
 );
 
