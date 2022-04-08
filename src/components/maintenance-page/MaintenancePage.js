@@ -24,6 +24,11 @@ const MaintenancePage = () => {
         {Constants.API_ERROR}
       </p>
       )}
+      <div className="MaintenanceMenu">
+        {' '}
+        <button type="button" a href="CreateProductPage.js">Create New Product</button>
+        {' '}
+      </div>
       <div style={styles} className="scrollable">
         <table>
           <thead>
