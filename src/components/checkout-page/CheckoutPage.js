@@ -79,8 +79,6 @@ const CheckoutPage = () => {
     if (invalidDelivery.length === 0 && invalidBilling.length === 0) {
       makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
     } else {
-      console.log(invalidDelivery);
-      console.log(invalidBilling);
       setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
     }
   };
