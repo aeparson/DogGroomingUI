@@ -5,6 +5,11 @@ const isEmpty = (field) => {
   return false;
 };
 
+/**
+ * Validates that all required address fields are filled in
+ * @param {Object} address
+ * @returns a list of error objects {field: field, message: 'Required'}
+ */
 const validateAddress = (address) => {
   const invalidFields = [];
   const requiredFields = ['street', 'city', 'state', 'zip'];
@@ -16,6 +21,11 @@ const validateAddress = (address) => {
   return invalidFields;
 };
 
+/**
+ * Validates that the cvv is three numerical digits
+ * @param {string} cvv
+ * @returns true if valid, otherwise an error message
+ */
 const validateCVV = (cvv) => {
   if (isEmpty(cvv)) {
     return 'Required';
@@ -27,6 +37,11 @@ const validateCVV = (cvv) => {
   return 'Must be three numerical digits';
 };
 
+/**
+ * Validates that a card number passes the Luhn algorithm
+ * @param {string} cardNumber
+ * @returns true if valid, false if not
+ */
 const validateLuhn = (cardNumber) => {
   let sum = 0;
   for (let i = 0; i < cardNumber.length; i += 1) {
@@ -43,11 +58,15 @@ const validateLuhn = (cardNumber) => {
   return (sum % 10 === 0);
 };
 
+/**
+ * Validates that a card number contains 16 numerical digits and passes the Luhn algorithm
+ * @param {string} cardNumber
+ * @returns true if valid, otherwise an error message
+ */
 const validateCardNumber = (cardNumber) => {
   if (isEmpty(cardNumber)) {
     return 'Required';
   }
-  // Must be 16 digits and must satisfy Luhn algorithm
   if (cardNumber.match(/^[0-9]{16}$/)) {
     if (validateLuhn(cardNumber)) {
       return true;
@@ -57,19 +76,21 @@ const validateCardNumber = (cardNumber) => {
   return 'Must be 16 numerical digits';
 };
 
+/**
+ * Validates that an expiration date is formatted as MM/YY, and that that date is in the future
+ * @param {string} expiration
+ * @returns true if valid, otherwise an error message
+ */
 const validateExpiration = (expiration) => {
   if (isEmpty(expiration)) {
     return 'Required';
   }
-  // Must be 2 digits followed by a '/' and then two more digits
   if (expiration.match(/^[0-9]{2}\/[0-9]{2}$/)) {
     const month = parseInt(expiration.substring(0, 2), 10);
     const year = parseInt(`20${expiration.substring(3)}`, 10);
-    // Must represent a date
     if (month === 0 || month > 12) {
       return 'Month must be between 1 and 12';
     }
-    // in the future
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1;
@@ -86,17 +107,26 @@ const validateExpiration = (expiration) => {
   return 'Must be formatted as MM/YY';
 };
 
+/**
+ * Validates that cardHolder only uses alphabetical characters, whitespace, apostrophes, and hyphens
+ * @param {string} cardHolder
+ * @returns true if valid, otherwise and error message
+ */
 const validateCardHolder = (cardHolder) => {
   if (isEmpty(cardHolder)) {
     return 'Required';
   }
-  // Must be alphabetical characters, apostrophes and hyphens
   if (cardHolder.match(/^[a-zA-Z '-]+$/)) {
     return true;
   }
   return 'Invalid characters';
 };
 
+/**
+ * Validates all of the fields on a credit card
+ * @param {Object} creditCard
+ * @returns a list of error objects {field, message}
+ */
 const validateCreditCard = (creditCard) => {
   const invalidFields = [];
   const cvvValidation = validateCVV(creditCard.cvv);
@@ -118,6 +148,14 @@ const validateCreditCard = (creditCard) => {
   return invalidFields;
 };
 
+/**
+ * Validates an attempted purchase
+ * @param {Object} deliveryAddress {firstName, lastName, street, street2, city, state, zip}
+ * @param {Object} billingAddress {street, street2, city, state, zip, email, phone}
+ * @param {Object} creditCard {cardNumber, cvv, cardholder, expiration}
+ * @returns A list of invalid fields in the delivery form
+ *          and a list of invalid fields in the billing form (including credit card)
+ */
 const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCredit = validateCreditCard(creditCard);
   const invalidDelivery = validateAddress(deliveryAddress);
