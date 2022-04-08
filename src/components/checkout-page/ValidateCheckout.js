@@ -91,10 +91,10 @@ const validateCardHolder = (cardHolder) => {
     return 'Required';
   }
   // Must be alphabetical characters, apostrophes and hyphens
-  if (cardHolder.match(/^[\p{L} .'-]+$/)) {
+  if (cardHolder.match(/^[a-zA-Z '-]+$/)) {
     return true;
   }
-  return 'Must contain only alphabetical characters, apostrophes, and hyphens';
+  return 'Invalid characters';
 };
 
 const validateCreditCard = (creditCard) => {

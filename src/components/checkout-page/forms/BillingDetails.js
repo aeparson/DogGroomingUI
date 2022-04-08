@@ -41,7 +41,7 @@ const BillingDetails = ({
         <>
           <div className={streetError === undefined ? '' : styles.invalid}>
             <p className={styles.errorMessage}>
-              {streetError === undefined ? '' : streetError.message}
+              {streetError !== undefined && streetError.message}
             </p>
             <FormItem
               placeholder="e.g. 123 Sesame Street"
@@ -64,7 +64,7 @@ const BillingDetails = ({
 
           <div className={cityError === undefined ? '' : styles.invalid}>
             <p className={styles.errorMessage}>
-              {cityError === undefined ? '' : cityError.message}
+              {cityError !== undefined && cityError.message}
             </p>
             <FormItem
               type="text"
@@ -77,7 +77,7 @@ const BillingDetails = ({
 
           <div className={stateError === undefined ? '' : styles.invalid}>
             <p className={styles.errorMessage}>
-              {stateError === undefined ? '' : stateError.message}
+              {stateError !== undefined && stateError.message}
             </p>
             <FormItemDropdown
               id="billingState"
@@ -90,7 +90,7 @@ const BillingDetails = ({
 
           <div className={zipError === undefined ? '' : styles.invalid}>
             <p className={styles.errorMessage}>
-              {zipError === undefined ? '' : zipError.message}
+              {zipError !== undefined && zipError.message}
             </p>
             <FormItem
               placeholder="e.g. 12345"
@@ -105,7 +105,7 @@ const BillingDetails = ({
       )}
       <div className={emailError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {emailError === undefined ? '' : emailError.message}
+          {emailError !== undefined && emailError.message}
         </p>
         <FormItem
           placeholder="e.g. example@catalyte.io"
@@ -119,7 +119,7 @@ const BillingDetails = ({
 
       <div className={phoneError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {phoneError === undefined ? '' : phoneError.message}
+          {phoneError !== undefined && phoneError.message}
         </p>
         <FormItem
           placeholder="e.g. 555-555-5555"
@@ -133,7 +133,7 @@ const BillingDetails = ({
 
       <div className={cardNumberError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {cardNumberError === undefined ? '' : cardNumberError.message}
+          {cardNumberError !== undefined && cardNumberError.message}
         </p>
         <FormItem
           placeholder="e.g. 1234567812345678"
@@ -147,7 +147,7 @@ const BillingDetails = ({
 
       <div className={cvvError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {cvvError === undefined ? '' : cvvError.message}
+          {cvvError !== undefined && cvvError.message}
         </p>
         <FormItem
           placeholder="e.g. 555"
@@ -161,7 +161,7 @@ const BillingDetails = ({
 
       <div className={expirationError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {expirationError === undefined ? '' : expirationError.message}
+          {expirationError !== undefined && expirationError.message}
         </p>
         <FormItem
           placeholder="e.g. 05/21"
@@ -175,7 +175,7 @@ const BillingDetails = ({
 
       <div className={cardHolderError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {cardHolderError === undefined ? '' : cardHolderError.message}
+          {cardHolderError !== undefined && cardHolderError.message}
         </p>
         <FormItem
           type="text"

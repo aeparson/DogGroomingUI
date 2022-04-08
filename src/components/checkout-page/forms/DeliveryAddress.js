@@ -30,7 +30,6 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
     <div className={styles.deliveryAddress}>
       <div className={firstNameError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {/* {firstNameError === undefined ? '' : firstNameError.message} */}
           {(firstNameError !== undefined) && firstNameError.message}
         </p>
         <FormItem
@@ -44,7 +43,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
       <div className={lastNameError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {lastNameError === undefined ? '' : lastNameError.message}
+          {lastNameError !== undefined && lastNameError.message}
         </p>
         <FormItem
           type="text"
@@ -57,7 +56,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
       <div className={streetError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {streetError === undefined ? '' : streetError.message}
+          {streetError !== undefined && streetError.message}
         </p>
         <FormItem
           placeholder="e.g. 123 Sesame Street"
@@ -80,7 +79,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
       <div className={cityError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {cityError === undefined ? '' : cityError.message}
+          {cityError !== undefined && cityError.message}
         </p>
         <FormItem
           type="text"
@@ -93,7 +92,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
       <div className={stateError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {stateError === undefined ? '' : stateError.message}
+          {stateError !== undefined && stateError.message}
         </p>
         <FormItemDropdown
           id="state"
@@ -106,7 +105,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
       <div className={zipError === undefined ? '' : styles.invalid}>
         <p className={styles.errorMessage}>
-          {zipError === undefined ? '' : zipError.message}
+          {zipError !== undefined && zipError.message}
         </p>
         <FormItem
           placeholder="e.g. 12345"
