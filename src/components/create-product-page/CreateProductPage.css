@@ -1,0 +1,28 @@
+.column {
+    color: black;
+    float: left;
+    padding: 5px;
+    width: 40%;
+}
+
+.createButton{
+    align-items: center;
+    background-color: #179297;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    margin: 15px 30px 0px 200px;
+    padding: 5px 20px 5px 20px ;
+}
+
+.productFields {
+   background-color: #1db9bf;
+   font-size: 20px;
+}
+
+body {
+    background-color: #1db9bf;
+}
+

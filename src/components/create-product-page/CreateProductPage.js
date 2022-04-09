@@ -1,47 +1,143 @@
-import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
+import React, { useState } from 'react';
+import constants from '../../utils/constants';
+import FormItem from '../form/FormItem';
+import styles from './CreateProductPage.css';
 
-class CreateProductPage extends Component {
-  constructor(props) {
-    super(props);
-    this.State = {
-      Brand: '',
-      Category: '',
-      Demographic: '',
-      Description: ''
+/**
+ * @name CreateProductPage
+ * @description handles the changes when creating a new product, maps new product data
+ *
+ */
+const CreateProductPage = () => {
+  const [productData, setProductData] = useState('');
+  const [message, setMessage] = useState('');
 
-    };
-  }
+  const onChange = (e) => {
+    setProductData({ ...productData, [e.target.id]: e.target.value });
+  };
 
-    handleInput = (e) => {
-      this.setState({
-        [e.target.name]: e.target.value
-      });
+  const handleSubmit = async (e) => {
+    e.preventdefault();
+    try {
+      const res = await fetch(constants.ALL_PRODUCTS_ENDPOINT, { method: 'POST', body: productData });
+      if (res.status === 200) {
+        setProductData('');
+        setMessage('User created successfully');
+      } else { setMessage('Some other error occured'); }
+    } catch (err) {
+      setMessage('Some error occurred.');
     }
+  };
 
-    handleSumbit = (event) => {
-      event.preventDefault();
-    }
-
-    render() {
-      return (
-        <Form onSubmit={this.handleSumbit}>
-          <Form.Control type="text" name="Brand" value={Brand} onChange={this.handleInput} />
-          <Form.Control type="text" name="Category" value={Category} onChange={this.handleInput} />
-          <Form.Control type="text" name="Demographic" value={Demographic} onChange={this.handleInput} />
-          <Form.Control type="text" name="Description" value={Description} onChange={this.handleInput} />
-          <Form.Control type="text" name="ImageSrc" value={ImageSrc} onChange={this.handleInput} />
-          <Form.Control type="text" name="Material" value={Material} onChange={this.handleInput} />
-          <Form.Control type="text" name="Name" value={Name} onChange={this.handleInput} />
-          <Form.Control type="text" name="Price" value={Price} onChange={this.handleInput} />
-          <Form.Control type="text" name="PrimaryColorCode" value={PrimaryColorCode} onChange={this.handleInput} />
-          <Form.Control type="text" name="SecondaryColorCode" value={SecondaryColorCode} onChange={this.handleInput} />
-          <Form.Control type="text" name="Quantity" value={Quantity} onChange={this.handleInput} />
-          <Form.Control type="text" name="ReleaseDate" value={ReleaseDate} onChange={this.handleInput} />
-          <Form.Control type="text" name="Type" value={Type} onChange={this.handleInput} />
-        </Form>
-      );
-    }
-}
+  return (
+    <div className="productFields" style={styles.CreateProductPage}>
+      <form onSubmit={handleSubmit} style={styles.CreateProductPage}>
+        <div className="column">
+          <FormItem
+            type="text"
+            id="brand"
+            label="Brand"
+            value={productData.brand}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="category"
+            label="Category"
+            value={productData.category}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="demographic"
+            label="Demographic"
+            value={productData.demographic}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="description"
+            label="Description"
+            value={productData.description}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="imageSrc"
+            label="Image Source"
+            value={productData.imageSrc}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="material"
+            label="Material"
+            value={productData.material}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="name"
+            label="Name"
+            value={productData.label}
+            onChange={onChange}
+          />
+        </div>
+        <div className="column">
+          <FormItem
+            type="text"
+            id="price"
+            label="Price"
+            value={productData.price}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="primaryColorCode"
+            label="Primary Color Code"
+            value={productData.primaryColorCode}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="secondaryColorCode"
+            label="Secondary Color Code"
+            value={productData.secondaryColorCode}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="quantity"
+            label="Quantity"
+            value={productData.quantity}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="releaseDate"
+            label="Release Date"
+            value={productData.releaseDate}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="type"
+            label="Type"
+            value={productData.type}
+            onChange={onChange}
+          />
+          <button
+            type="submit"
+            className="createButton"
+            style={styles.CreateProductPage}
+          >
+            Create
+          </button>
+        </div>
+        <div className="message">{message ? <p>{message}</p> : null}</div>
+      </form>
+    </div>
+  );
+};
 
 export default CreateProductPage;
