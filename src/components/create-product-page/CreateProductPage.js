@@ -41,6 +41,13 @@ const CreateProductPage = () => {
             onChange={onChange}
           />
           <FormItem
+            type="boolean"
+            id="active"
+            label="Active Status"
+            value={productData.active}
+            onChange={onChange}
+          />
+          <FormItem
             type="text"
             id="category"
             label="Category"
@@ -124,6 +131,13 @@ const CreateProductPage = () => {
             id="type"
             label="Type"
             value={productData.type}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="styleNumber"
+            label="Style Number"
+            value={productData.styleNumber}
             onChange={onChange}
           />
           <button
