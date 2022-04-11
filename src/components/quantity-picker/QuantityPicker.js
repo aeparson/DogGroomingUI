@@ -1,18 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React from 'react';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { Add, Remove } from '@material-ui/icons';
 
-const QuantityPicker = ({ onChange }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const incrementQuantity = (event) => {
-    setQuantity(quantity + 1);
+const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
+  const incrementQuantity = () => {
+    updateQuantity(quantity + 1);
   };
 
   const decrementQuantity = () => {
     if (quantity < 1) return;
-    setQuantity(quantity - 1);
+    updateQuantity(quantity - 1);
   };
 
   const inputProps = {

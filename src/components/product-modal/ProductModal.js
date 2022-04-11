@@ -8,13 +8,20 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import QuantityPicker from '../quantity-picker/QuantityPicker';
+import { useCart } from '../checkout-page/CartContext';
 
 const ProductModal = ({
   open, product, handleClose, addToCart
 }) => {
   const [quantity, setQuantity] = useState(1);
 
-  const updateQuantity = (value) => setQuantity(value);
+  const updateQuantity = (newQuantity) => {
+    setQuantity(Number(newQuantity));
+  };
+
+  const handleChange = (event) => {
+    updateQuantity(event.target.value);
+  };
 
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -30,7 +37,11 @@ const ProductModal = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <QuantityPicker onChange={updateQuantity} />
+        <QuantityPicker
+          quantity={quantity}
+          onChange={handleChange}
+          updateQuantity={updateQuantity}
+        />
         <IconButton aria-label="add to shopping cart" onClick={addToCart}>
           <AddShoppingCartIcon />
         </IconButton>
