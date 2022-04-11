@@ -10,10 +10,26 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import QuantityPicker from '../quantity-picker/QuantityPicker';
 import { useCart } from '../checkout-page/CartContext';
 
-const ProductModal = ({
-  open, product, handleClose, addToCart
-}) => {
+const ProductModal = ({ open, product, handleClose }) => {
   const [quantity, setQuantity] = useState(1);
+
+  const { dispatch } = useCart();
+
+  const onAdd = () => {
+    if (quantity === 0) return;
+    dispatch(
+      {
+        type: 'add',
+        product: {
+          id: product.id,
+          title: product.name,
+          price: product.price,
+          description: product.description,
+          quantity
+        }
+      }
+    );
+  };
 
   const updateQuantity = (newQuantity) => {
     setQuantity(Number(newQuantity));
@@ -42,7 +58,7 @@ const ProductModal = ({
           onChange={handleChange}
           updateQuantity={updateQuantity}
         />
-        <IconButton aria-label="add to shopping cart" onClick={addToCart}>
+        <IconButton aria-label="add to shopping cart" onClick={onAdd}>
           <AddShoppingCartIcon />
         </IconButton>
       </DialogActions>
