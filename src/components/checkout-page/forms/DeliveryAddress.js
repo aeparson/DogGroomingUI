@@ -13,7 +13,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
   return (
     <div className={styles.deliveryAddress}>
-      <div className={errors.firstName !== undefined && styles.invalid}>
+      <div className={errors.firstName === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
           {(errors.firstName !== undefined) && errors.firstName}
         </p>
@@ -26,7 +26,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
         />
       </div>
 
-      <div className={errors.lastName !== undefined && styles.invalid}>
+      <div className={errors.lastName === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
           {errors.lastName !== undefined && errors.lastName}
         </p>
@@ -39,7 +39,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
         />
       </div>
 
-      <div className={errors.street !== undefined && styles.invalid}>
+      <div className={errors.street === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
           {errors.street !== undefined && errors.street}
         </p>
@@ -62,7 +62,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
         value={deliveryData.street2}
       />
 
-      <div className={errors.city !== undefined && styles.invalid}>
+      <div className={errors.city === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
           {errors.city !== undefined && errors.city}
         </p>
@@ -75,7 +75,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
         />
       </div>
 
-      <div className={errors.state !== undefined && styles.invalid}>
+      <div className={errors.state === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
           {errors.state !== undefined && errors.state}
         </p>
@@ -88,7 +88,7 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
         />
       </div>
 
-      <div className={errors.zip !== undefined && styles.invalid}>
+      <div className={errors.zip === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
           {errors.zip !== undefined && errors.zip}
         </p>

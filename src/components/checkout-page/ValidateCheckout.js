@@ -25,7 +25,7 @@ const validateCVV = (cvv) => {
  * @param {string} cardNumber
  * @returns true if valid, false if not
  */
-const validateLuhn = (cardNumber) => {
+const isLuhnValid = (cardNumber) => {
   let sum = 0;
   for (let i = 0; i < cardNumber.length; i += 1) {
     if (i % 2 === 0) {
@@ -51,7 +51,7 @@ const validateCardNumber = (cardNumber) => {
     return 'Required';
   }
   if (cardNumber.match(/^[0-9]{16}$/)) {
-    if (validateLuhn(cardNumber)) {
+    if (isLuhnValid(cardNumber)) {
       return true;
     }
     return 'Invalid card number';
@@ -93,7 +93,7 @@ const validateExpiration = (expiration) => {
 /**
  * Validates that cardHolder only uses alphabetical characters, whitespace, apostrophes, and hyphens
  * @param {string} cardHolder
- * @returns true if valid, otherwise and error message
+ * @returns true if valid, otherwise an error message
  */
 const validateCardHolder = (cardHolder) => {
   if (isEmpty(cardHolder)) {
@@ -108,7 +108,7 @@ const validateCardHolder = (cardHolder) => {
 /**
  * Validates all of the fields on a credit card
  * @param {Object} creditCard {cvv, cardNumber, cardholder, expiration}
- * @returns a list of error objects {field, message}
+ * @returns an object with message entries for field errors {field: message}
  */
 const validateCreditCard = (creditCard) => {
   const invalidFields = {};
@@ -134,7 +134,7 @@ const validateCreditCard = (creditCard) => {
 /**
  * Validates that all required address fields are filled in
  * @param {Object} address
- * @returns a list of error objects {field: field, message: 'Required'}
+ * @returns an object with 'required' message entries for field errors {field: 'Required'}
  */
 const validateAddress = (address) => {
   const invalidFields = {};
@@ -152,10 +152,11 @@ const validateAddress = (address) => {
  * @param {Object} deliveryAddress {firstName, lastName, street, street2, city, state, zip}
  * @param {Object} billingAddress {street, street2, city, state, zip, email, phone}
  * @param {Object} creditCard {cardNumber, cvv, cardholder, expiration}
- * @returns A list of invalid field objects in the delivery form
- *          and a list of invalid field objects in the billing form (including credit card)
+ * @returns A list of two objects:
+ *          an object with message entries for delivery form errors {field: message}
+ *          an object with message entries for billing field errors {field: message}
  *          Each invalid field has one corresponding error message
- *          [[{field, message}, {field2, message}], [{field, message}]]
+ *          [{deliveryField: message, deliveryField2: message}, {billingField: message}]
  */
 const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCredit = validateCreditCard(creditCard);
