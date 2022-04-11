@@ -32,7 +32,7 @@ const CheckoutPage = () => {
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
-  const [fieldErrors, setFieldErrors] = React.useState({});
+  const [fieldErrors, setFieldErrors] = React.useState({ delivery: [], billing: [] });
   const [checked, setChecked] = React.useState(false);
   const handleCheck = () => {
     setChecked(true);
@@ -76,7 +76,7 @@ const CheckoutPage = () => {
       invalidDelivery,
       invalidBilling
     ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
-    if (invalidDelivery.length === 0 && invalidBilling.length === 0) {
+    if (Object.keys(invalidDelivery).length === 0 && Object.keys(invalidBilling).length === 0) {
       makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
     } else {
       setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });

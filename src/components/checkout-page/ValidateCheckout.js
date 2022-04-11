@@ -6,22 +6,6 @@ const isEmpty = (field) => {
 };
 
 /**
- * Validates that all required address fields are filled in
- * @param {Object} address
- * @returns a list of error objects {field: field, message: 'Required'}
- */
-const validateAddress = (address) => {
-  const invalidFields = [];
-  const requiredFields = ['street', 'city', 'state', 'zip'];
-  requiredFields.forEach((field) => {
-    if (isEmpty(address[field])) {
-      invalidFields.push({ field, message: 'Required' });
-    }
-  });
-  return invalidFields;
-};
-
-/**
  * Validates that the cvv is three numerical digits
  * @param {string} cvv
  * @returns true if valid, otherwise an error message
@@ -127,23 +111,39 @@ const validateCardHolder = (cardHolder) => {
  * @returns a list of error objects {field, message}
  */
 const validateCreditCard = (creditCard) => {
-  const invalidFields = [];
+  const invalidFields = {};
   const cvvValidation = validateCVV(creditCard.cvv);
   if (cvvValidation !== true) {
-    invalidFields.push({ field: 'cvv', message: cvvValidation });
+    invalidFields.cvv = cvvValidation;
   }
   const cardNumberValidation = validateCardNumber(creditCard.cardNumber);
   if (cardNumberValidation !== true) {
-    invalidFields.push({ field: 'cardNumber', message: cardNumberValidation });
+    invalidFields.cardNumber = cardNumberValidation;
   }
   const expirationValidation = validateExpiration(creditCard.expiration);
   if (expirationValidation !== true) {
-    invalidFields.push({ field: 'expiration', message: expirationValidation });
+    invalidFields.expiration = expirationValidation;
   }
   const cardHolderValidation = validateCardHolder(creditCard.cardholder);
   if (cardHolderValidation !== true) {
-    invalidFields.push({ field: 'cardholder', message: cardHolderValidation });
+    invalidFields.cardholder = cardHolderValidation;
   }
+  return invalidFields;
+};
+
+/**
+ * Validates that all required address fields are filled in
+ * @param {Object} address
+ * @returns a list of error objects {field: field, message: 'Required'}
+ */
+const validateAddress = (address) => {
+  const invalidFields = {};
+  const requiredFields = ['street', 'city', 'state', 'zip'];
+  requiredFields.forEach((field) => {
+    if (isEmpty(address[field])) {
+      invalidFields[field] = 'Required';
+    }
+  });
   return invalidFields;
 };
 
@@ -161,20 +161,20 @@ const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCredit = validateCreditCard(creditCard);
   const invalidDelivery = validateAddress(deliveryAddress);
   if (isEmpty(deliveryAddress.firstName)) {
-    invalidDelivery.push({ field: 'firstName', message: 'Required' });
+    invalidDelivery.firstName = 'Required';
   }
   if (isEmpty(deliveryAddress.lastName)) {
-    invalidDelivery.push({ field: 'lastName', message: 'Required' });
+    invalidDelivery.lastName = 'Required';
   }
   const invalidBilling = validateAddress(billingAddress);
   if (isEmpty(billingAddress.email)) {
-    invalidBilling.push({ field: 'email', message: 'Required' });
+    invalidBilling.email = 'Required';
   }
   if (isEmpty(billingAddress.phone)) {
-    invalidBilling.push({ field: 'phone', message: 'Required' });
+    invalidBilling.phone = 'Required';
   }
 
-  return [invalidDelivery, invalidBilling.concat(invalidCredit)];
+  return [invalidDelivery, { ...invalidBilling, ...invalidCredit }];
 };
 
 export default validatePurchase;
