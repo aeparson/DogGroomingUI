@@ -27,17 +27,14 @@ const QuantityPicker = ({ onChange }) => {
   };
 
   return (
-    <>
-      <TextField
-        label="Quantity"
-        sx={{ m: 1, width: '25ch' }}
-        value={quantity}
-        onChange={onChange}
-        InputProps={inputProps}
-        variant="outlined"
-      />
-    </>
-
+    <TextField
+      label="Quantity"
+      sx={{ m: 1, width: '25ch' }}
+      value={quantity}
+      onChange={onChange}
+      InputProps={inputProps}
+      variant="outlined"
+    />
   );
 };
 
