@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import constants from '../../utils/constants';
+import React, { useState, history } from 'react';
+import { toast } from 'react-toastify';
 import FormItem from '../form/FormItem';
 import styles from './CreateProductPage.css';
+import postNewProduct from './CreateProductPageService';
 
 /**
  * @name CreateProductPage
@@ -10,7 +11,6 @@ import styles from './CreateProductPage.css';
  */
 const CreateProductPage = () => {
   const [productData, setProductData] = useState('');
-  const [message, setMessage] = useState('');
 
   const onChange = (e) => {
     setProductData({ ...productData, [e.target.id]: e.target.value });
@@ -18,15 +18,8 @@ const CreateProductPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventdefault();
-    try {
-      const res = await fetch(constants.ALL_PRODUCTS_ENDPOINT, { method: 'POST', body: productData });
-      if (res.status === 200) {
-        setProductData('');
-        setMessage('User created successfully');
-      } else { setMessage('Some other error occured'); }
-    } catch (err) {
-      setMessage('Some error occurred.');
-    }
+    postNewProduct(productData).then(() => history.pushState('/maintenance'));
+    toast('Product successfully created!');
   };
 
   return (
@@ -65,7 +58,7 @@ const CreateProductPage = () => {
             type="text"
             id="type"
             label="Type"
-            value={productData.imageSrc}
+            value={productData.type}
             onChange={onChange}
           />
           <FormItem
@@ -127,7 +120,7 @@ const CreateProductPage = () => {
             onChange={onChange}
           />
           <FormItem
-            type="text"
+            type="date"
             id="releaseDate"
             label="Release Date"
             value={productData.releaseDate}
@@ -137,18 +130,18 @@ const CreateProductPage = () => {
             type="text"
             id="imageSrc"
             label="Image Source"
-            value={productData.type}
+            value={productData.imageSrc}
             onChange={onChange}
           />
           <button
             type="submit"
             className="createButton"
+            onClick={handleSubmit}
             style={styles.CreateProductPage}
           >
             Create
           </button>
         </div>
-        <div className="message">{message ? <p>{message}</p> : null}</div>
       </form>
     </div>
   );
