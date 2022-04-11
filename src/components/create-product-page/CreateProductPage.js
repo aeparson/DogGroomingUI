@@ -34,17 +34,24 @@ const CreateProductPage = () => {
       <form onSubmit={handleSubmit} style={styles.CreateProductPage}>
         <div className="column">
           <FormItem
-            type="text"
-            id="brand"
-            label="Brand"
-            value={productData.brand}
-            onChange={onChange}
-          />
-          <FormItem
             type="boolean"
             id="active"
             label="Active Status"
             value={productData.active}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="name"
+            label="Name"
+            value={productData.label}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="brand"
+            label="Brand"
+            value={productData.brand}
             onChange={onChange}
           />
           <FormItem
@@ -56,22 +63,8 @@ const CreateProductPage = () => {
           />
           <FormItem
             type="text"
-            id="demographic"
-            label="Demographic"
-            value={productData.demographic}
-            onChange={onChange}
-          />
-          <FormItem
-            type="text"
-            id="description"
-            label="Description"
-            value={productData.description}
-            onChange={onChange}
-          />
-          <FormItem
-            type="text"
-            id="imageSrc"
-            label="Image Source"
+            id="type"
+            label="Type"
             value={productData.imageSrc}
             onChange={onChange}
           />
@@ -84,9 +77,16 @@ const CreateProductPage = () => {
           />
           <FormItem
             type="text"
-            id="name"
-            label="Name"
-            value={productData.label}
+            id="description"
+            label="Description"
+            value={productData.description}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="demographic"
+            label="Demographic"
+            value={productData.demographic}
             onChange={onChange}
           />
         </div>
@@ -96,6 +96,13 @@ const CreateProductPage = () => {
             id="price"
             label="Price"
             value={productData.price}
+            onChange={onChange}
+          />
+          <FormItem
+            type="text"
+            id="quantity"
+            label="Quantity"
+            value={productData.quantity}
             onChange={onChange}
           />
           <FormItem
@@ -114,9 +121,9 @@ const CreateProductPage = () => {
           />
           <FormItem
             type="text"
-            id="quantity"
-            label="Quantity"
-            value={productData.quantity}
+            id="styleNumber"
+            label="Style Number"
+            value={productData.styleNumber}
             onChange={onChange}
           />
           <FormItem
@@ -128,16 +135,9 @@ const CreateProductPage = () => {
           />
           <FormItem
             type="text"
-            id="type"
-            label="Type"
+            id="imageSrc"
+            label="Image Source"
             value={productData.type}
-            onChange={onChange}
-          />
-          <FormItem
-            type="text"
-            id="styleNumber"
-            label="Style Number"
-            value={productData.styleNumber}
             onChange={onChange}
           />
           <button
