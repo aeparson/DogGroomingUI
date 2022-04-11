@@ -1,0 +1,11 @@
+.profileContainer {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "order    delivery    payment"
+      "order    delivery    summary"
+      "order    delivery    payNow";
+    gap: 1em 2em;
+    padding: 0 2em;
+    margin: 2em 0;
+  }

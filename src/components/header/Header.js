@@ -6,6 +6,7 @@ import constants from '../../utils/constants';
 import './Header.css';
 import companyLogo from './arrayOfSunshine.png';
 import ShoppingCartIcon from './shopping-trolley.png';
+import ProfileIcon from './profileicon.png';
 
 /**
  * @name Header
@@ -66,6 +67,9 @@ const Header = () => {
         </NavLink>
       </div>
       <div className="loginLogout">
+        <NavLink to="/profile">
+          <img src={ProfileIcon} alt="profile" width="40px" />
+        </NavLink>
         {user && <span>{user.firstName}</span>}
         {user && <span>{user.lastName}</span>}
         {googleError && <span>{googleError}</span>}
