@@ -4,7 +4,7 @@
   align-items: center;
   top: 0px;
   height: 50px;
-  background-color: #F9DB47;
+  background-color: #5CE1E6;
 }
 
 #footerText {
@@ -13,5 +13,5 @@
     color: white;
     font-weight: bold;
     padding-left: 15px;
-    border: 5px solid #F9DB47;
+    border: 5px solid #5CE1E6;
 }
