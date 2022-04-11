@@ -15,12 +15,14 @@ import Footer from '../footer/footer';
 const App = () => (
   <BrowserRouter>
     <Header />
-    <Switch>
-      <Route exact path="/" render={() => <ProductPage />} />
-      <Route exact path="/checkout" render={() => <CheckoutPage />} />
-      <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
-      <Route exact path="/maintenance" render={() => <MaintenancePage />} />
-    </Switch>
+    <div id="content">
+      <Switch>
+        <Route exact path="/" render={() => <ProductPage />} />
+        <Route exact path="/checkout" render={() => <CheckoutPage />} />
+        <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
+        <Route exact path="/maintenance" render={() => <MaintenancePage />} />
+      </Switch>
+    </div>
     <Footer />
   </BrowserRouter>
 );
