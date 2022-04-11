@@ -33,7 +33,7 @@ const CheckoutPage = () => {
 
   const [checked, setChecked] = React.useState(false);
   const handleCheck = () => {
-    setChecked(true);
+    setChecked(!checked);
   };
 
   const handlePay = () => {
