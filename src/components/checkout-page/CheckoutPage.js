@@ -35,7 +35,7 @@ const CheckoutPage = () => {
   const [fieldErrors, setFieldErrors] = React.useState({ delivery: [], billing: [] });
   const [checked, setChecked] = React.useState(false);
   const handleCheck = () => {
-    setChecked(true);
+    setChecked(!checked);
   };
 
   const handlePay = () => {
