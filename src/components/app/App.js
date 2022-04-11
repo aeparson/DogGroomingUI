@@ -34,6 +34,7 @@ const App = () => (
       pauseOnFocusLoss={false}
       draggable={false}
       pauseOnHover={false}
+      limit={1}
     />
   </BrowserRouter>
 );
