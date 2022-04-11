@@ -6,7 +6,7 @@ import ReviewOrderWidget from './ReviewOrderWidget';
 import DeliveryAddress from './forms/DeliveryAddress';
 import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
-import validatePurchase from './ValidateCheckout';
+import validatePurchase from './CheckoutValidation';
 
 /**
  * @name CheckoutPage

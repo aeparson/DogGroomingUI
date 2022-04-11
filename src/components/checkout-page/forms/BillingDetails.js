@@ -18,9 +18,9 @@ const BillingDetails = ({
     <div className={styles.deliveryAddress}>
       {!useShippingForBilling && (
         <>
-          <div className={errors.street === undefined ? undefined : styles.invalid}>
+          <div className={errors.billingStreet === undefined ? undefined : styles.invalid}>
             <p className={styles.errorMessage}>
-              {errors.street !== undefined && errors.street}
+              {errors.billingStreet !== undefined && errors.billingStreet}
             </p>
             <FormItem
               placeholder="e.g. 123 Sesame Street"
@@ -41,9 +41,9 @@ const BillingDetails = ({
             value={billingData.billingStreet2}
           />
 
-          <div className={errors.city === undefined ? undefined : styles.invalid}>
+          <div className={errors.billingCity === undefined ? undefined : styles.invalid}>
             <p className={styles.errorMessage}>
-              {errors.city !== undefined && errors.city}
+              {errors.billingCity !== undefined && errors.billingCity}
             </p>
             <FormItem
               type="text"
@@ -54,9 +54,9 @@ const BillingDetails = ({
             />
           </div>
 
-          <div className={errors.state === undefined ? undefined : styles.invalid}>
+          <div className={errors.billingState === undefined ? undefined : styles.invalid}>
             <p className={styles.errorMessage}>
-              {errors.state !== undefined && errors.state}
+              {errors.billingState !== undefined && errors.billingState}
             </p>
             <FormItemDropdown
               id="billingState"
@@ -67,9 +67,9 @@ const BillingDetails = ({
             />
           </div>
 
-          <div className={errors.zip === undefined ? undefined : styles.invalid}>
+          <div className={errors.billingZip === undefined ? undefined : styles.invalid}>
             <p className={styles.errorMessage}>
-              {errors.zip !== undefined && errors.zip}
+              {errors.billingZip !== undefined && errors.billingZip}
             </p>
             <FormItem
               placeholder="e.g. 12345"
