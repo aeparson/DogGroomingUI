@@ -41,27 +41,27 @@ const CheckoutPage = () => {
   const handlePay = () => {
     const productData = products.map(({ id, quantity }) => ({ id, quantity }));
     const deliveryAddress = {
-      firstName: deliveryData.firstName,
-      lastName: deliveryData.lastName,
-      street: deliveryData.street,
-      street2: deliveryData.street2,
-      city: deliveryData.city,
-      state: deliveryData.state,
-      zip: deliveryData.zip
+      deliveryFirstName: deliveryData.deliveryFirstName,
+      deliveryLastName: deliveryData.deliveryLastName,
+      deliveryStreet: deliveryData.deliveryStreet,
+      deliveryStreet2: deliveryData.deliveryStreet2,
+      deliveryCity: deliveryData.deliveryCity,
+      deliveryState: deliveryData.deliveryState,
+      deliveryZip: deliveryData.deliveryZip
     };
     const billingAddress = {};
     if (checked) {
-      billingAddress.street = deliveryAddress.street;
-      billingAddress.street2 = deliveryAddress.street2;
-      billingAddress.city = deliveryAddress.city;
-      billingAddress.state = deliveryAddress.state;
-      billingAddress.zip = deliveryAddress.zip;
+      billingAddress.billingStreet = deliveryAddress.deliveryStreet;
+      billingAddress.billingStreet2 = deliveryAddress.deliveryStreet2;
+      billingAddress.billingCity = deliveryAddress.deliveryCity;
+      billingAddress.billingState = deliveryAddress.deliveryState;
+      billingAddress.billingZip = deliveryAddress.deliveryZip;
     } else {
-      billingAddress.street = billingData.billingStreet;
-      billingAddress.street2 = billingData.billingStreet2;
-      billingAddress.city = billingData.billingCity;
-      billingAddress.state = billingData.billingState;
-      billingAddress.zip = billingData.billingZip;
+      billingAddress.billingStreet = billingData.billingStreet;
+      billingAddress.billingStreet2 = billingData.billingStreet2;
+      billingAddress.billingCity = billingData.billingCity;
+      billingAddress.billingState = billingData.billingState;
+      billingAddress.billingZip = billingData.billingZip;
     }
     billingAddress.email = billingData.email;
     billingAddress.phone = billingData.phone;

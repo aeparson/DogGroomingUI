@@ -6,21 +6,6 @@ const isEmpty = (field) => {
 };
 
 /**
- * Validates that the cvv is three numerical digits
- * @param {string} cvv
- * @returns true if valid, otherwise an error message
- */
-const validateCVV = (cvv) => {
-  if (isEmpty(cvv)) {
-    return 'Required';
-  }
-  if (cvv.match(/^[0-9]{3}$/)) {
-    return true;
-  }
-  return 'Must be three numerical digits';
-};
-
-/**
  * Validates that a card number passes the Luhn algorithm
  * @param {string} cardNumber
  * @returns true if valid, false if not
@@ -39,6 +24,21 @@ const isLuhnValid = (cardNumber) => {
     }
   }
   return (sum % 10 === 0);
+};
+
+/**
+ * Validates that the cvv is three numerical digits
+ * @param {string} cvv
+ * @returns true if valid, otherwise an error message
+ */
+const validateCVV = (cvv) => {
+  if (isEmpty(cvv)) {
+    return 'Required';
+  }
+  if (cvv.match(/^[0-9]{3}$/)) {
+    return true;
+  }
+  return 'Must be three numerical digits';
 };
 
 /**
@@ -108,7 +108,7 @@ const validateCardHolder = (cardHolder) => {
 /**
  * Validates all of the fields on a credit card
  * @param {Object} creditCard {cvv, cardNumber, cardholder, expiration}
- * @returns an object with message entries for field errors {field: message}
+ * @returns an object with one message entry per invalid field {field: message}
  */
 const validateCreditCard = (creditCard) => {
   const invalidFields = {};
@@ -133,14 +133,30 @@ const validateCreditCard = (creditCard) => {
 
 /**
  * Validates that all required address fields are filled in
- * @param {Object} address
- * @returns an object with 'required' message entries for field errors {field: 'Required'}
+ * @param {Object} deliveryAddress
+ * @returns an object with 'required' message entries for empty fields {field: 'Required'}
  */
-const validateAddress = (address) => {
+const validateDelivery = (deliveryAddress) => {
   const invalidFields = {};
-  const requiredFields = ['street', 'city', 'state', 'zip'];
+  const requiredFields = ['deliveryStreet', 'deliveryCity', 'deliveryState', 'deliveryZip', 'deliveryFirstName', 'deliveryLastName'];
   requiredFields.forEach((field) => {
-    if (isEmpty(address[field])) {
+    if (isEmpty(deliveryAddress[field])) {
+      invalidFields[field] = 'Required';
+    }
+  });
+  return invalidFields;
+};
+
+/**
+ * Validates that all required address fields are filled in
+ * @param {Object} billingAddress
+ * @returns an object with 'required' message entries for empty fields {field: 'Required'}
+ */
+const validateBilling = (billingAddress) => {
+  const invalidFields = {};
+  const requiredFields = ['billingStreet', 'billingCity', 'billingState', 'billingZip', 'email', 'phone'];
+  requiredFields.forEach((field) => {
+    if (isEmpty(billingAddress[field])) {
       invalidFields[field] = 'Required';
     }
   });
@@ -153,27 +169,15 @@ const validateAddress = (address) => {
  * @param {Object} billingAddress {street, street2, city, state, zip, email, phone}
  * @param {Object} creditCard {cardNumber, cvv, cardholder, expiration}
  * @returns A list of two objects:
- *          an object with message entries for delivery form errors {field: message}
- *          an object with message entries for billing field errors {field: message}
+ *          an object with message entries for invalid delivery fields {field: message}
+ *          an object with message entries for invalid billing + credit card fields {field: message}
  *          Each invalid field has one corresponding error message
  *          [{deliveryField: message, deliveryField2: message}, {billingField: message}]
  */
 const validatePurchase = (deliveryAddress, billingAddress, creditCard) => {
   const invalidCredit = validateCreditCard(creditCard);
-  const invalidDelivery = validateAddress(deliveryAddress);
-  if (isEmpty(deliveryAddress.firstName)) {
-    invalidDelivery.firstName = 'Required';
-  }
-  if (isEmpty(deliveryAddress.lastName)) {
-    invalidDelivery.lastName = 'Required';
-  }
-  const invalidBilling = validateAddress(billingAddress);
-  if (isEmpty(billingAddress.email)) {
-    invalidBilling.email = 'Required';
-  }
-  if (isEmpty(billingAddress.phone)) {
-    invalidBilling.phone = 'Required';
-  }
+  const invalidDelivery = validateDelivery(deliveryAddress);
+  const invalidBilling = validateBilling(billingAddress);
 
   return [invalidDelivery, { ...invalidBilling, ...invalidCredit }];
 };

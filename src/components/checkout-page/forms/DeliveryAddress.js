@@ -13,92 +13,92 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
 
   return (
     <div className={styles.deliveryAddress}>
-      <div className={errors.firstName === undefined ? undefined : styles.invalid}>
+      <div className={errors.deliveryFirstName === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
-          {(errors.firstName !== undefined) && errors.firstName}
+          {(errors.deliveryFirstName !== undefined) && errors.deliveryFirstName}
         </p>
         <FormItem
           type="text"
-          id="firstName"
+          id="deliveryFirstName"
           label="First Name"
           onChange={onChange}
-          value={deliveryData.firstName}
+          value={deliveryData.deliveryFirstName}
         />
       </div>
 
-      <div className={errors.lastName === undefined ? undefined : styles.invalid}>
+      <div className={errors.deliveryLastName === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
-          {errors.lastName !== undefined && errors.lastName}
+          {errors.deliveryLastName !== undefined && errors.deliveryLastName}
         </p>
         <FormItem
           type="text"
-          id="lastName"
+          id="deliveryLastName"
           label="Last Name"
           onChange={onChange}
-          value={deliveryData.lastName}
+          value={deliveryData.deliveryLastName}
         />
       </div>
 
-      <div className={errors.street === undefined ? undefined : styles.invalid}>
+      <div className={errors.deliveryStreet === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
-          {errors.street !== undefined && errors.street}
+          {errors.deliveryStreet !== undefined && errors.deliveryStreet}
         </p>
         <FormItem
           placeholder="e.g. 123 Sesame Street"
           type="text"
-          id="street"
+          id="deliveryStreet"
           label="Street"
           onChange={onChange}
-          value={deliveryData.street}
+          value={deliveryData.deliveryStreet}
         />
       </div>
 
       <FormItem
         placeholder="e.g. Unit #1"
         type="text"
-        id="street2"
+        id="deliveryStreet2"
         label="Street 2 (Optional)"
         onChange={onChange}
-        value={deliveryData.street2}
+        value={deliveryData.deliveryStreet2}
       />
 
-      <div className={errors.city === undefined ? undefined : styles.invalid}>
+      <div className={errors.deliveryCity === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
-          {errors.city !== undefined && errors.city}
+          {errors.deliveryCity !== undefined && errors.deliveryCity}
         </p>
         <FormItem
           type="text"
-          id="city"
+          id="deliveryCity"
           label="City"
           onChange={onChange}
-          value={deliveryData.city}
+          value={deliveryData.deliveryCity}
         />
       </div>
 
-      <div className={errors.state === undefined ? undefined : styles.invalid}>
+      <div className={errors.deliveryState === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
-          {errors.state !== undefined && errors.state}
+          {errors.deliveryState !== undefined && errors.deliveryState}
         </p>
         <FormItemDropdown
-          id="state"
+          id="deliveryState"
           label="State"
           onChange={onChange}
-          value={deliveryData.state}
+          value={deliveryData.deliveryState}
           options={usStates}
         />
       </div>
 
-      <div className={errors.zip === undefined ? undefined : styles.invalid}>
+      <div className={errors.deliveryZip === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
-          {errors.zip !== undefined && errors.zip}
+          {errors.deliveryZip !== undefined && errors.deliveryZip}
         </p>
         <FormItem
           placeholder="e.g. 12345"
           type="text"
-          id="zip"
+          id="deliveryZip"
           label="Zip"
           onChange={onChange}
-          value={deliveryData.zip}
+          value={deliveryData.deliveryZip}
         />
       </div>
     </div>
