@@ -1,0 +1,44 @@
+form {
+    display: block;
+    box-sizing: border-box;
+    border-style: solid;
+    border-radius: 20px;
+    border-color: #666666;
+    padding: 1em;
+    margin: 50px;
+    box-shadow: .2em .2em .2em rgba(0, 0, 0, 0.23);
+    background: #fff;
+}
+
+.userInfo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1em
+}
+
+.label {
+    font-weight: 700;
+    color: #666666;
+}
+
+.delivery {
+    grid-area: delivery;
+}
+
+.step {
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: .2em .2em .2em rgba(0, 0, 0, 0.23);
+    padding: 1em;
+}
+
+.title {
+    text-transform: uppercase;
+    color: #666666;
+    margin: 0 0 1em 0;
+}
+
+.category {
+    color: red;
+
+}
