@@ -66,10 +66,12 @@ const Header = () => {
           <img src={companyLogo} alt="Logo" height="45px" />
         </NavLink>
       </div>
-      <div className="loginLogout">
+      <div className="profileIcon">
         <NavLink to="/profile">
           <img src={ProfileIcon} alt="profile" width="40px" />
         </NavLink>
+      </div>
+      <div className="loginLogout">
         {user && <span>{user.firstName}</span>}
         {user && <span>{user.lastName}</span>}
         {googleError && <span>{googleError}</span>}
@@ -93,7 +95,7 @@ const Header = () => {
       </div>
       <div className="checkoutItem">
         <NavLink to="/checkout">
-          <img src={ShoppingCartIcon} alt="cart" width="40px" />
+          <img src={ShoppingCartIcon} alt="cart" width="35px" />
         </NavLink>
       </div>
     </section>
