@@ -56,6 +56,7 @@ const CheckoutPage = () => {
         if (response) {
           history.push('/confirmation');
         } else {
+          setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
           toast.error('Transaction failed');
         }
       });
