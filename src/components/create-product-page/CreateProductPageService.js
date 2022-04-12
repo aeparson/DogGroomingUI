@@ -9,5 +9,8 @@ export default async function postNewProduct(newProductForm) {
       }
       throw new Error(constants.API_ERROR);
     })
-    .then(newProductForm);
+    .then(newProductForm)
+    .catch(() => {
+      ('Product not created.');
+    });
 }

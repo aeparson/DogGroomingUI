@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import NewProductForm from './CreateProductForm';
 import styles from './CreateProductPage.css';
@@ -18,7 +19,7 @@ const CreateProductPage = () => {
     setProductData({ ...productData, [e.target.id]: e.target.value });
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = () => {
     const newProductForm = {
       active: productData.active === 'true',
       name: productData.name,
@@ -38,7 +39,11 @@ const CreateProductPage = () => {
     };
     postNewProduct(newProductForm).then(() => notify('Product created successfully.'));
     toast('Product successfully created!');
-    e.preventDefault();
+      <Redirect to={{
+        pathname: '/maintenance',
+        state: { showToast: true }
+      }}
+      />;
   };
 
   return (
