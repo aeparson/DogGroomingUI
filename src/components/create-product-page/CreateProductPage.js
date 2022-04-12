@@ -40,7 +40,7 @@ const CreateProductPage = () => {
       imageSrc: productData.imageSrc
     };
     postNewProduct(newProductForm).then(() => notify('Product created successfully.'));
-    history.push('./maintenance');
+    history.replace('./maintenance');
   };
 
   return (
