@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import NewProductForm from './CreateProductForm';
 import styles from './CreateProductPage.css';
@@ -12,6 +12,8 @@ import postNewProduct from './CreateProductPageService';
  */
 const CreateProductPage = () => {
   const notify = (text) => toast.success(text);
+
+  const history = useHistory();
 
   const [productData, setProductData] = useState({});
 
@@ -38,12 +40,7 @@ const CreateProductPage = () => {
       imageSrc: productData.imageSrc
     };
     postNewProduct(newProductForm).then(() => notify('Product created successfully.'));
-    toast('Product successfully created!');
-      <Redirect to={{
-        pathname: '/maintenance',
-        state: { showToast: true }
-      }}
-      />;
+    history.push('./maintenance');
   };
 
   return (

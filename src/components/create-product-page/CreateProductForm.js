@@ -1,10 +1,9 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
 import FormItem from '../form/FormItem';
 
 const NewProductForm = ({ onChange, productData }) => (
   <div className="productFields">
-    <Form>
+    <form>
       <div className="column">
         <FormItem
           type="text"
@@ -114,7 +113,7 @@ const NewProductForm = ({ onChange, productData }) => (
           onChange={onChange}
         />
       </div>
-    </Form>
+    </form>
   </div>
 );
 
