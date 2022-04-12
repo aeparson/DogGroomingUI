@@ -1,5 +1,5 @@
 const isEmpty = (field) => {
-  if (field === undefined || field.trim().length === 0) {
+  if (field === undefined || field === null || field.trim().length === 0) {
     return true;
   }
   return false;

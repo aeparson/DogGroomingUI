@@ -1,5 +1,8 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useCart } from './CartContext';
 import styles from './CheckoutPage.module.css';
 import ReviewOrderWidget from './ReviewOrderWidget';
@@ -7,6 +10,7 @@ import DeliveryAddress from './forms/DeliveryAddress';
 import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
 import validatePurchase from './CheckoutValidation';
+import regionToCode from './RegionToCode';
 
 /**
  * @name CheckoutPage
@@ -20,25 +24,46 @@ const CheckoutPage = () => {
     state: { products }
   } = useCart();
 
-  const [billingData, setBillingData] = React.useState({});
+  const [billingData, setBillingData] = useState({});
 
   const onBillingChange = (e) => {
     setBillingData({ ...billingData, [e.target.id]: e.target.value });
   };
 
-  const [deliveryData, setDeliveryData] = React.useState({});
+  const [deliveryData, setDeliveryData] = useState({});
 
   const onDeliveryChange = (e) => {
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
-  const [fieldErrors, setFieldErrors] = React.useState({ delivery: [], billing: [] });
-  const [checked, setChecked] = React.useState(false);
+  const [fieldErrors, setFieldErrors] = useState({ delivery: [], billing: [] });
+
+  const [checked, setChecked] = useState(false);
   const handleCheck = () => {
     setChecked(!checked);
   };
 
-  const handlePay = () => {
+  const attemptPurchase = (deliveryAddress, billingAddress, creditCard, productData) => {
+    // Front end validation
+    const [
+      invalidDelivery,
+      invalidBilling
+    ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
+    // If all fields are valid
+    if (Object.keys(invalidDelivery).length === 0 && Object.keys(invalidBilling).length === 0) {
+      makePurchase(productData, deliveryAddress,
+        billingAddress, creditCard).then((response) => {
+        if (response) {
+          history.push('/confirmation');
+        } else {
+          toast.error('Transaction failed');
+        }
+      });
+    } else {
+      setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
+    }
+  };
+  const handlePay = async () => {
     const productData = products.map(({ id, quantity }) => ({ id, quantity }));
     const deliveryAddress = {
       deliveryFirstName: deliveryData.deliveryFirstName,
@@ -46,7 +71,8 @@ const CheckoutPage = () => {
       deliveryStreet: deliveryData.deliveryStreet,
       deliveryStreet2: deliveryData.deliveryStreet2,
       deliveryCity: deliveryData.deliveryCity,
-      deliveryState: deliveryData.deliveryState,
+      // Convert to state code for API compatibility
+      deliveryState: regionToCode(deliveryData.deliveryState),
       deliveryZip: deliveryData.deliveryZip
     };
     const billingAddress = {};
@@ -60,7 +86,8 @@ const CheckoutPage = () => {
       billingAddress.billingStreet = billingData.billingStreet;
       billingAddress.billingStreet2 = billingData.billingStreet2;
       billingAddress.billingCity = billingData.billingCity;
-      billingAddress.billingState = billingData.billingState;
+      // Convert to state code for API compatibility
+      billingAddress.billingState = regionToCode(billingData.billingState);
       billingAddress.billingZip = billingData.billingZip;
     }
     billingAddress.email = billingData.email;
@@ -72,15 +99,7 @@ const CheckoutPage = () => {
       expiration: billingData.expiration,
       cardholder: billingData.cardholder
     };
-    const [
-      invalidDelivery,
-      invalidBilling
-    ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
-    if (Object.keys(invalidDelivery).length === 0 && Object.keys(invalidBilling).length === 0) {
-      makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
-    } else {
-      setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
-    }
+    attemptPurchase(deliveryAddress, billingAddress, creditCard, productData);
   };
 
   return (
