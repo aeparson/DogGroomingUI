@@ -1,43 +1,79 @@
 import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
+import Checkbox from '@mui/material/Checkbox';
 import { Button } from '@material-ui/core';
 import { IconContext } from 'react-icons';
+import { Box } from '@mui/system';
+import { IconButton } from '@mui/material';
 import demographicFilters from './FilterMenuData';
 import './FilterMenu.css';
+// import fetchDemographicProducts from './FilterMenuService';
 
 function FilterMenu() {
   const [sidebar, setSidebar] = useState(false);
 
-  // const [checked, setChecked] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
 
-  // const handleChange = () => setChecked(!checked);
+  const [checked, setChecked] = useState(new Array(demographicFilters.length).fill(false));
+
+  const handleChange = (position) => {
+    const updatedCheckedState = checked.map((item, index) => (index === position ? !item : item));
+    setChecked(updatedCheckedState);
+    const webRoute = updatedCheckedState.reduce(
+      (fullFilterAddy, currentState, index) => {
+        if (currentState === true) {
+          return fullFilterAddy + demographicFilters[index].filterAddy;
+        }
+        return fullFilterAddy;
+      },
+      '/products/active?filterBy=demographic'
+    );
+    // eslint-disable-next-line no-console
+    console.log(webRoute);
+  };
+
+  const checkStyle = { color: '#179297' };
 
   return (
     <>
-      <IconContext.Provider value={{ color: '#000' }}>
+      <IconContext.Provider value={{ color: '#179297' }}>
         <div className="closed-menu">
-          <Button className="menu-bars">
+          <IconButton aria-label="open filter menu sidebar" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
-          </Button>
+          </IconButton>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className="nav-menu-items">
+            <li />
             <li className="navbar-toggle">
-              <Button className="menu-bars">
+              <IconButton aria-label="close filter menu sidebar" className="menu-bars">
                 <AiIcons.AiOutlineClose onClick={showSidebar} />
-              </Button>
+              </IconButton>
             </li>
-            {demographicFilters.map((item) => (
-              <li key={item} className={item.cName}>
-                <span>
-                  <input type="checkbox" />
-                </span>
+            {demographicFilters.map((item, index) => (
+              <li key={item.id} className={item.cName}>
+                <Checkbox
+                  style={checkStyle}
+                  checked={checked[index]}
+                  onClick={() => handleChange(index)}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+                <span className="margin-left" />
                 {item.title}
               </li>
             ))}
+            <Box textAlign="center">
+              <Button
+                className="filter-prod-button"
+                onClick={showSidebar} // click calls on fetchDemoProducts function
+                variant="contained"
+                disableElevation
+                size="small"
+              >
+                APPLY FILTERS
+              </Button>
+            </Box>
           </ul>
         </nav>
       </IconContext.Provider>

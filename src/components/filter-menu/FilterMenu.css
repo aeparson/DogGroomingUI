@@ -1,6 +1,7 @@
 .closed-menu {
     background-color: none;
 }
+
 .menu-bars {
     background-color: #5CE1E6;
     margin-left: 2rem;
@@ -12,6 +13,8 @@
     border-bottom-right-radius: 5px;
     width: 250px;
     height: fit-content;
+    padding-bottom: 3vh;
+    padding-top: 1vh;
     display: flex;
     justify-content: center;
     position: fixed;
@@ -29,11 +32,11 @@
     color: #eee;
     text-shadow: 1px 1px #179297;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
-    padding: 8px 0px 8px 16px;
+    padding: 8px 0px 15px 16px;
     list-style: none;
-    height: 60px;
+    height: 40px;
 }
 
 .nav-text a {
@@ -47,7 +50,6 @@
     padding: 0 16px;
     border-radius: 4 px;
 }
-
 
 .nav-menu-items {
     width: 100%;
@@ -66,7 +68,7 @@
     width: 100%;
     height: 80px;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -78,6 +80,10 @@
     width: 0;
   }
 
-span {
+.filter-prod-button {
+    align-items: center;
+    align-content: center;
+}
+.margin-left {
     margin-left: 16px;
 }

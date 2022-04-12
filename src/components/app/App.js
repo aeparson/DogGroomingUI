@@ -6,7 +6,6 @@ import CheckoutPage from '../checkout-page/CheckoutPage';
 import ConfirmationPage from '../confirmation-page/ConfirmationPage';
 import MaintenancePage from '../maintenance-page/MaintenancePage';
 import Header from '../header/Header';
-import FilterMenu from '../filter-menu/FilterMenu';
 
 /**
  * @name App
@@ -15,7 +14,6 @@ import FilterMenu from '../filter-menu/FilterMenu';
 const App = () => (
   <BrowserRouter>
     <Header />
-    <FilterMenu />
     <Switch>
       <Route exact path="/" render={() => <ProductPage />} />
       <Route exact path="/checkout" render={() => <CheckoutPage />} />
