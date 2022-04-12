@@ -68,7 +68,7 @@ const Header = () => {
       </div>
       <div className="profileIcon">
         <NavLink to="/profile">
-          <img src={ProfileIcon} alt="profile" width="40px" />
+          <img src={ProfileIcon} alt="profile" width="35px" />
         </NavLink>
       </div>
       <div className="loginLogout">
