@@ -57,7 +57,7 @@ const CheckoutPage = () => {
           history.push('/confirmation');
         } else {
           setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
-          toast.error('Transaction failed');
+          toast.error('Transaction could not be processed');
         }
       });
     } else {
