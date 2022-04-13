@@ -33,6 +33,7 @@ const CheckoutPage = () => {
   const [deliveryData, setDeliveryData] = useState({});
 
   const onDeliveryChange = (e) => {
+    console.log(e);
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
@@ -62,6 +63,7 @@ const CheckoutPage = () => {
       });
     } else {
       setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
+      toast.error('Transaction could not be processed');
     }
   };
   const handlePay = async () => {

@@ -54,7 +54,7 @@ describe('Checkout Page Component Tests', () => {
     container = null;
   });
 
-  it('shows error toast when api fails', async () => {
+  it('shows error toast and does not redirect when api fails', async () => {
     const toastCalls = [];
     toast.error.mockImplementation((text) => { toastCalls.push(text); });
 
@@ -67,6 +67,7 @@ describe('Checkout Page Component Tests', () => {
     });
 
     expect(toastCalls).toEqual(['Transaction could not be processed']);
+    expect(mockHistory).not.toHaveBeenCalled();
   });
 
   it('redirects when transaction is successful', async () => {
@@ -85,7 +86,7 @@ describe('Checkout Page Component Tests', () => {
     expect(mockHistory).toHaveBeenCalledWith('/confirmation');
   });
 
-  it('neither toasts nor redirects when form is invalid', async () => {
+  it('toasts and does not redirect when form is invalid', async () => {
     // eslint-disable-next-line no-unused-vars
     validatePurchase.mockImplementation((delivery, billing, credit) => [{ field: 'message' }, {}]); // Fake error
     const toastCalls = [];
@@ -99,7 +100,7 @@ describe('Checkout Page Component Tests', () => {
       userEvent.click(screen.getByText('Checkout'));
     });
 
-    expect(toastCalls).toEqual([]);
+    expect(toastCalls).toEqual(['Transaction could not be processed']);
     expect(mockHistory).not.toHaveBeenCalled();
   });
 });
