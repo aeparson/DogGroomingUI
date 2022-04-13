@@ -24,6 +24,12 @@ const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
   </InputAdornment>
   };
 
+  const inputElementProps = {
+    style: {
+      width: '4ch'
+    }
+  };
+
   return (
     <TextField
       label="Quantity"
@@ -31,6 +37,9 @@ const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
       value={quantity}
       onChange={onChange}
       InputProps={inputProps}
+      // eslint-disable-next-line react/jsx-no-duplicate-props
+      inputProps={inputElementProps}
+      size="small"
       variant="outlined"
     />
   );
