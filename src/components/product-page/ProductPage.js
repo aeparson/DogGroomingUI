@@ -29,7 +29,7 @@ const ProductPage = () => {
             </div>
           ))}
         </div>
-        <Pagination count={9} />
+        <Pagination count={9} defaultPage={1} siblingCount={2} />
       </div>
     </div>
   );
