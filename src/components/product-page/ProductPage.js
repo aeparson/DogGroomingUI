@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
-import fetchProducts from './ProductPageService';
+
 import FilterMenu from '../filter-menu/FilterMenu';
+import fetchDemographicProducts from '../filter-menu/FilterMenuService';
+import fetchProducts from './ProductPageService';
 
 /**
  * @name ProductPage
@@ -14,14 +16,19 @@ import FilterMenu from '../filter-menu/FilterMenu';
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
+  const [webRoute, setWebRoute] = useState([]);
+
+  const filterByDemographic = () => {
+    fetchDemographicProducts(setProducts, setApiError, webRoute);
+  };
 
   useEffect(() => {
     fetchProducts(setProducts, setApiError);
   }, []);
 
   return (
-    <div>
-      <FilterMenu />
+    <div className={styles.body}>
+      <FilterMenu setWebRoute={setWebRoute} onFilter={filterByDemographic} />
       {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
       <div className={styles.app}>
         {products.map((product) => (

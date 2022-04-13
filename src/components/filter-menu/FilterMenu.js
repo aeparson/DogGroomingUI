@@ -8,9 +8,8 @@ import { Box } from '@mui/system';
 import { IconButton } from '@mui/material';
 import demographicFilters from './FilterMenuData';
 import './FilterMenu.css';
-// import fetchDemographicProducts from './FilterMenuService';
 
-function FilterMenu() {
+function FilterMenu({ onFilter, setWebRoute }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -20,17 +19,15 @@ function FilterMenu() {
   const handleChange = (position) => {
     const updatedCheckedState = checked.map((item, index) => (index === position ? !item : item));
     setChecked(updatedCheckedState);
-    const webRoute = updatedCheckedState.reduce(
+    setWebRoute(updatedCheckedState.reduce(
       (fullFilterAddy, currentState, index) => {
         if (currentState === true) {
           return fullFilterAddy + demographicFilters[index].filterAddy;
         }
         return fullFilterAddy;
       },
-      '/products/active?filterBy=demographic'
-    );
-    // eslint-disable-next-line no-console
-    console.log(webRoute);
+      ''
+    ));
   };
 
   const checkStyle = { color: '#179297' };
@@ -66,7 +63,7 @@ function FilterMenu() {
             <Box textAlign="center">
               <Button
                 className="filter-prod-button"
-                onClick={showSidebar} // click calls on fetchDemoProducts function
+                onClick={onFilter}
                 variant="contained"
                 disableElevation
                 size="small"

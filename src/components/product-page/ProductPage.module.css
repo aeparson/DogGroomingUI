@@ -4,6 +4,12 @@
   grid-template-columns: repeat(5, auto);
   justify-content: space-evenly;
   margin: 20px;
+  margin-left: 20px;
+  flex-wrap: wrap;
+}
+
+.body {
+  flex: content;
 }
 
 .errMsg {
