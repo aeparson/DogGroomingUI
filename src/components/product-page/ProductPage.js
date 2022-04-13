@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Pagination from '@mui/material/Pagination';
 import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
@@ -19,13 +20,16 @@ const ProductPage = () => {
 
   return (
     <div>
-      {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
-      <div className={styles.app}>
-        {products.map((product) => (
-          <div key={product.id}>
-            <ProductCard product={product} />
-          </div>
-        ))}
+      <div>
+        {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
+        <div className={styles.app}>
+          {products.map((product) => (
+            <div key={product.id}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+        <Pagination count={9} />
       </div>
     </div>
   );
