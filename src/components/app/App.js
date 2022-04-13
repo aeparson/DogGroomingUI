@@ -8,6 +8,7 @@ import CheckoutPage from '../checkout-page/CheckoutPage';
 import ConfirmationPage from '../confirmation-page/ConfirmationPage';
 import MaintenancePage from '../maintenance-page/MaintenancePage';
 import Header from '../header/Header';
+import Footer from '../footer/footer';
 
 toast.configure();
 
@@ -18,24 +19,27 @@ toast.configure();
 const App = () => (
   <BrowserRouter>
     <Header />
-    <Switch>
-      <Route exact path="/" render={() => <ProductPage />} />
-      <Route exact path="/checkout" render={() => <CheckoutPage />} />
-      <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
-      <Route exact path="/maintenance" render={() => <MaintenancePage />} />
-    </Switch>
-    <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss={false}
-      draggable={false}
-      pauseOnHover={false}
-      limit={1}
-    />
+    <div id="content">
+      <Switch>
+        <Route exact path="/" render={() => <ProductPage />} />
+        <Route exact path="/checkout" render={() => <CheckoutPage />} />
+        <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
+        <Route exact path="/maintenance" render={() => <MaintenancePage />} />
+      </Switch>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        limit={1}
+      />
+    </div>
+    <Footer />
   </BrowserRouter>
 );
 
