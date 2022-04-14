@@ -10,5 +10,6 @@ module.exports = Object.freeze({
 
   ALL_PRODUCTS_ENDPOINT: '/products',
   GOOGLE_CLIENT_ID:
-    '912899852587-7996nh9mlpvpa2446q0il4f9hj5o492h.apps.googleusercontent.com' // ENTER CLIENT ID HERE
+    '912899852587-7996nh9mlpvpa2446q0il4f9hj5o492h.apps.googleusercontent.com', // ENTER CLIENT ID HERE
+  USER_ENDPOINT: '/users/email'
 });

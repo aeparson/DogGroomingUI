@@ -12,10 +12,15 @@ import { fetchUserData, fetchUserPurchase } from './ProfilePageService';
 
 const ProfilePage = () => {
   const [userData, setUserData] = useState([]);
+  const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
     fetchUserData(setUserData, setApiError);
+  }, []);
+
+  useEffect(() => {
+    fetchUserPurchase(setPurchase, setApiError);
   }, []);
 
   return (
@@ -51,7 +56,8 @@ const ProfilePage = () => {
             <TableHeadings />
           </thead>
           <tbody>
-            <TableData />
+            {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
+              .map((purchase) => <TableData key={purchase.OrderDate} purchase={purchase} />)}
           </tbody>
         </table>
       </div>
@@ -60,26 +66,22 @@ const ProfilePage = () => {
   );
 };
 
-/*
-const PurchaseHistory = () => {
-  const [purchase, setPurchase] = useState([]);
-  const [apiError, setApiError] = useState(false);
-
-  useEffect(() => {
-    fetchUserPurchases(setPurchase, setApiError);
-  }),
-} */
-
 /**
  * @desctiption a row of table data that holds the table headings.
  */
-const TableHeadings = () => {
+const TableHeadings = () => (
   <tr>
     <th>Purchase Date</th>
     <th>Total Price</th>
     <th>Products Purchased</th>
-  </tr>;
-};
+  </tr>
+);
+
+/**
+ *
+ * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
+ * @returns {string} Formatted date (YYYY-MM-DD)
+*/
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -95,21 +97,14 @@ const formatDate = (dateString) => {
  * @returns component
  */
 const TableData = (props) => {
-  const { userData } = props;
+  const { purchase } = props;
   return (
     <tr>
-      <td>{formatDate(userData.orderDate)}</td>
-      {/* API is not currently storing the total purchase price of purchases */}
-      <td style={{ textAlign: 'right' }}>{userData.totalPrice.toFixed(2)}</td>
-      <td style={{ textAlign: 'right' }}>{userData.quantity}</td>
+      <td>{formatDate(purchase.OrderDate)}</td>
+      {/* <td style={{ textAlign: 'right' }}>{purchase.lineItem.purchaseTotal.toFixed(2)}</td> */}
+      {/* <td style={{ textAlign: 'right' }}>{purchase.lineItem.Quantity}</td> */}
     </tr>
   );
 };
-
-/**
- *
- * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
- * @returns {string} Formatted date (YYYY-MM-DD)
- */
 
 export default ProfilePage;

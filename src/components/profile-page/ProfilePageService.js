@@ -1,5 +1,6 @@
 import HttpHelper from '../../utils/HttpHelper';
 import Constants from '../../utils/constants';
+// import { Home } from '@material-ui/icons';
 
 /**
  *
@@ -10,7 +11,7 @@ import Constants from '../../utils/constants';
  * @returns sets state for data if 200 response, else sets state for apiError
  */
 async function fetchUserData(setUserData, setApiError) {
-  await HttpHelper(Constants.GET_USER_BY_EMAIL, 'GET')
+  await HttpHelper(Constants.USER_ENDPOINT, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -31,7 +32,7 @@ async function fetchUserData(setUserData, setApiError) {
  * @returns sets state for data if 200 response, else sets state for apiError
  */
 async function fetchUserPurchase(setPurchase, setApiError) {
-  await HttpHelper(Constants.PURCHASE_BY_EMAIL, 'GET')
+  await HttpHelper(`${Constants.PURCHASE_ENDPOINT}/customer@home.com`, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();

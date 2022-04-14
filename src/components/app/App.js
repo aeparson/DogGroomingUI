@@ -9,6 +9,7 @@ import ConfirmationPage from '../confirmation-page/ConfirmationPage';
 import MaintenancePage from '../maintenance-page/MaintenancePage';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
+import ProfilePage from '../profile-page/ProfilePage';
 
 toast.configure();
 
@@ -25,6 +26,7 @@ const App = () => (
         <Route exact path="/checkout" render={() => <CheckoutPage />} />
         <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
         <Route exact path="/maintenance" render={() => <MaintenancePage />} />
+        <Route exact path="/profile" render={() => <ProfilePage />} />
       </Switch>
       <ToastContainer
         position="top-center"
