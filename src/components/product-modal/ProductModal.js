@@ -54,12 +54,36 @@ const useStyles = makeStyles({
   },
   colors: {
     display: 'flex',
-    gap: '1rem'
+    gap: '1rem',
+    color: '#ff0'
+  },
+  lightText: {
+    color: 'white'
+  },
+  darkText: {
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   bottom: {
     display: 'flex'
+  },
+  'MuiChip-root': {
+    color: '#ff0'
   }
 });
+
+const getTextColorClass = (backgroundColorCode) => {
+  // Thanks to https://stackoverflow.com/a/3943023
+  // assuming that the color code is in the format #HHHHHH
+  const colorCode = backgroundColorCode.slice(1);
+  const [r, g, b] = [
+    colorCode.slice(0, 2),
+    colorCode.slice(2, 4),
+    colorCode.slice(4)]
+    .map((hex) => parseInt(hex, 16));
+  const sum = [r * 0.299, g * 0.587, b * 0.114].reduce((prev, cur) => prev + cur);
+  const threshold = 186; // adjust to taste
+  return sum > threshold ? 'darkText' : 'lightText';
+};
 
 const ProductModal = ({ open, product, handleClose }) => {
   const [quantity, setQuantity] = useState(1);
@@ -128,10 +152,12 @@ const ProductModal = ({ open, product, handleClose }) => {
             </Box>
             <Box className={classes.colors}>
               <Chip
+                className={classes[getTextColorClass(product.primaryColorCode)]}
                 label={product.primaryColorCode.toUpperCase()}
                 style={{ backgroundColor: product.primaryColorCode }}
               />
               <Chip
+                className={classes[getTextColorClass(product.secondaryColorCode)]}
                 label={product.secondaryColorCode.toUpperCase()}
                 style={{ backgroundColor: product.secondaryColorCode }}
               />
