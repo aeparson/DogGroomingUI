@@ -32,14 +32,19 @@ const BillingDetails = ({
             />
           </div>
 
-          <FormItem
-            placeholder="e.g. Unit #1"
-            type="text"
-            id="billingStreet2"
-            label="Street 2 (Optional)"
-            onChange={onChange}
-            value={billingData.billingStreet2}
-          />
+          <div className={errors.billingStreet2 === undefined ? undefined : styles.invalid}>
+            <p className={styles.errorMessage}>
+              {errors.billingStreet2 !== undefined && errors.billingStreet2}
+            </p>
+            <FormItem
+              placeholder="e.g. Unit #1"
+              type="text"
+              id="billingStreet2"
+              label="Street 2 (Optional)"
+              onChange={onChange}
+              value={billingData.billingStreet2}
+            />
+          </div>
 
           <div className={errors.billingCity === undefined ? undefined : styles.invalid}>
             <p className={styles.errorMessage}>

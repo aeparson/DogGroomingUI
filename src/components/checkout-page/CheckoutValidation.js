@@ -52,7 +52,7 @@ const validatePhone = (phone) => {
   if (isEmpty(phone)) {
     return 'Required';
   }
-  if ((/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/).test(phone)) {
+  if ((/^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(phone)) {
     return '';
   }
   return 'Invalid format';
@@ -62,7 +62,7 @@ const validateName = (name) => {
   if (isEmpty(name)) {
     return 'Required';
   }
-  if ((/^[a-zA-Z '-]+$/).test(name)) {
+  if ((/^[a-zA-Z'-]+$/).test(name)) {
     return '';
   }
   return 'Invalid Characters';

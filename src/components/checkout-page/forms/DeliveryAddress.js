@@ -53,14 +53,19 @@ const DeliveryAddress = ({ onChange, deliveryData, errors }) => {
         />
       </div>
 
-      <FormItem
-        placeholder="e.g. Unit #1"
-        type="text"
-        id="deliveryStreet2"
-        label="Street 2 (Optional)"
-        onChange={onChange}
-        value={deliveryData.deliveryStreet2}
-      />
+      <div className={errors.deliveryStreet2 === undefined ? undefined : styles.invalid}>
+        <p className={styles.errorMessage}>
+          {errors.deliveryStreet2 !== undefined && errors.deliveryStreet2}
+        </p>
+        <FormItem
+          placeholder="e.g. Unit #1"
+          type="text"
+          id="deliveryStreet2"
+          label="Street 2 (Optional)"
+          onChange={onChange}
+          value={deliveryData.deliveryStreet2}
+        />
+      </div>
 
       <div className={errors.deliveryCity === undefined ? undefined : styles.invalid}>
         <p className={styles.errorMessage}>
