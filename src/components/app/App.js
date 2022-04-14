@@ -20,6 +20,7 @@ toast.configure();
 const App = () => (
   <BrowserRouter>
     <Header />
+<<<<<<< HEAD
     <div id="content">
       <Switch>
         <Route exact path="/" render={() => <ProductPage />} />
@@ -42,6 +43,26 @@ const App = () => (
       />
     </div>
     <Footer />
+=======
+    <Switch>
+      <Route exact path="/" render={() => <ProductPage />} />
+      <Route exact path="/checkout" render={() => <CheckoutPage />} />
+      <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
+      <Route exact path="/maintenance" render={() => <MaintenancePage />} />
+    </Switch>
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss={false}
+      draggable={false}
+      pauseOnHover={false}
+      limit={1}
+    />
+>>>>>>> 7ab5064e62d17cc6a934702c1a0717f768c372d1
   </BrowserRouter>
 );
 
