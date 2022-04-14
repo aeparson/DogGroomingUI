@@ -21,7 +21,7 @@ import QuantityPicker from '../quantity-picker/QuantityPicker';
 import { useCart } from '../checkout-page/CartContext';
 
 const useStyles = makeStyles({
-  root: {
+  dialogContent: {
     padding: '24px',
     '&:first-child': {
       paddingTop: '24px'
@@ -53,11 +53,11 @@ const useStyles = makeStyles({
   productDetails: {
     flexGrow: 1
   },
-  details: {
+  productTags: {
     display: 'flex',
     gap: '1rem'
   },
-  colors: {
+  productColors: {
     display: 'flex',
     gap: '1rem'
   },
@@ -127,7 +127,7 @@ const ProductModal = ({ open, product, handleClose }) => {
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md">
 
-      <DialogContent className={classes.root}>
+      <DialogContent className={classes.dialogContent}>
         <Grid container spacing={3} className={classes.containerGrid}>
           <Grid item xs={6} className={classes.imageWrap}>
             <Image
@@ -154,11 +154,11 @@ const ProductModal = ({ open, product, handleClose }) => {
             <DialogContentText>
               <Typography>{product.description}</Typography>
             </DialogContentText>
-            <Box className={classes.details}>
+            <Box className={classes.productTags}>
               <Chip label={product.category} variant="outlined" />
               <Chip label={product.type} variant="outlined" />
             </Box>
-            <Box className={classes.colors}>
+            <Box className={classes.productColors}>
               <Chip
                 className={classes[getTextColorClass(product.primaryColorCode)]}
                 label={product.primaryColorCode.toUpperCase()}
