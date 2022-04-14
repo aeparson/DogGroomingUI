@@ -211,7 +211,7 @@ const validateBilling = (billingAddress) => {
       invalidFields[field] = 'Required';
     }
   });
-  const zipValidation = validateZip(billingAddress.deliveryZip);
+  const zipValidation = validateZip(billingAddress.billingZip);
   if (zipValidation !== true) {
     invalidFields.billingZip = zipValidation;
   }

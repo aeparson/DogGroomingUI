@@ -47,7 +47,6 @@ const CheckoutPage = () => {
   });
 
   const onDeliveryChange = (e) => {
-    console.log(e);
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
@@ -67,13 +66,11 @@ const CheckoutPage = () => {
     // If all fields are valid
     if (Object.keys(invalidDelivery).length === 0 && Object.keys(invalidBilling).length === 0) {
       makePurchase(productData, deliveryAddress,
-        billingAddress, creditCard).then((response) => {
-        if (response) {
-          history.push('/confirmation');
-        } else {
-          setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
-          toast.error('Transaction could not be processed');
-        }
+        billingAddress, creditCard).then(() => {
+        history.push('/confirmation');
+      }).catch(() => {
+        setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
+        toast.error('Transaction could not be processed');
       });
     } else {
       setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });

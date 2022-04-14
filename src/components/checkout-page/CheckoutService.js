@@ -21,6 +21,5 @@ export default async function makePurchase(products, deliveryAddress, billingAdd
         return response.json();
       }
       throw new Error(Constants.API_ERROR);
-    })
-    .catch(() => false);
+    });
 }
