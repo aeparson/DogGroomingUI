@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ProfilePage.css';
 import Constants from '../../utils/constants';
 
-import fetchUserData from './ProfilePageService';
+import { fetchUserData, fetchUserPurchase } from './ProfilePageService';
 
 /**
  * @name ProfilePage
@@ -21,9 +21,9 @@ const ProfilePage = () => {
   return (
     <>
       {apiError && (
-      <p data-testid="errMsg">
-        {Constants.API_ERROR}
-      </p>
+        <p data-testid="errMsg">
+          {Constants.API_ERROR}
+        </p>
       )}
       <form className={styles.profileContainer}>
         <h2 className="title"> Your User Profile</h2>
