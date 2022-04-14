@@ -113,4 +113,20 @@ describe('Checkout Page Validation Tests', () => {
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: '|_(^_^)_/*' })[1].cardholder).toEqual('Invalid characters');
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: 'Cthulu Amon-Gorloth-Ayi\'ig' })[1]).toEqual({});
   });
+
+  it('validates that phone number is formatted correctly', () => {
+
+  });
+
+  it('validates that zip code is formatted correctly', () => {
+
+  });
+
+  it('validates that email is formatted correctly', () => {
+
+  });
+
+  it('validates that first and last name only contain alphabetical characters, hyphens, and apostrophes', () => {
+
+  });
 });

@@ -24,13 +24,27 @@ const CheckoutPage = () => {
     state: { products }
   } = useCart();
 
-  const [billingData, setBillingData] = useState({});
+  const [billingData, setBillingData] = useState({
+    billingStreet: '',
+    billingStreet2: '',
+    billingCity: '',
+    billingState: '',
+    billingZip: '',
+    email: '',
+    phone: '',
+    creditCard: '',
+    cardholder: '',
+    cvv: '',
+    expiration: ''
+  });
 
   const onBillingChange = (e) => {
     setBillingData({ ...billingData, [e.target.id]: e.target.value });
   };
 
-  const [deliveryData, setDeliveryData] = useState({});
+  const [deliveryData, setDeliveryData] = useState({
+    deliveryFirstName: '', deliveryLastName: '', deliveryStreet: '', deliveryStreet2: '', deliveryCity: '', deliveryState: '', deliveryZip: ''
+  });
 
   const onDeliveryChange = (e) => {
     console.log(e);

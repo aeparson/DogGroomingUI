@@ -35,7 +35,7 @@ const validateCVV = (cvv) => {
   if (isEmpty(cvv)) {
     return 'Required';
   }
-  if (cvv.match(/^[0-9]{3}$/)) {
+  if ((/^[0-9]{3}$/).test(cvv)) {
     return true;
   }
   return 'Must be three numerical digits';
@@ -50,7 +50,7 @@ const validateCardNumber = (cardNumber) => {
   if (isEmpty(cardNumber)) {
     return 'Required';
   }
-  if (cardNumber.match(/^[0-9]{16}$/)) {
+  if ((/^[0-9]{16}$/).test(cardNumber)) {
     if (isLuhnValid(cardNumber)) {
       return true;
     }
@@ -68,7 +68,7 @@ const validateExpiration = (expiration) => {
   if (isEmpty(expiration)) {
     return 'Required';
   }
-  if (expiration.match(/^[0-9]{2}\/[0-9]{2}$/)) {
+  if ((/^[0-9]{2}\/[0-9]{2}$/).test(expiration)) {
     const month = parseInt(expiration.substring(0, 2), 10);
     const year = parseInt(`20${expiration.substring(3)}`, 10);
     if (month === 0 || month > 12) {
@@ -99,7 +99,7 @@ const validateCardHolder = (cardHolder) => {
   if (isEmpty(cardHolder)) {
     return 'Required';
   }
-  if (cardHolder.match(/^[a-zA-Z '-]+$/)) {
+  if ((/^[a-zA-Z '-]+$/).test(cardHolder)) {
     return true;
   }
   return 'Invalid characters';
@@ -131,6 +131,45 @@ const validateCreditCard = (creditCard) => {
   return invalidFields;
 };
 
+const validateZip = (zip) => {
+  if (isEmpty(zip)) {
+    return 'Required';
+  }
+  if ((/^\d{5}(-\d{4})?$/).test(zip)) {
+    return true;
+  }
+  return 'Must be 5 or 9 numerical digits';
+};
+
+const validateEmail = (email) => {
+  if (isEmpty(email)) {
+    return 'Required';
+  }
+  if ((/\w+@\w+\.\w+/).test(email)) {
+    return true;
+  }
+  return 'Invalid email format';
+};
+
+const validatePhone = (phone) => {
+  if (isEmpty(phone)) {
+    return 'Required';
+  }
+  if ((/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/).test(phone)) {
+    return true;
+  }
+  return 'Invalid format';
+};
+
+const validateName = (name) => {
+  if (isEmpty(name)) {
+    return 'Required';
+  }
+  if ((/^[a-zA-Z '-]+$/).test(name)) {
+    return true;
+  }
+  return 'Invalid Characters';
+};
 /**
  * Validates that all required address fields are filled in
  * @param {Object} deliveryAddress
@@ -138,12 +177,24 @@ const validateCreditCard = (creditCard) => {
  */
 const validateDelivery = (deliveryAddress) => {
   const invalidFields = {};
-  const requiredFields = ['deliveryStreet', 'deliveryCity', 'deliveryState', 'deliveryZip', 'deliveryFirstName', 'deliveryLastName'];
+  const requiredFields = ['deliveryStreet', 'deliveryCity', 'deliveryState'];
   requiredFields.forEach((field) => {
     if (isEmpty(deliveryAddress[field])) {
       invalidFields[field] = 'Required';
     }
   });
+  const zipValidation = validateZip(deliveryAddress.deliveryZip);
+  if (zipValidation !== true) {
+    invalidFields.deliveryZip = zipValidation;
+  }
+  const firstNameValidation = validateName(deliveryAddress.deliveryFirstName);
+  if (firstNameValidation !== true) {
+    invalidFields.deliveryFirstName = firstNameValidation;
+  }
+  const lastNameValidation = validateName(deliveryAddress.deliveryLastName);
+  if (lastNameValidation !== true) {
+    invalidFields.deliveryLastName = lastNameValidation;
+  }
   return invalidFields;
 };
 
@@ -154,12 +205,24 @@ const validateDelivery = (deliveryAddress) => {
  */
 const validateBilling = (billingAddress) => {
   const invalidFields = {};
-  const requiredFields = ['billingStreet', 'billingCity', 'billingState', 'billingZip', 'email', 'phone'];
+  const requiredFields = ['billingStreet', 'billingCity', 'billingState'];
   requiredFields.forEach((field) => {
     if (isEmpty(billingAddress[field])) {
       invalidFields[field] = 'Required';
     }
   });
+  const zipValidation = validateZip(billingAddress.deliveryZip);
+  if (zipValidation !== true) {
+    invalidFields.billingZip = zipValidation;
+  }
+  const phoneValidation = validatePhone(billingAddress.phone);
+  if (phoneValidation !== true) {
+    invalidFields.phone = phoneValidation;
+  }
+  const emailValidation = validateEmail(billingAddress.email);
+  if (emailValidation !== true) {
+    invalidFields.email = emailValidation;
+  }
   return invalidFields;
 };
 
