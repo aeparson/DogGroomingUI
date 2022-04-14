@@ -27,14 +27,9 @@ const useStyles = makeStyles({
       paddingTop: '24px'
     }
   },
-  containerGrid: {
-    // maxHeight: '100%'
-  },
   titleRow: {
-    // flexWrap: 'nowrap',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-    position: 'relative'
+    position: 'relative',
+    marginBottom: '1rem'
   },
   closeButton: {
     position: 'absolute',
@@ -44,18 +39,16 @@ const useStyles = makeStyles({
   title: {
     padding: 0
   },
-  imageWrap: {
-    height: '100%'
-  },
-  image: {
-    // maxHeight: '100%'
-  },
-  productDetails: {
-    flexGrow: 1
+  productDescription: {
+    '& p': {
+      maxWidth: '45ch'
+    },
+    marginBottom: '2rem'
   },
   productTags: {
     display: 'flex',
-    gap: '1rem'
+    gap: '1rem',
+    marginBottom: '1rem'
   },
   productColors: {
     display: 'flex',
@@ -151,7 +144,7 @@ const ProductModal = ({ open, product, handleClose }) => {
                 <CloseIcon />
               </IconButton>
             </Grid>
-            <DialogContentText>
+            <DialogContentText className={classes.productDescription}>
               <Typography>{product.description}</Typography>
             </DialogContentText>
             <Box className={classes.productTags}>
