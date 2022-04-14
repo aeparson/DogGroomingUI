@@ -40,8 +40,8 @@ describe('Checkout Page Component Tests', () => {
       })
     ));
     // eslint-disable-next-line no-unused-vars
-    makePurchase.mockImplementation((products, delivery, billing, creditCard) => Promise.resolve(
-      false
+    makePurchase.mockImplementation((products, delivery, billing, creditCard) => Promise.reject(
+      Error
     ));
     // eslint-disable-next-line no-unused-vars
     validatePurchase.mockImplementation((delivery, billing, credit) => [{}, {}]);
