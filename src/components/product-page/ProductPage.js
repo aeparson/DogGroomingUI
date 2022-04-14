@@ -4,6 +4,7 @@ import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
 import fetchProducts from './ProductPageService';
+import fetchActiveProducts from '../pagination/PaginationService';
 
 /**
  * @name ProductPage
@@ -13,10 +14,14 @@ import fetchProducts from './ProductPageService';
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     fetchProducts(setProducts, setApiError);
   }, []);
+  useEffect(() => {
+    fetchActiveProducts(setProducts, page, setApiError);
+  }, [page]);
 
   return (
     <div>
@@ -32,10 +37,11 @@ const ProductPage = () => {
         <div>
           {products.length > 0 ? (
             <Pagination
-              data={products}
-              title="Products"
+              setPage={setPage}
+              products={products}
+              updateProducts={setProducts}
               pageLimit={9}
-              dataLimit={100}
+              dataLimit={20}
             />
           ) : (
             <h1>No products to display</h1>
