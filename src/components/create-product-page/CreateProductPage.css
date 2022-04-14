@@ -21,6 +21,7 @@
 
 .productFields {
    background-color: #1db9bf;
+   color: black;
    font-size: 20px;
    margin-left: auto;
    margin-right: auto;
@@ -29,5 +30,16 @@
 
 body {
     background-color: #1db9bf;
+}
+
+h1 {
+    color: black;
+    text-align: justify;
+    text-decoration: underline;
+    margin-left: 1.3em;
+}
+
+.FormItem_label__3VgYr {
+    color: black;
 }
 

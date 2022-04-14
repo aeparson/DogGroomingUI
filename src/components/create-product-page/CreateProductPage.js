@@ -39,13 +39,12 @@ const CreateProductPage = () => {
       releaseDate: productData.releaseDate,
       imageSrc: productData.imageSrc
     };
-    postNewProduct(newProductForm).then(() => notify('Product created successfully.'));
-    history.replace('./maintenance');
+    postNewProduct(newProductForm).then((history.push('/maintenance'), () => notify('Product created successfully.')));
   };
 
   return (
     <div className={styles.CreateProductPage}>
-      <h3 className={styles.CreateProductPage}>Create Product</h3>
+      <h1 className={styles.CreateProductPage}>Create Product</h1>
       <NewProductForm onChange={handleChange} productData={productData} />
       <button
         type="submit"
