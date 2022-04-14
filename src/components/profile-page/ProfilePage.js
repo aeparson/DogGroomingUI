@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import styles from './ProfilePage.css';
 import Constants from '../../utils/constants';
@@ -32,24 +33,9 @@ const ProfilePage = () => {
       )}
       <form className={styles.profileContainer}>
         <h2 className="title"> Your User Profile</h2>
-        <div>
-          <userData />
-        </div>
-        <div className={`${styles.step} ${styles.order}`}>
-          <h3 className={styles.category}>First Name</h3>
-        </div>
-        <div className={`${styles.step} ${styles.delivery}`}>
-          <h3 className={styles.category}>Last Name</h3>
-
-        </div>
-        <div className={`${styles.step} ${styles.payment}`}>
-          <h3 className={styles.category}>Shipping Address</h3>
-          <h3>Street</h3>
-          <h3>City</h3>
-          <h3>State</h3>
-          <h3>Zip</h3>
-        </div>
+        {userData.map((user) => <TableData key={user.email} googleUser={user} />)}
       </form>
+
       <div style={styles} className="scrollable">
         <table>
           <thead>
@@ -57,7 +43,7 @@ const ProfilePage = () => {
           </thead>
           <tbody>
             {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
-              .map((purchase) => <TableData key={purchase.OrderDate} purchase={purchase} />)}
+              .map((purchase) => <PurchaseTableData key={purchase.OrderDate} purchase={purchase} />)}
           </tbody>
         </table>
       </div>
@@ -67,13 +53,30 @@ const ProfilePage = () => {
 };
 
 /**
+ * @description a row of table data for user data
+ * @param {Object} props Contains a user object
+ * @returns component
+ */
+const TableData = (props) => {
+  const { user } = props;
+  return (
+    <tr>
+      <td style={{ textAlign: 'right' }}>{user.email}</td>
+      <td>{user.FirstName}</td>
+      <td>{user.LastName}</td>
+      <td>{user.Street}</td>
+    </tr>
+  );
+};
+
+/**
  * @desctiption a row of table data that holds the table headings.
  */
 const TableHeadings = () => (
   <tr>
     <th>Purchase Date</th>
-    <th>Total Price</th>
-    <th>Products Purchased</th>
+    <th>Total Purchase</th>
+    <th>Purchase Details</th>
   </tr>
 );
 
@@ -93,15 +96,15 @@ const formatDate = (dateString) => {
 
 /**
  * @description a row of table data for purchase history
- * @param {Object} purch Contains a purchase object
+ * @param {Object} purchase Contains a purchase object
  * @returns component
  */
-const TableData = (props) => {
+const PurchaseTableData = (props) => {
   const { purchase } = props;
   return (
     <tr>
-      <td>{formatDate(purchase.OrderDate)}</td>
-      {/* <td style={{ textAlign: 'right' }}>{purchase.lineItem.purchaseTotal.toFixed(2)}</td> */}
+      <td>{formatDate(purchase.orderDate)}</td>
+      <td>{purchase.purchaseTotal}</td>
       {/* <td style={{ textAlign: 'right' }}>{purchase.lineItem.Quantity}</td> */}
     </tr>
   );
