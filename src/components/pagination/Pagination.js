@@ -33,14 +33,6 @@ const Pagination = ({
 
   return (
     <div>
-
-      {/* show the products, 20 products at a time */}
-      <div className="dataContainer">
-        {/* {getPaginatedData().map((d, idx) => ()
-          eslint-disable-next-line react/no-array-index-key
-          <RenderComponent key={idx} data={d} /> */}
-      </div>
-
       {/* show the pagination
           it consists of next and previous buttons
           along with page numbers, in our case, 8 page
