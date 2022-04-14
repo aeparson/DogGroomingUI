@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './ProfilePage.css';
 import Constants from '../../utils/constants';
+// import loginUser from '../header/HeaderService';
 
 import fetchUserData from './ProfilePageService';
 
@@ -21,32 +22,32 @@ const ProfilePage = () => {
   return (
     <>
       {apiError && (
-      <p data-testid="errMsg">
-        {Constants.API_ERROR}
-      </p>
+        <p data-testid="errMsg">
+          {Constants.API_ERROR}
+        </p>
       )}
       <form className={styles.profileContainer}>
         <h2 className="title"> Your User Profile</h2>
-        <div>
-          <userData />
-        </div>
-        <div className={`${styles.step} ${styles.order}`}>
-          <h3 className={styles.category}>First Name</h3>
-        </div>
-        <div className={`${styles.step} ${styles.delivery}`}>
-          <h3 className={styles.category}>Last Name</h3>
-
-        </div>
-        <div className={`${styles.step} ${styles.payment}`}>
-          <h3 className={styles.category}>Shipping Address</h3>
-          <h3>Street</h3>
-          <h3>City</h3>
-          <h3>State</h3>
-          <h3>Zip</h3>
-        </div>
+        {userData.map((user) => <TableData key={user.email} googleUser={user} />)}
       </form>
     </>
+  );
+};
 
+/**
+ * @description a row of table data for user data
+ * @param {Object} props Contains a user object
+ * @returns component
+ */
+const TableData = (props) => {
+  const { user } = props;
+  return (
+    <tr>
+      <td style={{ textAlign: 'right' }}>{user.email}</td>
+      <td>{user.FirstName}</td>
+      <td>{user.LastName}</td>
+      <td>{user.Street}</td>
+    </tr>
   );
 };
 export default ProfilePage;
