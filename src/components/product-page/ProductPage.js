@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pagination } from './pagination/page';
+import Pagination from '../pagination/Pagination';
 import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
@@ -31,19 +31,16 @@ const ProductPage = () => {
         </div>
         <div>
           {products.length > 0 ? (
-            <>
-              <Pagination
-                data={products}
-                title="Products"
-                pageLimit={8}
-                dataLimit={20}
-              />
-            </>
+            <Pagination
+              data={products}
+              title="Products"
+              pageLimit={9}
+              dataLimit={20}
+            />
           ) : (
-            <h1>No Posts to display</h1>
+            <h1>No products to display</h1>
           )}
         </div>
-        />
       </div>
     </div>
   );
