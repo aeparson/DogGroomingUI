@@ -13,8 +13,7 @@ import ProfileIcon from './profileicon.png';
  * @description Displays the navigation header
  * @return component
  */
-const Header = () => {
-  const [user, setUser] = useState('');
+const Header = ({ setUser, user }) => {
   const [googleError, setGoogleError] = useState('');
   const [apiError, setApiError] = useState(false);
 
