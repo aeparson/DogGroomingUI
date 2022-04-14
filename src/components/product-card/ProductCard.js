@@ -58,6 +58,20 @@ const ProductCard = ({ product }) => {
 
   const { dispatch } = useCart();
 
+  const onFavorite = (event) => {
+    event.stopPropagation();
+    // this exists to intercept the click event
+    // so that the modal doesn't open
+    // add your code for Add-to-Favorites functionality here
+  };
+
+  const onShare = (event) => {
+    event.stopPropagation();
+    // this exists to intercept the click event
+    // so that the modal doesn't open
+    // add your code for Share functionality here
+  };
+
   const onAdd = (event) => {
     event.stopPropagation();
     dispatch(
@@ -120,10 +134,10 @@ const ProductCard = ({ product }) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" onClick={onFavorite}>
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" onClick={onShare}>
             <ShareIcon />
           </IconButton>
           <IconButton aria-label="add to shopping cart" onClick={onAdd}>
