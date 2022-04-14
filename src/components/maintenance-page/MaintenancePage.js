@@ -28,7 +28,7 @@ const MaintenancePage = () => {
         )}
         <div className="MaintenanceMenu">
           <NavLink to="/createProductPage">
-            <button className="button" type="button">Create</button>
+            <button className="button" type="button">Create Product</button>
           </NavLink>
         </div>
         <div style={styles} className="scrollable">

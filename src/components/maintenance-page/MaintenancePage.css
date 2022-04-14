@@ -15,7 +15,7 @@
 .scrollable {
     width: 100%;
     /* The total height of the viewport minus the height of the header */
-    height: calc(100vh - 50px);
+    height: calc(100vh - 135.5px);
     overflow: auto;
 }
 

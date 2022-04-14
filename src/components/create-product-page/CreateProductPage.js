@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import NewProductForm from './CreateProductForm';
 import styles from './CreateProductPage.css';
 import postNewProduct from './CreateProductPageService';
@@ -11,8 +10,6 @@ import postNewProduct from './CreateProductPageService';
  *
  */
 const CreateProductPage = () => {
-  const notify = (text) => toast.success(text);
-
   const history = useHistory();
 
   const [productData, setProductData] = useState({});
@@ -39,7 +36,7 @@ const CreateProductPage = () => {
       releaseDate: productData.releaseDate,
       imageSrc: productData.imageSrc
     };
-    postNewProduct(newProductForm).then((history.push('/maintenance'), () => notify('Product created successfully.')));
+    postNewProduct(newProductForm, history);
   };
 
   return (
@@ -52,7 +49,7 @@ const CreateProductPage = () => {
         onClick={handleCreate}
         style={styles.CreateProductPage}
       >
-        Create
+        Create Product
       </button>
     </div>
   );
