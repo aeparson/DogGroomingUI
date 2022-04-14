@@ -1,33 +1,76 @@
-import * as React from 'react';
-import { Link, MemoryRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
+import * as React from 'react';
 
-function Content() {
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
-  const page = parseInt(query.get('page') || '1', 10);
-  return (
-    <Pagination
-      page={page}
-      count={9}
-      renderItem={(item) => (
-        <PaginationItem
-          component={Link}
-          to={`'/products/active'${item.page === 1 ? '' : `?page=${item.page}`}`}
-          {...item}
-        />
-      )}
-    />
-  );
-}
+function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
+  const [currentPage, setCurrentPage] = useState(1);
 
-export default function PaginationLink() {
+  function goToNextPage() {
+    setCurrentPage((page) => page + 1);
+  }
+
+  function goToPreviousPage() {
+    setCurrentPage((page) => page - 1);
+  }
+
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent);
+    setCurrentPage(pageNumber);
+  }
+// might not need this because data is already paginated
+  const getPaginatedData = () => {
+    const startIndex = currentPage * dataLimit - dataLimit;
+    const endIndex = startIndex + dataLimit;
+    return data.slice(startIndex, endIndex);
+  };
+// shows the group of page numbers in pagination
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
+  };
+
   return (
-    <MemoryRouter initialEntries={['/products/active']} initialIndex={0}>
-      <Routes>
-        <Route path="*" element={<Content />} />
-      </Routes>
-    </MemoryRouter>
+    <div>
+      <h1>{title}</h1>
+  
+      {/* show the products, 20 products at a time */}
+      <div className="dataContainer">
+        {getPaginatedData().map((d, idx) => (
+          <RenderComponent key={idx} data={d} />
+        ))}
+      </div>
+  
+      {/* show the pagiantion
+          it consists of next and previous buttons
+          along with page numbers, in our case, 8 page
+          numbers at a time
+      */}
+      <div className="pagination">
+        {/* previous button */}
+        <button
+          onClick={goToPreviousPage}
+          className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
+        >
+          prev
+        </button>
+  
+        {/* show page numbers */}
+        {getPaginationGroup().map((item, index) => (
+          <button
+            key={index}
+            onClick={changePage}
+            className={`paginationItem ${currentPage === item ? 'active' : null}`}
+          >
+            <span>{item}</span>
+          </button>
+        ))}
+  
+        {/* next button */}
+        <button
+          onClick={goToNextPage}
+          className={`next ${currentPage === pages ? 'disabled' : ''}`}
+        >
+          next
+        </button>
+      </div>
+    </div>
   );
-}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Pagination from '@mui/material/Pagination';
+import { Pagination } from './pagination/page';
 import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
@@ -29,7 +29,21 @@ const ProductPage = () => {
             </div>
           ))}
         </div>
-        <Pagination count={9} defaultPage={1} siblingCount={2} />
+        <div>
+          {products.length > 0 ? (
+            <>
+              <Pagination
+                data={products}
+                title="Products"
+                pageLimit={8}
+                dataLimit={20}
+              />
+            </>
+          ) : (
+            <h1>No Posts to display</h1>
+          )}
+        </div>
+        />
       </div>
     </div>
   );
