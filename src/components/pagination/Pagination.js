@@ -25,7 +25,7 @@ const Pagination = ({
     setCurrentPage(pageNumber);
     setPage(currentPage);
   }
-
+  // make a group of pages
   const getPaginationGroup = () => {
     const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
@@ -61,12 +61,14 @@ const Pagination = ({
         ))}
 
         {/* next button */}
-        <Button
+        <button
           type="button"
           onClick={goToNextPage}
           icon="right arrow"
           className={`next ${currentPage === pages ? 'disabled' : ''}`}
-        />
+        >
+          &gt;
+        </button>
       </div>
     </div>
   );
