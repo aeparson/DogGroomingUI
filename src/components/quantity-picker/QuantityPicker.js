@@ -39,7 +39,7 @@ const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
       InputProps={inputProps}
       // eslint-disable-next-line react/jsx-no-duplicate-props
       inputProps={inputElementProps}
-      size="small"
+      // size="small"
       variant="outlined"
     />
   );

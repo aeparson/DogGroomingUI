@@ -26,15 +26,20 @@ const useStyles = makeStyles({
     '&:first-child': {
       paddingTop: '24px'
     }
-    // overflow: 'hidden'
   },
   containerGrid: {
     // maxHeight: '100%'
   },
   titleRow: {
-    flexWrap: 'nowrap',
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    // flexWrap: 'nowrap',
+    // alignItems: 'center',
+    // justifyContent: 'space-between',
+    position: 'relative'
+  },
+  closeButton: {
+    position: 'absolute',
+    top: -12,
+    right: -12
   },
   title: {
     padding: 0
@@ -54,8 +59,7 @@ const useStyles = makeStyles({
   },
   colors: {
     display: 'flex',
-    gap: '1rem',
-    color: '#ff0'
+    gap: '1rem'
   },
   lightText: {
     color: 'white'
@@ -64,10 +68,14 @@ const useStyles = makeStyles({
     color: 'rgba(0, 0, 0, 0.87)'
   },
   bottom: {
-    display: 'flex'
+    display: 'flex',
+    marginTop: 'auto'
   },
-  'MuiChip-root': {
-    color: '#ff0'
+  price: {
+    fontSize: '1.5rem',
+    alignSelf: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto'
   }
 });
 
@@ -163,7 +171,7 @@ const ProductModal = ({ open, product, handleClose }) => {
               />
             </Box>
             <Box className={classes.bottom}>
-              <Typography>
+              <Typography className={classes.price}>
                 $
                 {product.price}
               </Typography>
