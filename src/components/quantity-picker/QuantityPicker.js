@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { Add, Remove } from '@material-ui/icons';
@@ -37,9 +36,10 @@ const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
       value={quantity}
       onChange={onChange}
       InputProps={inputProps}
+      // not duplicate props, similar names required
+      // by component
       // eslint-disable-next-line react/jsx-no-duplicate-props
       inputProps={inputElementProps}
-      // size="small"
       variant="outlined"
     />
   );
