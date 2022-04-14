@@ -26,20 +26,20 @@ const App = () => (
         <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
         <Route exact path="/maintenance" render={() => <MaintenancePage />} />
       </Switch>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        limit={1}
+      />
     </div>
     <Footer />
-    <ToastContainer
-      position="top-center"
-      autoClose={5000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss={false}
-      draggable={false}
-      pauseOnHover={false}
-      limit={1}
-    />
   </BrowserRouter>
 );
 
