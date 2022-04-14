@@ -52,7 +52,8 @@ const useStyles = makeStyles({
   },
   productColors: {
     display: 'flex',
-    gap: '1rem'
+    gap: '1rem',
+    marginBottom: '1rem'
   },
   lightText: {
     color: 'white'
