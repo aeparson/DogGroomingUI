@@ -80,19 +80,28 @@ const TableHeadings = () => {
     <th>Products Purchased</th>
   </tr>;
 };
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  // months are zero-indexed
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
 /**
  * @description a row of table data for purchase history
  * @param {Object} purch Contains a purchase object
  * @returns component
  */
-const TableData = (purch) => {
-  const { purchase } = purch;
+const TableData = (props) => {
+  const { userData } = props;
   return (
     <tr>
-      <td style={{ textAlign: 'right' }}>{purchase.price.toFixed(2)}</td>
-      <td style={{ textAlign: 'right' }}>{purchase.quantity}</td>
-      <td>{formatDate(purchase.purchaseDate)}</td>
+      <td>{formatDate(userData.orderDate)}</td>
+      {/* API is not currently storing the total purchase price of purchases */}
+      <td style={{ textAlign: 'right' }}>{userData.totalPrice.toFixed(2)}</td>
+      <td style={{ textAlign: 'right' }}>{userData.quantity}</td>
     </tr>
   );
 };
@@ -102,13 +111,5 @@ const TableData = (purch) => {
  * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
  * @returns {string} Formatted date (YYYY-MM-DD)
  */
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  // months are zero-indexed
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 export default ProfilePage;
