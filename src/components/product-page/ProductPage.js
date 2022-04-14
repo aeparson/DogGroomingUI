@@ -35,7 +35,7 @@ const ProductPage = () => {
               data={products}
               title="Products"
               pageLimit={9}
-              dataLimit={20}
+              dataLimit={100}
             />
           ) : (
             <h1>No products to display</h1>
