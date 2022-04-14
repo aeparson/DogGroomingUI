@@ -10,7 +10,7 @@ import Constants from '../../utils/constants';
  * @returns sets state for data if 200 response, else sets state for apiError
  */
 export default async function fetchUserData(setUserData, setApiError) {
-  await HttpHelper(Constants.GET_USER_BY_EMAIL, 'GET')
+  await HttpHelper(Constants.USER_ENDPOINT, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
