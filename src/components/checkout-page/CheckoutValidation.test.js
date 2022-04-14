@@ -2,10 +2,10 @@ import validatePurchase from './CheckoutValidation';
 
 describe('Checkout Page Validation Tests', () => {
   const validDelivery = {
-    deliveryFirstName: 'John', deliveryLastName: 'Doe', deliveryStreet: '123 Easy St.', deliveryCity: 'Chicago', deliveryState: 'IL', deliveryZip: '12345'
+    deliveryFirstName: 'John', deliveryLastName: 'Doe', deliveryStreet: 'Easy Street', deliveryCity: 'Chicago', deliveryState: 'IL', deliveryZip: '12345'
   };
   const validBilling = {
-    billingStreet: '123 Easy St.', billingCity: 'Chicago', billingState: 'IL', billingZip: '12345', phone: '123-456-7890', email: '123@abc.com'
+    billingStreet: 'Easy Street', billingCity: 'Chicago', billingState: 'IL', billingZip: '12345', phone: '123-456-7890', email: '123@abc.com'
   };
   const validCreditCard = {
     cardNumber: '1111222233334444', cvv: '123', cardholder: 'John Doe', expiration: '12/99'

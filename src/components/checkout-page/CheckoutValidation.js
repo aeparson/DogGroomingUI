@@ -42,7 +42,7 @@ const validateEmail = (email) => {
   if (isEmpty(email)) {
     return 'Required';
   }
-  if ((/\w+@\w+\.\w+/).test(email)) {
+  if ((/\w+@[a-z]+\.[a-z]+/i).test(email)) {
     return '';
   }
   return 'Invalid email format';
@@ -63,6 +63,26 @@ const validateName = (name) => {
     return 'Required';
   }
   if ((/^[a-zA-Z '-]+$/).test(name)) {
+    return '';
+  }
+  return 'Invalid Characters';
+};
+
+const validateStreet = (street) => {
+  if (isEmpty(street)) {
+    return 'Required';
+  }
+  if ((/^[a-zA-Z '-]+$/).test(street)) {
+    return '';
+  }
+  return 'Invalid Characters';
+};
+
+const validateCity = (city) => {
+  if (isEmpty(city)) {
+    return 'Required';
+  }
+  if ((/^[a-zA-Z '-]+$/).test(city)) {
     return '';
   }
   return 'Invalid Characters';
@@ -151,21 +171,23 @@ const validateCardHolder = (cardHolder) => {
  * @param {Object} creditCard {cvv, cardNumber, cardholder, expiration}
  * @returns an object with one message entry per invalid field {field: message}
  */
-const validateCreditCard = (creditCard) => {
+const validateCreditCard = ({
+  cvv, cardNumber, expiration, cardholder
+}) => {
   const invalidFields = {};
-  const cvvValidation = validateCVV(creditCard.cvv);
+  const cvvValidation = validateCVV(cvv);
   if (cvvValidation) {
     invalidFields.cvv = cvvValidation;
   }
-  const cardNumberValidation = validateCardNumber(creditCard.cardNumber);
+  const cardNumberValidation = validateCardNumber(cardNumber);
   if (cardNumberValidation) {
     invalidFields.cardNumber = cardNumberValidation;
   }
-  const expirationValidation = validateExpiration(creditCard.expiration);
+  const expirationValidation = validateExpiration(expiration);
   if (expirationValidation) {
     invalidFields.expiration = expirationValidation;
   }
-  const cardHolderValidation = validateCardHolder(creditCard.cardholder);
+  const cardHolderValidation = validateCardHolder(cardholder);
   if (cardHolderValidation) {
     invalidFields.cardholder = cardHolderValidation;
   }
@@ -176,25 +198,37 @@ const validateCreditCard = (creditCard) => {
  * @param {Object} deliveryAddress
  * @returns an object with 'required' message entries for empty fields {field: 'Required'}
  */
-const validateDelivery = (deliveryAddress) => {
+const validateDelivery = ({
+  deliveryState, deliveryZip, deliveryFirstName, deliveryLastName, deliveryCity,
+  deliveryStreet, deliveryStreet2
+}) => {
   const invalidFields = {};
-  const requiredFields = ['deliveryStreet', 'deliveryCity', 'deliveryState'];
-  requiredFields.forEach((field) => {
-    if (isEmpty(deliveryAddress[field])) {
-      invalidFields[field] = 'Required';
-    }
-  });
-  const zipValidation = validateZip(deliveryAddress.deliveryZip);
+  if (isEmpty(deliveryState)) {
+    invalidFields.deliveryState = 'Required';
+  }
+  const zipValidation = validateZip(deliveryZip);
   if (zipValidation) {
     invalidFields.deliveryZip = zipValidation;
   }
-  const firstNameValidation = validateName(deliveryAddress.deliveryFirstName);
+  const firstNameValidation = validateName(deliveryFirstName);
   if (firstNameValidation) {
     invalidFields.deliveryFirstName = firstNameValidation;
   }
-  const lastNameValidation = validateName(deliveryAddress.deliveryLastName);
+  const lastNameValidation = validateName(deliveryLastName);
   if (lastNameValidation) {
     invalidFields.deliveryLastName = lastNameValidation;
+  }
+  const cityValidation = validateCity(deliveryCity);
+  if (cityValidation) {
+    invalidFields.deliveryCity = cityValidation;
+  }
+  const streetValidation = validateStreet(deliveryStreet);
+  if (streetValidation) {
+    invalidFields.deliveryStreet = streetValidation;
+  }
+  const street2Validation = validateStreet(deliveryStreet2);
+  if (street2Validation && street2Validation !== 'Required') {
+    invalidFields.deliveryStreet2 = street2Validation;
   }
   return invalidFields;
 };
@@ -204,25 +238,36 @@ const validateDelivery = (deliveryAddress) => {
  * @param {Object} billingAddress
  * @returns an object with 'required' message entries for empty fields {field: 'Required'}
  */
-const validateBilling = (billingAddress) => {
+const validateBilling = ({
+  billingState, billingZip, phone, email, billingCity, billingStreet, billingStreet2
+}) => {
   const invalidFields = {};
-  const requiredFields = ['billingStreet', 'billingCity', 'billingState'];
-  requiredFields.forEach((field) => {
-    if (isEmpty(billingAddress[field])) {
-      invalidFields[field] = 'Required';
-    }
-  });
-  const zipValidation = validateZip(billingAddress.billingZip);
+  if (isEmpty(billingState)) {
+    invalidFields.billingState = 'Required';
+  }
+  const zipValidation = validateZip(billingZip);
   if (zipValidation) {
     invalidFields.billingZip = zipValidation;
   }
-  const phoneValidation = validatePhone(billingAddress.phone);
+  const phoneValidation = validatePhone(phone);
   if (phoneValidation) {
     invalidFields.phone = phoneValidation;
   }
-  const emailValidation = validateEmail(billingAddress.email);
+  const emailValidation = validateEmail(email);
   if (emailValidation) {
     invalidFields.email = emailValidation;
+  }
+  const cityValidation = validateCity(billingCity);
+  if (cityValidation) {
+    invalidFields.billingCity = cityValidation;
+  }
+  const streetValidation = validateStreet(billingStreet);
+  if (streetValidation) {
+    invalidFields.billingStreet = streetValidation;
+  }
+  const street2Validation = validateStreet(billingStreet2);
+  if (street2Validation && street2Validation !== 'Required') {
+    invalidFields.billingStreet2 = street2Validation;
   }
   return invalidFields;
 };
