@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import { Icon } from 'semantic-ui-react';
 import './Pagination.css';
 
 const Pagination = ({
-  setPage, pageLimit, totalProducts, dataLimit
+  setPage, pageLimit
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pages] = useState(Math.round(totalProducts / dataLimit));
+  // const [pages] = useState(Math.round(products.length / dataLimit));
 
   // scroll to top
-  // useEffect(() => {
-  //   window.scrollTo({ behavior: 'smooth', top: '0px' });
-  // }, [currentPage]);
+  useEffect(() => {
+    window.scrollTo({ behavior: 'smooth', top: '0px' });
+  }, [currentPage]);
 
   // increment the current page
   function goToNextPage() {
@@ -70,7 +71,7 @@ const Pagination = ({
           type="button"
           onClick={goToNextPage}
           icon="right arrow"
-          className={`next ${currentPage === pages ? 'disabled' : ''}`}
+          className={`next ${currentPage === 27 ? 'disabled' : ''}`}
         >
           →
         </button>

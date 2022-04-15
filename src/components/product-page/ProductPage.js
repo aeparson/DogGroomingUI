@@ -3,7 +3,8 @@ import Pagination from '../pagination/Pagination';
 import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
-import fetchActiveProducts, { fetchAllActiveProducts } from '../pagination/PaginationService';
+import fetchProducts from './ProductPageService';
+import fetchActiveProducts from '../pagination/PaginationService';
 
 /**
  * @name ProductPage
@@ -12,12 +13,11 @@ import fetchActiveProducts, { fetchAllActiveProducts } from '../pagination/Pagin
  */
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
-  const [totalProducts, setTotalProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    fetchAllActiveProducts(setTotalProducts, setApiError);
+    fetchProducts(setProducts, setApiError);
   }, []);
   useEffect(() => {
     fetchActiveProducts(setProducts, page, setApiError);
@@ -38,8 +38,8 @@ const ProductPage = () => {
           {products.length > 0 ? (
             <Pagination
               setPage={setPage}
-              products={totalProducts}
-              updateProducts={setTotalProducts}
+              products={products}
+              updateProducts={setProducts}
               pageLimit={9}
               dataLimit={20}
             />
