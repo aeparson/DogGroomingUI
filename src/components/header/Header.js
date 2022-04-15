@@ -72,7 +72,13 @@ const Header = ({ setUser, user }) => {
       </div>
       <div className="loginLogout">
         {user && <span>{user.firstName}</span>}
-        {user && <span>{user.lastName}</span>}
+        {' '}
+        {user && (
+        <span>
+          {user.lastName}
+          &nbsp;&nbsp;
+        </span>
+        )}
         {googleError && <span>{googleError}</span>}
         {apiError && <span>Api Error</span>}
         {!user ? (
