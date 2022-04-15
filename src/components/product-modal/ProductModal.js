@@ -26,6 +26,9 @@ const useStyles = makeStyles({
       paddingTop: '24px'
     }
   },
+  image: {
+    borderRadius: '4px'
+  },
   titleRow: {
     position: 'relative',
     marginBottom: '1rem'
