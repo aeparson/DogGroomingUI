@@ -17,11 +17,8 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "jwt-decode": "^3.1.2",
-<<<<<<< HEAD
     "mdb-ui-kit": "^3.11.0",
-=======
     "mui-image": "^1.0.4",
->>>>>>> 90dc4f5df6e4fbc6696b120757a0e92043874e58
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.2.2",
