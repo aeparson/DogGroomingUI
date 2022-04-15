@@ -2,7 +2,6 @@
     display: block;
     /* box-sizing: border-box; */
     width: 50%;
-  
     border-radius: 2px;
     border-color: #666666;
     padding: 1em;
@@ -30,7 +29,6 @@
   }
 
 .underline {
-    /* text-decoration: underline; */
     text-transform: uppercase;
     color: #666666;
 }
