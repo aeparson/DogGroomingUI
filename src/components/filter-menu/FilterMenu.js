@@ -9,10 +9,14 @@ import { IconButton } from '@mui/material';
 import demographicFilters from './FilterMenuData';
 import './FilterMenu.css';
 
-function FilterMenu({ onFilter, setWebRoute }) {
+function FilterMenu({
+  onFilter, setWebRoute, pushover
+}) {
   const [sidebar, setSidebar] = useState(false);
 
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => {
+    setSidebar(!sidebar);
+  };
 
   const [checked, setChecked] = useState(new Array(demographicFilters.length).fill(false));
 
@@ -30,6 +34,11 @@ function FilterMenu({ onFilter, setWebRoute }) {
     ));
   };
 
+  const sidebarPush = () => {
+    showSidebar();
+    pushover(!sidebar);
+  };
+
   const checkStyle = { color: '#179297' };
 
   return (
@@ -37,7 +46,7 @@ function FilterMenu({ onFilter, setWebRoute }) {
       <IconContext.Provider value={{ color: '#179297' }}>
         <div className="closed-menu">
           <IconButton aria-label="open filter menu sidebar" className="menu-bars">
-            <FaIcons.FaBars onClick={showSidebar} />
+            <FaIcons.FaBars onClick={sidebarPush} />
           </IconButton>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
@@ -45,7 +54,7 @@ function FilterMenu({ onFilter, setWebRoute }) {
             <li />
             <li className="navbar-toggle">
               <IconButton aria-label="close filter menu sidebar" className="menu-bars">
-                <AiIcons.AiOutlineClose onClick={showSidebar} />
+                <AiIcons.AiOutlineClose onClick={sidebarPush} />
               </IconButton>
             </li>
             {demographicFilters.map((item, index) => (
@@ -60,6 +69,7 @@ function FilterMenu({ onFilter, setWebRoute }) {
                 {item.title}
               </li>
             ))}
+            <li />
             <Box textAlign="center">
               <Button
                 className="filter-prod-button"
