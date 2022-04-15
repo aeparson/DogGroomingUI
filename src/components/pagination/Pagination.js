@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Button } from 'semantic-ui-react';
+// import { Icon } from 'semantic-ui-react';
 import './Pagination.css';
 
 const Pagination = ({
-  products, setPage, pageLimit, dataLimit
+  setPage, pageLimit
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pages] = useState(Math.round(products.length / dataLimit));
+  // const [pages] = useState(Math.round(products.length / dataLimit));
 
   // increment the current page
   function goToNextPage() {
@@ -40,13 +40,14 @@ const Pagination = ({
       */}
       <div className="pagination">
         {/* previous button */}
-        <Button
+        <button
           type="button"
           onClick={goToPreviousPage}
           icon="left arrow"
           className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
-        />
-
+        >
+          ←
+        </button>
         {/* show page numbers */}
         {getPaginationGroup().map((item, index) => (
           <button
@@ -65,9 +66,9 @@ const Pagination = ({
           type="button"
           onClick={goToNextPage}
           icon="right arrow"
-          className={`next ${currentPage === pages ? 'disabled' : ''}`}
+          className={`next ${currentPage === 27 ? 'disabled' : ''}`}
         >
-          &gt;
+          →
         </button>
       </div>
     </div>
