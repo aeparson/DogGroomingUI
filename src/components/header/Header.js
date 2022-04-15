@@ -6,14 +6,14 @@ import constants from '../../utils/constants';
 import './Header.css';
 import companyLogo from './arrayOfSunshine.png';
 import ShoppingCartIcon from './shopping-trolley.png';
+import ProfileIcon from './profileicon.png';
 
 /**
  * @name Header
  * @description Displays the navigation header
  * @return component
  */
-const Header = () => {
-  const [user, setUser] = useState('');
+const Header = ({ setUser, user }) => {
   const [googleError, setGoogleError] = useState('');
   const [apiError, setApiError] = useState(false);
 
@@ -34,7 +34,7 @@ const Header = () => {
   };
 
   /**
-   * @name handleGoogleLoginSuccess
+   * @name handleGoogleLoginFailure
    * @description Function to run if google login was unsuccessful
    */
   const handleGoogleLoginFailure = () => {
@@ -65,9 +65,20 @@ const Header = () => {
           <img src={companyLogo} alt="Logo" height="45px" />
         </NavLink>
       </div>
+      <div className="profileIcon">
+        <NavLink to="/profile">
+          <img src={ProfileIcon} alt="profile" width="35px" />
+        </NavLink>
+      </div>
       <div className="loginLogout">
         {user && <span>{user.firstName}</span>}
-        {user && <span>{user.lastName}</span>}
+        {' '}
+        {user && (
+        <span>
+          {user.lastName}
+          &nbsp;&nbsp;
+        </span>
+        )}
         {googleError && <span>{googleError}</span>}
         {apiError && <span>Api Error</span>}
         {!user ? (
@@ -89,7 +100,7 @@ const Header = () => {
       </div>
       <div className="checkoutItem">
         <NavLink to="/checkout">
-          <img src={ShoppingCartIcon} alt="cart" width="40px" />
+          <img src={ShoppingCartIcon} alt="cart" width="35px" />
         </NavLink>
       </div>
     </section>
