@@ -24,7 +24,8 @@ const useStyles = makeStyles({
     padding: '24px',
     '&:first-child': {
       paddingTop: '24px'
-    }
+    },
+    overflow: 'hidden' // fixes flash of scrollbar on first render
   },
   image: {
     borderRadius: '4px'
