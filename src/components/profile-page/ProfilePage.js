@@ -105,7 +105,13 @@ const PurchaseTableData = (props) => {
     <tr>
       <td>{formatDate(purchase.orderDate)}</td>
       <td>{purchase.purchaseTotal}</td>
-      {/* <td style={{ textAlign: 'right' }}>{purchase.lineItem.Quantity}</td> */}
+      <td>
+        <details>
+          <summary>View Purchase Details</summary>
+          <p>{`${purchase.lineItems[0].quantity}  ${purchase.lineItems[0].productName}`}</p>
+        </details>
+      </td>
+
     </tr>
   );
 };
