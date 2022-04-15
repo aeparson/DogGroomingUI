@@ -1,4 +1,4 @@
-form {
+.profileContainer {
     display: block;
     box-sizing: border-box;
   
@@ -16,9 +16,19 @@ form {
     color: #666666;
     margin: 0 0 1em 0;
   }
+
+  .input{
+  color: black;
+  font-size: 120%;
+  }
   
+  h4 {
+    color: #666666;
+  }
 
 .underline {
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    text-transform: uppercase;
+    color: #666666;
 }
   
