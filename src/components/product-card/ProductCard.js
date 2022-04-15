@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -56,6 +57,7 @@ const ProductCard = ({ product }) => {
   const { dispatch } = useCart();
 
   const onAdd = () => {
+    toast.success(`1 ${product.title} successfully added to cart.`);
     dispatch(
       {
         type: 'add',
