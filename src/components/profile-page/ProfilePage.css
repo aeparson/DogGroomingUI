@@ -1,6 +1,7 @@
 .profileContainer {
     display: block;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
+    width: 50%;
   
     border-radius: 2px;
     border-color: #666666;
@@ -20,6 +21,8 @@
   .input{
   color: black;
   font-size: 120%;
+  display: flex;
+
   }
   
   h4 {
