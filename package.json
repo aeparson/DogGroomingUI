@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
+    "@types/material-ui": "^0.21.12",
     "@typescript-eslint/parser": "^4.15.0",
     "clsx": "^1.1.1",
     "eslint-config-airbnb": "^18.2.1",
