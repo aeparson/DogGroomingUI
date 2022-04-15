@@ -1,18 +1,14 @@
 form {
     display: block;
     box-sizing: border-box;
-    border-style: solid;
-    border-radius: 5px;
+  
+    border-radius: 2px;
     border-color: #666666;
     padding: 1em;
     margin: 50px;
     box-shadow: .2em .2em .2em rgba(0,0,0,0.23);
-    background: white;
+    background: #fff;
     
-}
-
-body{
-  background: #1db9bf;
 }
   
   .title {

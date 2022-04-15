@@ -33,6 +33,7 @@ const ProfilePage = ({ user }) => {
             {user.firstName}
             {"'s "}
             User Profile
+            <hr />
           </h2>
           {/* {userData.map((user) => <TableData key={user.email} googleUser={user} />)} */}
           <h3 style={styles} className="underline">
