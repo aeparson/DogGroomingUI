@@ -40,17 +40,19 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#1db9bf' }} className={CreateProductPage}>
-      <h1 className={styles.CreateProductPage}>Create Product</h1>
-      <NewProductForm onChange={handleChange} productData={productData} />
-      <button
-        type="submit"
-        className="createButton"
-        onClick={handleCreate}
-        style={styles.CreateProductPage}
-      >
-        Create Product
-      </button>
+    <div className="wholePage">
+      <div style={{ backgroundColor: '#1db9bf' }} className={CreateProductPage}>
+        <h1 className={styles.CreateProductPage}>Create Product</h1>
+        <NewProductForm onChange={handleChange} productData={productData} />
+        <button
+          type="submit"
+          className="createButton"
+          onClick={handleCreate}
+          style={styles.CreateProductPage}
+        >
+          Create Product
+        </button>
+      </div>
     </div>
   );
 };
