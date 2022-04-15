@@ -69,8 +69,10 @@ function FilterMenu({
                 {item.title}
               </li>
             ))}
-            <li />
-            <Box textAlign="center">
+            <Box
+              className="filter-prod-button"
+              textAlign="center"
+            >
               <Button
                 className="filter-prod-button"
                 onClick={onFilter}

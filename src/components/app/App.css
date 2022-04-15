@@ -40,15 +40,4 @@
   to {
     transform: rotate(360deg);
   }
-<<<<<<< HEAD
-}
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Lato, sans-serif;
-=======
->>>>>>> 98f7bc76a93765727380ebd0e067481dc0ed548f
 }
