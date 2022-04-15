@@ -14,8 +14,6 @@ form {
 body{
   background: #1db9bf;
 }
-
-
   
   .title {
     text-transform: uppercase;
@@ -23,7 +21,8 @@ body{
     margin: 0 0 1em 0;
   }
   
-  .category{
-      color: red;
 
-  }
+.underline {
+    text-decoration: underline;
+}
+  

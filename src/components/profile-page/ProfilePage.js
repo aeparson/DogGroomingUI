@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './ProfilePage.css';
 import Constants from '../../utils/constants';
 // import loginUser from '../header/HeaderService';
@@ -8,6 +8,7 @@ import './ProfilePageService';
 /**
  * @name ProfilePage
  * @description fetches user info from API and displays in a form
+ * @param {user} props Contains a user object
  * @return component
  */
 
@@ -15,9 +16,9 @@ const ProfilePage = ({ user }) => {
   // const [userData, setUserData] = useState([]);
   const [apiError] = useState(false);
 
-  useEffect(() => {
-    // fetchUserData(setUserData, setApiError);
-  }, []);
+  // useEffect(() => {
+  // fetchUserData(setUserData, setApiError);
+  // }, []);
 
   return (
     <>
@@ -27,33 +28,49 @@ const ProfilePage = ({ user }) => {
           {Constants.API_ERROR}
         </p>
         )}
-        <form className={styles.profileContainer}>
-          <h2 className="title"> Your User Profile</h2>
-          {/* {userData.map((user) => <TableData key={user.email} googleUser={user} />)} */}
-          <h3>
-            First Name:
+        <form className="profileContainer">
+          <h2 className="title">
             {user.firstName}
+            {"'s "}
+            User Profile
+          </h2>
+          {/* {userData.map((user) => <TableData key={user.email} googleUser={user} />)} */}
+          <h3 style={styles} className="underline">
+            Name
           </h3>
-          <h3>
+          <h4>
+            First Name:
+            {' '}
+            {user.firstName}
+          </h4>
+          <h4>
             Last Name:
+            {' '}
             {user.lastName}
+          </h4>
+          <h3 style={styles} className="underline">
+            Address
           </h3>
-          <h3>
+          <h4>
             Street:
-            {user.Street}
-          </h3>
-          <h3>
+            {' '}
+            {user.street}
+          </h4>
+          <h4>
             City:
-            {user.email}
-          </h3>
-          <h3>
+            {' '}
+            {user.city}
+          </h4>
+          <h4>
             State:
+            {' '}
             {user.state}
-          </h3>
-          <h3>
+          </h4>
+          <h4>
             Zip:
+            {' '}
             {user.zip}
-          </h3>
+          </h4>
         </form>
       </body>
     </>
