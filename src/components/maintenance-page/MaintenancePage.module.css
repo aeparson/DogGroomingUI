@@ -1,3 +1,24 @@
+.button{
+    background-color: #179297;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin: 4px 2px;
+    padding: 5px ;
+}
+
+.MaintenanceMenu {
+  background-color: whitesmoke;
+}
+
+.scrollable {
+    width: 100%;
+    /* The total height of the viewport minus the height of the header */
+    height: calc(100vh - 135.5px);
+    overflow: auto;
+}
+
 table {
     border-spacing: 0px;
     color: white;
@@ -38,11 +59,4 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
     background-color: #179297;
-}
-
-.scrollable {
-    width: 100%;
-    /* The total height of the viewport minus the height of the header */
-    height: calc(100vh - 50px);
-    overflow: auto;
 }

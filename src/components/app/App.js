@@ -7,6 +7,7 @@ import ProductPage from '../product-page/ProductPage';
 import CheckoutPage from '../checkout-page/CheckoutPage';
 import ConfirmationPage from '../confirmation-page/ConfirmationPage';
 import MaintenancePage from '../maintenance-page/MaintenancePage';
+import CreateProductPage from '../create-product-page/CreateProductPage';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
 import ProfilePage from '../profile-page/ProfilePage';
@@ -28,6 +29,7 @@ const App = () => {
           <Route exact path="/checkout" render={() => <CheckoutPage />} />
           <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
           <Route exact path="/maintenance" render={() => <MaintenancePage />} />
+          <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
           <Route exact path="/profile" render={() => <ProfilePage user={user} />} />
         </Switch>
         <ToastContainer

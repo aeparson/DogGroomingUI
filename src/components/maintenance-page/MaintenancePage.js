@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Constants from '../../utils/constants';
-import './MaintenancePage.module.css';
+import styles from './MaintenancePage.module.css';
 import fetchAllProducts from './MaintenancePageService';
 
 /**
@@ -18,22 +19,29 @@ const MaintenancePage = () => {
 
   return (
     <>
-      {apiError && (
-      <p data-testid="errMsg">
-        {Constants.API_ERROR}
-      </p>
-      )}
-      <div className="scrollable">
-        <table>
-          <thead>
-            <TableHeadings />
-          </thead>
-          <tbody>
-            {products.sort((productA, productB) => productA.id - productB.id)
-              .map((product) => <TableData key={product.id} product={product} />)}
-          </tbody>
-        </table>
-      </div>
+      <>
+        {apiError && (
+        <p data-testid="errMsg">
+          {Constants.API_ERROR}
+        </p>
+        )}
+        <div className="MaintenanceMenu">
+          <NavLink to="/createProductPage">
+            <button className="button" type="button">Create Product</button>
+          </NavLink>
+        </div>
+        <div style={styles} className="scrollable">
+          <table>
+            <thead>
+              <TableHeadings />
+            </thead>
+            <tbody>
+              {products.sort((productA, productB) => productA.id - productB.id)
+                .map((product) => <TableData key={product.id} product={product} />)}
+            </tbody>
+          </table>
+        </div>
+      </>
     </>
   );
 };
