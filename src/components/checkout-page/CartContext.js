@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const CartContext = React.createContext();
 
@@ -15,10 +16,13 @@ function cartReducer(state, action) {
       if (index >= 0) {
         const newState = { ...state };
         newState.products[index].quantity += 1;
+        toast.success(`${newState.products[index].quantity} ${newState.products[index].title}s successfully added to cart.`);
         return {
           ...newState
         };
       }
+
+      toast.success(`${action.product.title} successfully added to cart.`);
       return {
         ...state,
         products: [...state.products, action.product]

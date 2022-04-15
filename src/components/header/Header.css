@@ -20,4 +20,27 @@
 .checkoutItem{
   order:3;
   margin: 10px;
+  position: relative;
+}
+
+.checkoutItem img{
+  width: 40px;
+}
+
+.checkoutBadge{
+    height: 23px;
+    width: 23px;
+    background-color: #179297;
+    border-radius: 25px;
+    position: absolute;
+    top: -6px;
+    right: -7px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+  
 }

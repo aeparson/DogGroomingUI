@@ -6,6 +6,7 @@ import constants from '../../utils/constants';
 import './Header.css';
 import companyLogo from './arrayOfSunshine.png';
 import ShoppingCartIcon from './shopping-trolley.png';
+import { useCart } from '../checkout-page/CartContext';
 
 /**
  * @name Header
@@ -16,6 +17,9 @@ const Header = () => {
   const [user, setUser] = useState('');
   const [googleError, setGoogleError] = useState('');
   const [apiError, setApiError] = useState(false);
+  const {
+    state: { products }
+  } = useCart();
 
   /**
    * @name handleGoogleLoginSuccess
@@ -89,7 +93,8 @@ const Header = () => {
       </div>
       <div className="checkoutItem">
         <NavLink to="/checkout">
-          <img src={ShoppingCartIcon} alt="cart" width="40px" />
+          <img src={ShoppingCartIcon} alt="cart" />
+          <div className="checkoutBadge">{products.length}</div>
         </NavLink>
       </div>
     </section>
