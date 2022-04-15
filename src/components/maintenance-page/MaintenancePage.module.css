@@ -3,13 +3,15 @@ table {
     color: white;
 }
 
-td, th {
+td,
+th {
     /* No borders on the top and left so each edge only has one border */
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     padding: 4px 3px 4px 3px;
-    white-space: nowrap; 
+    white-space: nowrap;
 }
+
 td {
     /* Numeric fields have inline style to align right */
     text-align: left;
@@ -24,11 +26,12 @@ th {
     background: #d0a800;
 }
 
-th:first-child, td:first-child {
-  /* borders on the left side of the table */
-  border-left: 1px solid black;
+th:first-child,
+td:first-child {
+    /* borders on the left side of the table */
+    border-left: 1px solid black;
 }
-  
+
 tr:nth-child(even) {
     background-color: #1db9bf
 }

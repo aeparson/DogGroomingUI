@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
-import styles from './ProfilePage.css';
+import styles from './ProfilePage.module.css';
 import Constants from '../../utils/constants';
 import fetchUserPurchase from './ProfilePageService';
 
@@ -15,10 +15,6 @@ const ProfilePage = ({ user }) => {
   const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
-
-  }, []);
-
-  useEffect(() => {
     fetchUserPurchase(setPurchase, setApiError);
   }, []);
 
@@ -30,26 +26,28 @@ const ProfilePage = ({ user }) => {
           {Constants.API_ERROR}
         </p>
         )}
-        <form className="profileContainer">
+        <div className="profileContainer">
           <h2 className="title">
-            {user.firstName}
-            {"'s "}
             User Profile
             <hr />
           </h2>
-          {/* {userData.map((user) => <TableData key={user.email} googleUser={user} />)} */}
           <h3 style={styles} className="underline">
             Name
           </h3>
           <h4>
             First Name:
             {' '}
-            {user.firstName}
+            <span className="input">
+              {user.firstName}
+            </span>
           </h4>
           <h4>
             Last Name:
             {' '}
-            {user.lastName}
+            <span className="input">
+              {user.lastName}
+            </span>
+            <hr />
           </h4>
           <h3 style={styles} className="underline">
             Address
@@ -57,28 +55,35 @@ const ProfilePage = ({ user }) => {
           <h4>
             Street:
             {' '}
-            {user.street}
+            <span className="input">
+              {user.street}
+            </span>
           </h4>
           <h4>
             City:
             {' '}
-            {user.city}
+            <span className="input">
+              {user.city}
+            </span>
           </h4>
           <h4>
             State:
             {' '}
-            {user.state}
+            <span className="input">
+              {user.state}
+            </span>
           </h4>
           <h4>
             Zip:
             {' '}
-            {user.zip}
+            <span className="input">
+              {user.zip}
+            </span>
           </h4>
-        </form>
-
+        </div>
       </div>
 
-      <div className={styles.tableDiv}>
+      <div>
         <table>
           <thead>
             <TableHeadings />
@@ -132,8 +137,10 @@ const PurchaseTableData = (props) => {
       <td>{`$ ${purchase.purchaseTotal.toFixed(2)}`}</td>
       <td>
         <details>
-          <summary>View Purchase Details</summary>
+          <summary>click to show products</summary>
           <p>{`${purchase.lineItems[0].quantity}  ${purchase.lineItems[0].productName}`}</p>
+          <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p>
+          <p>{`${purchase.lineItems[2].quantity}  ${purchase.lineItems[2].productName}`}</p>
         </details>
       </td>
 

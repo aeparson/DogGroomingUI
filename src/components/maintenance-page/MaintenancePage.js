@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Constants from '../../utils/constants';
-import styles from './MaintenancePage.css';
-
+import './MaintenancePage.module.css';
 import fetchAllProducts from './MaintenancePageService';
 
 /**
@@ -24,7 +23,7 @@ const MaintenancePage = () => {
         {Constants.API_ERROR}
       </p>
       )}
-      <div style={styles} className="scrollable">
+      <div className="scrollable">
         <table>
           <thead>
             <TableHeadings />

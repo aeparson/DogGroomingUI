@@ -1,0 +1,36 @@
+.profileContainer {
+    display: block;
+    /* box-sizing: border-box; */
+    width: 50%;
+    border-radius: 2px;
+    border-color: #666666;
+    padding: 1em;
+    margin: 50px;
+    box-shadow: .2em .2em .2em rgba(0, 0, 0, 0.23);
+    background: #fff;
+
+}
+
+.title {
+    text-transform: uppercase;
+    color: #666666;
+    margin: 0 0 1em 0;
+}
+
+.input {
+    color: black;
+    font-size: 120%;
+    display: flex;
+
+}
+
+h4 {
+    color: #666666;
+}
+
+.underline {
+    text-transform: uppercase;
+    color: #666666;
+}
+
+/*All Table styling below*/
