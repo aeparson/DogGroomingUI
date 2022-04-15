@@ -57,7 +57,7 @@ const ProductCard = ({ product }) => {
   const { dispatch } = useCart();
 
   const onAdd = () => {
-    toast.success(`1 ${product.title} successfully added to cart.`);
+    toast.success(`1 ${product.name} successfully added to cart.`);
     dispatch(
       {
         type: 'add',
