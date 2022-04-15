@@ -40,7 +40,7 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div className={styles.CreateProductPage}>
+    <div style={{ backgroundColor: '#1db9bf' }} className={CreateProductPage}>
       <h1 className={styles.CreateProductPage}>Create Product</h1>
       <NewProductForm onChange={handleChange} productData={productData} />
       <button

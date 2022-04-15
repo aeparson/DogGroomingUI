@@ -19,6 +19,10 @@
     width: auto;
 }
 
+.createProductPage {
+    min-height: calc(100vh - 100px);
+}
+
 .productFields {
    background-color: #1db9bf;
    color: black;
@@ -28,15 +32,12 @@
    width: auto;
 }
 
-body {
-    background-color: #1db9bf;
-}
-
 h1 {
     color: white;
     text-align: justify;
     text-decoration: underline;
     margin-left: 1.3em;
+    margin-top: 0;
 }
 
 .FormItem_label__3VgYr {
