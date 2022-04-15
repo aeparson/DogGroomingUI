@@ -1,6 +1,8 @@
 import React from 'react';
 import FormItem from '../form/FormItem';
 
+/// summary - Builds the create product page form
+
 const NewProductForm = ({ onChange, productData }) => (
   <div className="productFields">
     <form>

@@ -21,6 +21,7 @@
 
 .createProductPage {
     min-height: calc(100vh - 100px);
+    background-color: #1db9bf;
 }
 
 .productFields {
