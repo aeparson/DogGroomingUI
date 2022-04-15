@@ -38,16 +38,29 @@ const validateZip = (zip) => {
   return 'Must be 5 or 9 numerical digits';
 };
 
+/**
+ * Validates than an email address only has alphanumeric characters in the username
+ * and only alphabetical characters in the domain name.
+ * @param {string} email
+ * @returns
+ */
 const validateEmail = (email) => {
   if (isEmpty(email)) {
     return 'Required';
   }
-  if ((/\w+@[a-z]+\.[a-z]+/i).test(email)) {
+  if ((/^\w+@([a-z]+\.)+[a-z]+$/i).test(email)) {
     return '';
   }
-  return 'Invalid email format';
+  return 'Must be formatted as user@email.com';
 };
 
+/**
+ * Validates that a phone number is formatted as (123)-456-7890
+ * The hyphens can be replaced with spaces or skipped, eg. (123) 4567890
+ * The parentheses are optional, eg. 123456790 or 123-456-7890
+ * @param {string} phone
+ * @returns an empty string if valid, otherwise an error message
+ */
 const validatePhone = (phone) => {
   if (isEmpty(phone)) {
     return 'Required';
@@ -55,37 +68,54 @@ const validatePhone = (phone) => {
   if ((/^\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/).test(phone)) {
     return '';
   }
-  return 'Invalid format';
+  return 'Must be 10 digits, e.g. (123) 456-7890';
 };
 
+/**
+ * Validates that a name only contains alphabetical characters, periods and hyphens
+ * @param {string} name
+ * @returns an empty string if valid, otherwise an error message
+*/
 const validateName = (name) => {
   if (isEmpty(name)) {
     return 'Required';
   }
-  if ((/^[a-zA-Z'-]+$/).test(name)) {
+  if ((/^[a-z'.-]+$/i).test(name)) {
     return '';
   }
-  return 'Invalid Characters';
+  return 'May only contain letters, periods, and hyphens';
 };
 
+/**
+ * Validates that a street address only contains alphanumerical characters,
+ * apostrophes, hyphens, spaces, and periods
+ * @param {string} street
+ * @returns an empty string if valid, otherwise an error message
+*/
 const validateStreet = (street) => {
   if (isEmpty(street)) {
     return 'Required';
   }
-  if ((/^[a-zA-Z '-]+$/).test(street)) {
+  if ((/^[\w '.-]+$/).test(street)) {
     return '';
   }
-  return 'Invalid Characters';
+  return 'Invalid characters';
 };
 
+/**
+ * Validates that a city name only contains alphabetical characters,
+ * apostrophes, hyphens, periods, and spaces
+ * @param {string} city
+ * @returns an empty string if valid, otherwise an error message
+*/
 const validateCity = (city) => {
   if (isEmpty(city)) {
     return 'Required';
   }
-  if ((/^[a-zA-Z '-]+$/).test(city)) {
+  if ((/^[a-z '.-]+$/i).test(city)) {
     return '';
   }
-  return 'Invalid Characters';
+  return 'Invalid characters';
 };
 /**
  * Validates that the cvv is three numerical digits
@@ -194,9 +224,9 @@ const validateCreditCard = ({
   return invalidFields;
 };
 /**
- * Validates that all required address fields are filled in
+ * Validates all address fields
  * @param {Object} deliveryAddress
- * @returns an object with 'required' message entries for empty fields {field: 'Required'}
+ * @returns an object with field errors given as {field: 'message'}
  */
 const validateDelivery = ({
   deliveryState, deliveryZip, deliveryFirstName, deliveryLastName, deliveryCity,
@@ -234,9 +264,9 @@ const validateDelivery = ({
 };
 
 /**
- * Validates that all required address fields are filled in
+ * Validates all required billingAddress fields
  * @param {Object} billingAddress
- * @returns an object with 'required' message entries for empty fields {field: 'Required'}
+ * @returns an object with field errors given as {field: 'message'}
  */
 const validateBilling = ({
   billingState, billingZip, phone, email, billingCity, billingStreet, billingStreet2

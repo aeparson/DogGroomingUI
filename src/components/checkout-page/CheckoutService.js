@@ -28,7 +28,6 @@ export default async function makePurchase(products, deliveryAddress, billingAdd
   })
     .then((response) => {
       if (response.ok) {
-        console.log(response);
         return response.json();
       }
       throw new Error(Constants.API_ERROR);
