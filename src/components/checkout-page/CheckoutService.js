@@ -12,7 +12,7 @@ export default async function makePurchase(products, deliveryAddress, billingAdd
   creditCard) {
   const removePunctuation = (data) => data.replace(/[^\w]|_/g, '');
   return HttpHelper(Constants.PURCHASE_ENDPOINT, 'POST', {
-    products,
+    lineItems: products,
     deliveryAddress: {
       ...deliveryAddress,
       // 12345-6789 => 123456789

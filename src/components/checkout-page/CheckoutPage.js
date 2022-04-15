@@ -64,7 +64,9 @@ const CheckoutPage = () => {
       invalidBilling
     ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
     // If all fields are valid
-    if (Object.keys(invalidDelivery).length === 0 && Object.keys(invalidBilling).length === 0) {
+    if (Object.keys(invalidDelivery).length === 0
+     && Object.keys(invalidBilling).length === 0
+     && productData.length > 0) {
       makePurchase(productData, deliveryAddress,
         billingAddress, creditCard).then(() => {
         history.push('/confirmation');
