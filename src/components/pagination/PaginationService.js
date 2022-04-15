@@ -22,3 +22,17 @@ export default async function fetchActiveProducts(setProducts, page, setApiError
       setApiError(true);
     });
 }
+
+export async function fetchAllActiveProducts(setProducts, setApiError) {
+  await HttpHelper(Constants.PRODUCT_ENDPOINT, 'GET')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(Constants.API_ERROR);
+    })
+    .then(setProducts)
+    .catch(() => {
+      setApiError(true);
+    });
+}

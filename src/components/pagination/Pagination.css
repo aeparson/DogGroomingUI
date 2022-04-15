@@ -41,7 +41,8 @@
     color: #888;
     pointer-events: none;
   }
-  
+
+  .paginationItem.disappear,
   .prev.disabled,
   .next.disabled {
     display: none;
