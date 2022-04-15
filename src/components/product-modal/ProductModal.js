@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import Dialog from '@material-ui/core/Dialog';
 import {
+  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -21,32 +20,32 @@ import { useCart } from '../checkout-page/CartContext';
 
 const useStyles = makeStyles({
   dialogContent: {
+    overflow: 'hidden', // fixes flash of scrollbar on first render
     padding: '24px',
     '&:first-child': {
       paddingTop: '24px'
-    },
-    overflow: 'hidden' // fixes flash of scrollbar on first render
+    }
   },
   image: {
     borderRadius: '4px'
   },
   titleRow: {
-    position: 'relative',
-    marginBottom: '1rem'
+    marginBottom: '1rem',
+    position: 'relative'
   },
   closeButton: {
     position: 'absolute',
-    top: -12,
-    right: -12
+    right: -12,
+    top: -12
   },
   title: {
     padding: 0
   },
   productDescription: {
+    marginBottom: '2rem',
     '& p': {
       maxWidth: '45ch'
-    },
-    marginBottom: '2rem'
+    }
   },
   productTags: {
     display: 'flex',
@@ -78,7 +77,6 @@ const useStyles = makeStyles({
 
 const getTextColorClass = (backgroundColorCode) => {
   // Thanks to https://stackoverflow.com/a/3943023
-  // assuming that the color code is in the format #HHHHHH
   const colorCode = backgroundColorCode.slice(1);
   const [r, g, b] = [
     colorCode.slice(0, 2),
@@ -123,7 +121,6 @@ const ProductModal = ({ open, product, handleClose }) => {
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="md">
-
       <DialogContent className={classes.dialogContent}>
         <Grid container spacing={3} className={classes.containerGrid}>
           <Grid item xs={6} className={classes.imageWrap}>
@@ -183,11 +180,9 @@ const ProductModal = ({ open, product, handleClose }) => {
                 </IconButton>
               </DialogActions>
             </Box>
-
           </Grid>
         </Grid>
       </DialogContent>
-
     </Dialog>
   );
 };

@@ -36,8 +36,8 @@ const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
       value={quantity}
       onChange={onChange}
       InputProps={inputProps}
-      // not duplicate props, similar names required
-      // by component
+      // not duplicate props, similar names
+      // required by component
       // eslint-disable-next-line react/jsx-no-duplicate-props
       inputProps={inputElementProps}
       variant="outlined"
