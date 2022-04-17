@@ -1,6 +1,6 @@
+
 .profileContainer {
     display: block;
-    /* box-sizing: border-box; */
     width: 50%;
     border-radius: 2px;
     border-color: #666666;
@@ -28,7 +28,7 @@
     color: #666666;
   }
 
-.underline {
+.category {
     text-transform: uppercase;
     color: #666666;
 }

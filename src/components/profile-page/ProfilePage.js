@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styles from './ProfilePage.css';
 import Constants from '../../utils/constants';
 
-import './ProfilePageService';
-
 /**
  * @name ProfilePage
  * @description displays in a form of logged in user data
@@ -12,12 +10,7 @@ import './ProfilePageService';
  */
 
 const ProfilePage = ({ user }) => {
-  // const [userData, setUserData] = useState([]);
   const [apiError] = useState(false);
-
-  // useEffect(() => {
-  // fetchUserData(setUserData, setApiError);
-  // }, []);
 
   return (
     <>
@@ -51,7 +44,7 @@ const ProfilePage = ({ user }) => {
               </span>
               <hr />
             </h4>
-            <h3 style={styles} className="underline">
+            <h3 style={styles} className="category">
               Address
             </h3>
             <h4>
