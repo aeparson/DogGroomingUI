@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Pagination from '../pagination/Pagination';
 import ProductCard from '../product-card/ProductCard';
+import Pagination from '../pagination/Pagination';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
-import fetchActiveProducts, { fetchAllActiveProducts } from '../pagination/PaginationService';
+import fetchActiveProducts from '../pagination/PaginationService';
 
 /**
  * @name ProductPage
@@ -12,41 +12,37 @@ import fetchActiveProducts, { fetchAllActiveProducts } from '../pagination/Pagin
  */
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
-  const [totalProducts, setTotalProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    fetchAllActiveProducts(setTotalProducts, setApiError);
-  }, []);
   useEffect(() => {
     fetchActiveProducts(setProducts, page, setApiError);
   }, [page]);
 
   return (
     <div>
+      {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
+      <div className={styles.app}>
+        {products.map((product) => (
+          <div key={product.id}>
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
       <div>
-        {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
-        <div className={styles.app}>
-          {products.map((product) => (
-            <div key={product.id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-        <div>
-          {products.length > 0 ? (
+        {products.length > 0 ? (
+          <>
             <Pagination
               setPage={setPage}
-              products={totalProducts}
-              updateProducts={setTotalProducts}
+              products={products}
+              updateProducts={setProducts}
               pageLimit={9}
               dataLimit={20}
             />
-          ) : (
-            <h1>No products to display</h1>
-          )}
-        </div>
+          </>
+        ) : (
+          <h1>No Posts to display</h1>
+        )}
       </div>
     </div>
   );

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './Pagination.css';
 
 const Pagination = ({
-  setPage, dataLimit, pageLimit
+  setPage, pageLimit
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalProducts] = useState(1);
-  const [setPages] = useState(Math.round(totalProducts?.length / dataLimit));
+  // const [products] = useState(1);
+  // const [setPages] = useState(Math.round(totalProducts?.length / dataLimit));
 
   // scroll to top
   // useEffect(() => {
@@ -32,7 +32,8 @@ const Pagination = ({
   // make a group of pages
   const getPaginationGroup = () => {
     const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
-    // const dynamicProductAmount = setTotalProducts?.Length / dataLimit;
+    // eslint-disable-next-line prefer-const
+    // let dynamicProductAmount = Number(setTotalProducts?.Length / dataLimit);
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
   };
   return (
@@ -69,7 +70,7 @@ const Pagination = ({
           type="button"
           onClick={goToNextPage}
           icon="right arrow"
-          className={`next ${currentPage === setPages?.length ? 'disabled' : ''}`}
+          className={`next ${currentPage === 27 ? 'disabled' : ''}`}
         >
           →
         </button>

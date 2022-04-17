@@ -10,7 +10,7 @@ import Constants from '../../utils/constants';
  * @returns sets state for products if 200 response, else sets state for apiError
  */
 export default async function fetchActiveProducts(setProducts, page, setApiError) {
-  await HttpHelper(`${Constants.PRODUCT_ENDPOINT}?page=${page}`, 'GET')
+  await HttpHelper(`${Constants.PAGED_ENDPOINT}&page=${page}`, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -19,20 +19,6 @@ export default async function fetchActiveProducts(setProducts, page, setApiError
     })
     .then(setProducts)
     .catch(() => {
-      setApiError(true);
-    });
-}
-
-export async function fetchAllActiveProducts(setTotalProducts, setApiError) {
-  await HttpHelper(Constants.PRODUCT_ENDPOINT, 'GET')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(Constants.API_ERROR);
-    })
-    .then(setTotalProducts)
-    .catch(() => {
-      setApiError(true);
+      setApiError(false);
     });
 }
