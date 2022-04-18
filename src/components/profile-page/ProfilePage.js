@@ -13,7 +13,7 @@ const ProfilePage = ({ user }) => {
   const [apiError] = useState(false);
 
   return (
-    <>
+    <body>
       <div className="container">
         {apiError && (
         <p data-testid="errMsg">
@@ -78,7 +78,7 @@ const ProfilePage = ({ user }) => {
           </p>
         </div>
       </div>
-    </>
+    </body>
   );
 };
 

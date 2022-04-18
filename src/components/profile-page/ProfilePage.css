@@ -1,4 +1,8 @@
 
+body{
+  background: #179297;
+}
+
 .profileContainer {
     display: block;
     width: 50%;
