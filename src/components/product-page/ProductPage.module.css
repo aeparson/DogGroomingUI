@@ -1,9 +1,20 @@
 .app {
   display: grid;
   grid-gap: 15px;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   justify-content: space-evenly;
   margin: 20px;
+  margin-left: 20px;
+  transition: 850ms;
+}
+.pushed {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  justify-content: space-evenly;
+  margin: 20px;
+  margin-left: 270px;
+  transition: 350ms;
 }
 
 .errMsg {
