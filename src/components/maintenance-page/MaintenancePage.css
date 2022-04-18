@@ -24,19 +24,19 @@ table {
     color: white;
 }
 
-.scrollable td, .scrollable th {
+td, th {
     /* No borders on the top and left so each edge only has one border */
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     padding: 4px 3px 4px 3px;
     white-space: nowrap; 
 }
-.scrollable td {
+td {
     /* Numeric fields have inline style to align right */
     text-align: left;
 }
 
-.scrollable th {
+th {
     position: sticky;
     top: 0px;
     /* Borders on the top because the headers are the top row */
@@ -45,12 +45,12 @@ table {
     background: #d0a800;
 }
 
-.scrollable th:first-child, .scrollable td:first-child {
+th:first-child, td:first-child {
   /* borders on the left side of the table */
   border-left: 1px solid black;
 }
   
-.scrollable tr:nth-child(even) {
+tr:nth-child(even) {
     background-color: #1db9bf
 }
 
