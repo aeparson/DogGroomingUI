@@ -15,21 +15,24 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [page, setPage] = useState(0);
-  const [setCurrentPage] = useState(1);
-  const [setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     fetchActiveProducts(setProducts, page, setApiError);
   }, [page]);
   useEffect(() => {
-    fetchProductsCount(setCount);
-  }, [setCount]);
+    fetchProductsCount(setCount, setApiError);
+  }, []);
 
-  const handlePageClick = (event) => {
-    const pageNumber = Number(event.target.innerHTML);
-    setCurrentPage(pageNumber);
-    setPage(pageNumber - 1);
+  const totalNumberOfPages = () => {
+    const dataLimit = 20;
+    const totalPages = Math.ceil(count / dataLimit);
+    return totalPages;
   };
+
+  function handlePageClick({ selected: selectedPage }) {
+    setPage(selectedPage);
+  }
 
   return (
     <div>
@@ -58,10 +61,10 @@ const ProductPage = () => {
       </div>
       <div>
         <ReactPaginate
-          previousLabel="<"
-          nextLabel=">"
+          previousLabel="←"
+          nextLabel="→"
           breakLabel=""
-          pageCount="20"
+          pageCount={totalNumberOfPages()}
           marginPagesDisplayed={0}
           pageRangeDisplayed={9}
           onPageChange={handlePageClick}

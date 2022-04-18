@@ -34,12 +34,12 @@ const Pagination = ({
   }
   // change current page to clicked page number
   function changePage(event) {
-    const pageNumber = Number(event.target.innerHTML);
+    const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
     setPage(pageNumber - 1);
   }
 
-  // generate page numbers
+  // generate page numbers array
   const pageNumber = [];
   // eslint-disable-next-line no-plusplus
   for (let i = 1; i <= Math.ceil(count / dataLimit); i++) {
@@ -48,9 +48,9 @@ const Pagination = ({
 
   // make a group of pages
   const getPaginationGroup = () => {
-    const totalPages = Math.ceil(count / dataLimit);
+    // const totalPages = Math.ceil(count / dataLimit);
     const start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
-    return new Array(totalPages).fill().map((_, idx) => start + idx + 1);
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
   };
 
   return (
