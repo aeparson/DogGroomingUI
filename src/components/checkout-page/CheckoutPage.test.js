@@ -100,7 +100,7 @@ describe('Checkout Page Component Tests', () => {
       userEvent.click(screen.getByText('Checkout'));
     });
 
-    expect(toastCalls).toEqual(['Transaction could not be processed']);
+    expect(toastCalls).toEqual(['Please correct errors and try again']);
     expect(mockHistory).not.toHaveBeenCalled();
   });
 });
