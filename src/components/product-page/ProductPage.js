@@ -18,6 +18,9 @@ const ProductPage = () => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    window.scrollTo({ behavior: 'smooth', top: '0px' });
+  }, [page]);
+  useEffect(() => {
     fetchActiveProducts(setProducts, page, setApiError);
   }, [page]);
   useEffect(() => {
