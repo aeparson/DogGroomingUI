@@ -17,6 +17,7 @@ const formatDate = (dateString) => {
   const day = date.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
 const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
@@ -27,17 +28,26 @@ const ProfilePage = ({ user }) => {
 
   const PurchaseTableData = (props) => {
     const { purchase } = props;
-    console.log(purchases[0].lineItems[1].productName);
 
     return (
       <tr>
         <td>{formatDate(purchase.orderDate)}</td>
-        <td>{`$ ${purchase.purchaseTotal.toFixed(2)}`}</td>
+        <td>{`$${purchase.purchaseTotal.toFixed(2)}`}</td>
         <td>
           <details>
             <summary>click to show products</summary>
-            <p>{`${purchases.map(purchases[0].lineItems[1].quantity)}`}</p>
-            {/* <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p> */}
+            <div className={styles.purchaseDetails}>
+              {purchase.lineItems.map((lineItem) => (
+                <div key={lineItem.productId}>
+                  <p>
+                    {' '}
+                    {lineItem.quantity}
+                    {' '}
+                    {lineItem.productName}
+                  </p>
+                </div>
+              ))}
+            </div>
           </details>
         </td>
 

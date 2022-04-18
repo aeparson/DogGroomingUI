@@ -57,7 +57,14 @@
 }
 
 .purchaseHistoryTable table {
-  color: white;
+    display: block;
+    width: 50%;
+    border-radius: 2px;
+    border-color: #666666;
+    padding: 1em;
+    margin: 50px;
+    box-shadow: .2em .2em .2em rgba(0,0,0,0.23);
+    background: #fff;
 }
 
 .purchaseHistoryTable td,
