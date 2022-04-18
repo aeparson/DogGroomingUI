@@ -5,10 +5,10 @@ import Constants from '../../utils/constants';
 import fetchUserPurchase from './ProfilePageService';
 
 /**
- * @name ProfilePage
- * @description fetches user info from API and displays in a form
- * @return component
- */
+ *
+ * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
+ * @returns {string} Formatted date (YYYY-MM-DD)
+*/
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const year = date.getFullYear();
@@ -18,6 +18,11 @@ const formatDate = (dateString) => {
   return `${year}-${month}-${day}`;
 };
 
+/**
+ * @name ProfilePage
+ * @description fetches user info from API and displays in a form
+ * @return component
+ */
 const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
@@ -152,33 +157,4 @@ const TableHeadings = () => (
   </tr>
 );
 
-/**
- *
- * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
- * @returns {string} Formatted date (YYYY-MM-DD)
-*/
-
-/**
- * @description a row of table data for purchase history
- * @param {Object} purchase Contains a purchase object
- * @returns component
- */
-// const PurchaseTableData = (props) => {
-//   const { purchase } = props;
-
-//   return (
-//     <tr>
-//       <td>{formatDate(purchase.orderDate)}</td>
-//       <td>{`$ ${purchase.purchaseTotal.toFixed(2)}`}</td>
-//       <td>
-//         <details>
-//           <summary>click to show products</summary>
-//           <p>{`${purchases.map(purchase.lineItems.quantity)}  ${purchase.map(purchase.lineItems.productName)}`}</p>
-//           {/* <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p> */}
-//         </details>
-//       </td>
-
-//     </tr>
-//   );
-// };
 export default ProfilePage;
