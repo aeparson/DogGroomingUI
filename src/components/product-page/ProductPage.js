@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Box } from '@mui/system';
 import ProductCard from '../product-card/ProductCard';
-import Pagination from '../pagination/Pagination';
 // import thing from '../app/App.css';
 import thing from './ProductPage.module.css';
 import Constants from '../../utils/constants';
@@ -65,21 +64,6 @@ const ProductPage = () => {
           ))}
         </div>
       </Box>
-      <div>
-        {products.length > 0 ? (
-          <>
-            <Pagination
-              setPage={setPage}
-              products={products}
-              updateProducts={setProducts}
-              dataLimit={20}
-              pageLimit={9}
-            />
-          </>
-        ) : (
-          <h1>No Posts to display</h1>
-        )}
-      </div>
       <div>
         <ReactPaginate
           previousLabel="←"

@@ -22,7 +22,14 @@ export default async function fetchActiveProducts(setProducts, page, setApiError
       setApiError(false);
     });
 }
-
+/**
+ *
+ * @name fetchProductsCount
+ * @description Utilizes HttpHelper to make a get request to an API
+ * @param {*} setCount sets state for amount of products
+ * @param {*} setApiError sets error if response other than 200 is returned
+ * @returns sets state for product count if 200 response, else sets state for apiError
+ */
 export async function fetchProductsCount(setCount, setApiError) {
   await HttpHelper(Constants.PRODUCT_COUNT_ENDPOINT, 'GET')
     .then((response) => {
