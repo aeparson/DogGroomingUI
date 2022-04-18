@@ -15,8 +15,8 @@ const ProfilePage = ({ user }) => {
   const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
-    fetchUserPurchase(setPurchase, setApiError);
-  }, []);
+    fetchUserPurchase(setPurchase, setApiError, user);
+  }, [user]);
 
   return (
     <>
@@ -84,15 +84,18 @@ const ProfilePage = ({ user }) => {
       </div>
 
       <div>
-        <table>
-          <thead>
-            <TableHeadings />
-          </thead>
-          <tbody>
-            {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
-              .map((purchase) => <PurchaseTableData key={purchase.OrderDate} purchase={purchase} />)}
-          </tbody>
-        </table>
+        <details>
+          <summary>View Purchase History</summary>
+          <table>
+            <thead>
+              <TableHeadings />
+            </thead>
+            <tbody>
+              {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
+                .map((purchase) => <PurchaseTableData key={purchase.OrderDate} purchase={purchase} />)}
+            </tbody>
+          </table>
+        </details>
       </div>
     </>
 
@@ -140,7 +143,6 @@ const PurchaseTableData = (props) => {
           <summary>click to show products</summary>
           <p>{`${purchase.lineItems[0].quantity}  ${purchase.lineItems[0].productName}`}</p>
           <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p>
-          <p>{`${purchase.lineItems[2].quantity}  ${purchase.lineItems[2].productName}`}</p>
         </details>
       </td>
 

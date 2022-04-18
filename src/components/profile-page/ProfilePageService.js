@@ -8,8 +8,8 @@ import Constants from '../../utils/constants';
  * @param {*} setApiError sets error if response other than 200 is returned
  * @returns sets state for data if 200 response, else sets state for apiError
  */
-async function fetchUserPurchase(setPurchase, setApiError) {
-  await HttpHelper(`${Constants.PURCHASE_ENDPOINT}/aparson@catalyte.io`, 'GET')
+async function fetchUserPurchase(setPurchase, setApiError, user) {
+  await HttpHelper(`${Constants.PURCHASE_ENDPOINT}/${user.email}`, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
