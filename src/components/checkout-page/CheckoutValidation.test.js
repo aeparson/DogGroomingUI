@@ -107,26 +107,10 @@ describe('Checkout Page Validation Tests', () => {
       .toEqual({});
   });
 
-  it('validates that cardholder contains only letters, hyphens, or apostrophes', () => {
+  it('validates that cardholder contains only letters, spaces, hyphens, or apostrophes', () => {
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: 'Typo @' })[1].cardholder).toEqual('Invalid characters');
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: '& Typo' })[1].cardholder).toEqual('Invalid characters');
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: '|_(^_^)_/*' })[1].cardholder).toEqual('Invalid characters');
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: 'Cthulu Amon-Gorloth-Ayi\'ig' })[1]).toEqual({});
-  });
-
-  it('validates that phone number is formatted correctly', () => {
-
-  });
-
-  it('validates that zip code is formatted correctly', () => {
-
-  });
-
-  it('validates that email is formatted correctly', () => {
-
-  });
-
-  it('validates that first and last name only contain alphabetical characters, hyphens, and apostrophes', () => {
-
   });
 });

@@ -64,9 +64,10 @@ const CheckoutPage = () => {
       invalidBilling
     ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
     // If all fields are valid
-    if (Object.keys(invalidDelivery).length === 0
-     && Object.keys(invalidBilling).length === 0
-     && productData.length > 0) {
+    if (productData.length === 0) {
+      toast.error('No products in cart');
+    } else if (Object.keys(invalidDelivery).length === 0
+     && Object.keys(invalidBilling).length === 0) {
       makePurchase(productData, deliveryAddress,
         billingAddress, creditCard).then(() => {
         history.push('/confirmation');
@@ -76,11 +77,11 @@ const CheckoutPage = () => {
       });
     } else {
       setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
-      toast.error('Transaction could not be processed');
+      toast.error('Please correct errors and try again');
     }
   };
   const handlePay = async () => {
-    const productData = products.map(({ id, quantity }) => ({ id, quantity }));
+    const productData = products.map(({ productId, quantity }) => ({ productId, quantity }));
     const deliveryAddress = {
       deliveryFirstName: deliveryData.deliveryFirstName,
       deliveryLastName: deliveryData.deliveryLastName,
