@@ -54,6 +54,6 @@ tr:nth-child(even) {
     background-color: #1db9bf
 }
 
-.scrollable tr:nth-child(odd) {
+tr:nth-child(odd) {
     background-color: #179297;
 }
