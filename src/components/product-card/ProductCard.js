@@ -74,8 +74,8 @@ const ProductCard = ({ product }) => {
   };
 
   const onAdd = (event) => {
-    event.stopPropagation();
     toast.success(`1 ${product.name} successfully added to cart.`);
+    event.stopPropagation();
     dispatch(
       {
         type: 'add',
