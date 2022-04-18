@@ -1,6 +1,6 @@
-
 body{
-  background: #179297;
+  /* background:#179297; */
+  /* background-color: #5CE1E6 */
 }
 
 .profileContainer {
@@ -22,12 +22,11 @@ body{
   }
 
   .input{
-  color: black;
-  font-size: 120%;
-  display: flex;
-
+    color: black;
+    font-size: 120%;
+    display: flex;
   }
-  
+
   h4 {
     color: #666666;
   }
