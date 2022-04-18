@@ -3,7 +3,8 @@ import ReactPaginate from 'react-paginate';
 import { Box } from '@mui/system';
 import ProductCard from '../product-card/ProductCard';
 import Pagination from '../pagination/Pagination';
-import { styles, thing } from './ProductPage.module.css';
+// import thing from '../app/App.css';
+import thing from './ProductPage.module.css';
 import Constants from '../../utils/constants';
 import fetchActiveProducts, { fetchProductsCount } from '../pagination/PaginationService';
 import FilterMenu from '../filter-menu/FilterMenu';
@@ -49,14 +50,21 @@ const ProductPage = () => {
 
   return (
     <div>
-      {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
-      <div className={styles.app}>
-        {products.map((product) => (
-          <div key={product.id}>
-            <ProductCard product={product} />
-          </div>
-        ))}
-      </div>
+      <Box>
+        <FilterMenu
+          setWebRoute={setWebRoute}
+          onFilter={filterByDemographic}
+          pushover={setSidebarOpen}
+        />
+        {apiError && <p className={thing.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
+        <div className={sidebarOpen ? thing.pushed : thing.app}>
+          {products.map((product) => (
+            <div key={product.id}>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      </Box>
       <div>
         {products.length > 0 ? (
           <>
@@ -94,21 +102,6 @@ const ProductPage = () => {
           diabledClassName="disabled"
         />
       </div>
-      <Box>
-        <FilterMenu
-          setWebRoute={setWebRoute}
-          onFilter={filterByDemographic}
-          pushover={setSidebarOpen}
-        />
-        {apiError && <p className={thing.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
-        <div className={sidebarOpen ? thing.pushed : thing.app}>
-          {products.map((product) => (
-            <div key={product.id}>
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-      </Box>
     </div>
   );
 };
