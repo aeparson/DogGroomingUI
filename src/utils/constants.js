@@ -8,7 +8,7 @@ module.exports = Object.freeze({
 
   PRODUCT_ENDPOINT: '/products/active',
 
-  PAGED_ENDPOINT: '/products/paged?itemsperpage=20',
+  PRODUCT_COUNT_ENDPOINT: '/products/count',
 
   ALL_PRODUCTS_ENDPOINT: '/products',
   GOOGLE_CLIENT_ID:

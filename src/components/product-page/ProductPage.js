@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import ProductCard from '../product-card/ProductCard';
 import Pagination from '../pagination/Pagination';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
-import fetchActiveProducts from '../pagination/PaginationService';
+import fetchActiveProducts, { fetchProductsCount } from '../pagination/PaginationService';
 
 /**
  * @name ProductPage
@@ -14,10 +15,21 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [page, setPage] = useState(0);
+  const [setCurrentPage] = useState(1);
+  const [setCount] = useState(0);
 
   useEffect(() => {
     fetchActiveProducts(setProducts, page, setApiError);
   }, [page]);
+  useEffect(() => {
+    fetchProductsCount(setCount);
+  }, [setCount]);
+
+  const handlePageClick = (event) => {
+    const pageNumber = Number(event.target.innerHTML);
+    setCurrentPage(pageNumber);
+    setPage(pageNumber - 1);
+  };
 
   return (
     <div>
@@ -36,13 +48,35 @@ const ProductPage = () => {
               setPage={setPage}
               products={products}
               updateProducts={setProducts}
-              pageLimit={9}
               dataLimit={20}
+              pageLimit={9}
             />
           </>
         ) : (
           <h1>No Posts to display</h1>
         )}
+      </div>
+      <div>
+        <ReactPaginate
+          previousLabel="<"
+          nextLabel=">"
+          breakLabel=""
+          pageCount="20"
+          marginPagesDisplayed={0}
+          pageRangeDisplayed={9}
+          onPageChange={handlePageClick}
+          containerClassName="pagination justify-content-center"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-item"
+          activeClassName="active"
+          diabledClassName="disabled"
+        />
       </div>
     </div>
   );
