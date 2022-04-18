@@ -34,29 +34,44 @@
 
 
 /*All Table styling below*/
-.purchaseHistoryTable summary > * {
-  display: inline;
+.lineItems {
+  vertical-align: top;
+  white-space: wrap;
+}
+
+.purchaseDetails {
+  vertical-align: top;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+  padding: 10px;
 }
 
 .purchaseHistoryTable p {
-    color: white;
+  color: white;
+  width: 95%;
+  font-weight: normal;
 }
+
+.purchaseHistoryTable summary > * {
+  display: inline;
+  color: #666666;
+}
+
 .viewPurchaseHistory {
-  color: black;
+  /* purchase history div that creates a box around the table. */
+  color: #666666;
   font-weight: bold;
   font-size: 120%;
+  text-transform: uppercase;
 }
 
-.purchaseHistoryTable summary {
+/* .purchaseHistoryTable summary {
   margin-left: 10px;
-}
+} */
+
+
 .purchaseHistoryTable {
-    display: flex;  
-
-    width: 50%;
-}
-
-.purchaseHistoryTable table {
     display: block;
     width: 50%;
     border-radius: 2px;
@@ -67,30 +82,41 @@
     background: #fff;
 }
 
-.purchaseHistoryTable td,
+.purchaseHistoryTable details {
+  width: 100%;
+}
+
+.purchaseHistoryTable table {
+  width: 100%;
+}
+
+/* .purchaseHistoryTable td,
 .purchaseHistoryTable th {
     border: 1px solid black;
     padding: 4px 3px 4px 3px;
-    white-space: nowrap;
-}
+    color: white;
+} */
 
 .purchaseHistoryTable td {
     text-align: center;
+    color: white;
+    font-weight: bold;
+    padding-top: 3px;
 }
 
 .purchaseHistoryTable th {
+    color: white;
     position: sticky;
     top: 0px;
-    border-top: 1px solid black;
+    /* border: 1px solid black; */
     text-align: center;
-    background: #d0a800;
-    width: 50%;
+    width: 25%;
 }
 
-.purchaseHistoryTable th:first-child,
+/* .purchaseHistoryTable th:first-child,
 .purchaseHistoryTable td:first-child {
     border-left: 1px solid black;
-}
+} */
 
 .purchaseHistoryTable tr:nth-child(even) {
     background-color: #1db9bf
@@ -99,3 +125,4 @@
 .purchaseHistoryTable tr:nth-child(odd) {
     background-color: #179297;
 }
+

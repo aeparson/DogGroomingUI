@@ -36,12 +36,12 @@ const ProfilePage = ({ user }) => {
 
     return (
       <tr>
-        <td>{formatDate(purchase.orderDate)}</td>
-        <td>{`$${purchase.purchaseTotal.toFixed(2)}`}</td>
+        <td className={styles.lineItems}>{formatDate(purchase.orderDate)}</td>
+        <td className={styles.lineItems}>{`$${purchase.purchaseTotal.toFixed(2)}`}</td>
         <td>
-          <details>
-            <summary>click to show products</summary>
-            <div className={styles.purchaseDetails}>
+          <details className={styles.purchaseDetails}>
+            <summary className={styles.lineItems}>click to show products</summary>
+            <div>
               {purchase.lineItems.map((lineItem) => (
                 <div key={lineItem.productId}>
                   <p>
@@ -130,6 +130,7 @@ const ProfilePage = ({ user }) => {
       <div className={styles.purchaseHistoryTable}>
         <details>
           <summary><h3 className={styles.viewPurchaseHistory}>View Purchase History</h3></summary>
+          <hr />
           <table>
             <thead>
               <TableHeadings />
