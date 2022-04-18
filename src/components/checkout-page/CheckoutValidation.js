@@ -32,7 +32,7 @@ const validateZip = (zip) => {
   if (isEmpty(zip)) {
     return 'Required';
   }
-  if ((/^\d{5}(-\d{4})?$/).test(zip)) {
+  if ((/^\d{5}(-?\d{4})?$/).test(zip)) {
     return '';
   }
   return 'Must be 5 or 9 numerical digits';
