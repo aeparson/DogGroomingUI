@@ -83,9 +83,9 @@ const ProfilePage = ({ user }) => {
         </div>
       </div>
 
-      <div>
+      <div className="purcahseHistoryDiv">
         <details>
-          <summary>View Purchase History</summary>
+          <summary><h3 className="viewPurchaseHistory">View Purchase History</h3></summary>
           <table>
             <thead>
               <TableHeadings />

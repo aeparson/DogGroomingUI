@@ -34,9 +34,25 @@
 
 
 /*All Table styling below*/
-summary {
+#showProducts {
+    color: white !important;
+    font-weight: normal !important;
+}
+
+summary > * {
+  display: inline;
+}
+
+p {
+    color: white;
+}
+
+.viewPurchaseHistory {
   color: black;
   font-weight: bold;
   font-size: 120%;
-  margin: 10px;
+}
+
+summary {
+  margin-left: 10px;
 }
