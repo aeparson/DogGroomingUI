@@ -12,20 +12,20 @@
   background-color: whitesmoke;
 }
 
-.scrollable {
+.maintenanceTable {
     width: 100%;
     /* The total height of the viewport minus the height of the header */
     height: calc(100vh - 135.5px);
     overflow: auto;
 }
 
-table {
+.maintenanceTable table {
     border-spacing: 0px;
     color: white;
 }
 
-td,
-th {
+.maintenanceTable td,
+.maintenanceTable th {
     /* No borders on the top and left so each edge only has one border */
     border-bottom: 1px solid black;
     border-right: 1px solid black;
@@ -33,12 +33,12 @@ th {
     white-space: nowrap;
 }
 
-td {
+.maintenanceTable td {
     /* Numeric fields have inline style to align right */
     text-align: left;
 }
 
-th {
+.maintenanceTable th {
     position: sticky;
     top: 0px;
     /* Borders on the top because the headers are the top row */
@@ -47,16 +47,16 @@ th {
     background: #d0a800;
 }
 
-th:first-child,
-td:first-child {
+.maintenanceTable th:first-child,
+.maintenanceTable td:first-child {
     /* borders on the left side of the table */
     border-left: 1px solid black;
 }
 
-tr:nth-child(even) {
+.maintenanceTable tr:nth-child(even) {
     background-color: #1db9bf
 }
 
-tr:nth-child(odd) {
+.maintenanceTable tr:nth-child(odd) {
     background-color: #179297;
 }

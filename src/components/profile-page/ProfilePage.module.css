@@ -34,25 +34,61 @@
 
 
 /*All Table styling below*/
-#showProducts {
-    color: white !important;
-    font-weight: normal !important;
-}
-
-summary > * {
+.purchaseHistoryTable summary > * {
   display: inline;
 }
 
-p {
+.purchaseHistoryTable p {
     color: white;
 }
-
 .viewPurchaseHistory {
   color: black;
   font-weight: bold;
   font-size: 120%;
 }
 
-summary {
+.purchaseHistoryTable summary {
   margin-left: 10px;
+}
+.purchaseHistoryTable {
+    display: flex;  
+
+    width: 50%;
+}
+
+.purchaseHistoryTable table {
+  color: white;
+}
+
+.purchaseHistoryTable td,
+.purchaseHistoryTable th {
+    border: 1px solid black;
+    padding: 4px 3px 4px 3px;
+    white-space: nowrap;
+}
+
+.purchaseHistoryTable td {
+    text-align: center;
+}
+
+.purchaseHistoryTable th {
+    position: sticky;
+    top: 0px;
+    border-top: 1px solid black;
+    text-align: center;
+    background: #d0a800;
+    width: 50%;
+}
+
+.purchaseHistoryTable th:first-child,
+.purchaseHistoryTable td:first-child {
+    border-left: 1px solid black;
+}
+
+.purchaseHistoryTable tr:nth-child(even) {
+    background-color: #1db9bf
+}
+
+.purchaseHistoryTable tr:nth-child(odd) {
+    background-color: #179297;
 }

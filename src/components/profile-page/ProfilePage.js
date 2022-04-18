@@ -9,7 +9,14 @@ import fetchUserPurchase from './ProfilePageService';
  * @description fetches user info from API and displays in a form
  * @return component
  */
-
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  // months are zero-indexed
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
@@ -18,74 +25,96 @@ const ProfilePage = ({ user }) => {
     fetchUserPurchase(setPurchase, setApiError, user);
   }, [user]);
 
+  const PurchaseTableData = (props) => {
+    const { purchase } = props;
+    console.log(purchases[0].lineItems[1].productName);
+
+    return (
+      <tr>
+        <td>{formatDate(purchase.orderDate)}</td>
+        <td>{`$ ${purchase.purchaseTotal.toFixed(2)}`}</td>
+        <td>
+          <details>
+            <summary>click to show products</summary>
+            <p>{`${purchases.map(purchases[0].lineItems[1].quantity)}`}</p>
+            {/* <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p> */}
+          </details>
+        </td>
+
+      </tr>
+    );
+  };
+
   return (
     <>
-      <div className="container">
+      <div className={styles.container}>
         {apiError && (
         <p data-testid="errMsg">
           {Constants.API_ERROR}
         </p>
         )}
-        <div className="profileContainer">
-          <h2 className="title">
-            User Profile
-            <hr />
-          </h2>
-          <h3 style={styles} className="underline">
-            Name
-          </h3>
-          <h4>
-            First Name:
-            {' '}
-            <span className="input">
-              {user.firstName}
-            </span>
-          </h4>
-          <h4>
-            Last Name:
-            {' '}
-            <span className="input">
-              {user.lastName}
-            </span>
-            <hr />
-          </h4>
-          <h3 style={styles} className="underline">
-            Address
-          </h3>
-          <h4>
-            Street:
-            {' '}
-            <span className="input">
-              {user.street}
-            </span>
-          </h4>
-          <h4>
-            City:
-            {' '}
-            <span className="input">
-              {user.city}
-            </span>
-          </h4>
-          <h4>
-            State:
-            {' '}
-            <span className="input">
-              {user.state}
-            </span>
-          </h4>
-          <h4>
-            Zip:
-            {' '}
-            <span className="input">
-              {user.zip}
-            </span>
-          </h4>
+        <div className={styles.profileContainer}>
+          <p data-testid="createProfilePage">
+            <h2 className={styles.title}>
+              User Profile
+              <hr />
+            </h2>
+            <h3 className={styles.category}>
+              Name
+            </h3>
+            <h4>
+              First Name:
+              {' '}
+              <span className={styles.input}>
+                {user.firstName}
+              </span>
+            </h4>
+            <h4>
+              Last Name:
+              {' '}
+              <span className={styles.input}>
+                {user.lastName}
+              </span>
+              <hr />
+            </h4>
+            <h3 className={styles.category}>
+              Address
+            </h3>
+            <h4>
+              Street:
+              {' '}
+              <span className={styles.input}>
+                {user.street}
+              </span>
+            </h4>
+            <h4>
+              City:
+              {' '}
+              <span className={styles.input}>
+                {user.city}
+              </span>
+            </h4>
+            <h4>
+              State:
+              {' '}
+              <span className={styles.input}>
+                {user.state}
+              </span>
+            </h4>
+            <h4>
+              Zip:
+              {' '}
+              <span className={styles.input}>
+                {user.zip}
+              </span>
+            </h4>
+          </p>
         </div>
       </div>
 
-      <div className="purcahseHistoryDiv">
+      <div className={styles.purchaseHistoryTable}>
         <details>
-          <summary><h3 className="viewPurchaseHistory">View Purchase History</h3></summary>
+          <summary><h3 className={styles.viewPurchaseHistory}>View Purchase History</h3></summary>
           <table>
             <thead>
               <TableHeadings />
@@ -118,35 +147,28 @@ const TableHeadings = () => (
  * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
  * @returns {string} Formatted date (YYYY-MM-DD)
 */
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  // months are zero-indexed
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
 
 /**
  * @description a row of table data for purchase history
  * @param {Object} purchase Contains a purchase object
  * @returns component
  */
-const PurchaseTableData = (props) => {
-  const { purchase } = props;
-  return (
-    <tr>
-      <td>{formatDate(purchase.orderDate)}</td>
-      <td>{`$ ${purchase.purchaseTotal.toFixed(2)}`}</td>
-      <td>
-        <details>
-          <summary>click to show products</summary>
-          <p>{`${purchase.lineItems[0].quantity}  ${purchase.lineItems[0].productName}`}</p>
-          <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p>
-        </details>
-      </td>
+// const PurchaseTableData = (props) => {
+//   const { purchase } = props;
 
-    </tr>
-  );
-};
+//   return (
+//     <tr>
+//       <td>{formatDate(purchase.orderDate)}</td>
+//       <td>{`$ ${purchase.purchaseTotal.toFixed(2)}`}</td>
+//       <td>
+//         <details>
+//           <summary>click to show products</summary>
+//           <p>{`${purchases.map(purchase.lineItems.quantity)}  ${purchase.map(purchase.lineItems.productName)}`}</p>
+//           {/* <p>{`${purchase.lineItems[1].quantity}  ${purchase.lineItems[1].productName}`}</p> */}
+//         </details>
+//       </td>
+
+//     </tr>
+//   );
+// };
 export default ProfilePage;

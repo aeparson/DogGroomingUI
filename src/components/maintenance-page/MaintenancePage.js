@@ -30,7 +30,7 @@ const MaintenancePage = () => {
             <button className="button" type="button">Create Product</button>
           </NavLink>
         </div>
-        <div style={styles} className="scrollable">
+        <div className={styles.maintenanceTable}>
           <table>
             <thead>
               <TableHeadings />
