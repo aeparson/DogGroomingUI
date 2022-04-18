@@ -1,11 +1,16 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useCart } from './CartContext';
 import styles from './CheckoutPage.module.css';
 import ReviewOrderWidget from './ReviewOrderWidget';
 import DeliveryAddress from './forms/DeliveryAddress';
 import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
+import validatePurchase from './CheckoutValidation';
+import regionToCode from './RegionToCode';
 
 /**
  * @name CheckoutPage
@@ -19,47 +24,88 @@ const CheckoutPage = () => {
     state: { products }
   } = useCart();
 
-  const [billingData, setBillingData] = React.useState({});
+  const [billingData, setBillingData] = useState({
+    billingStreet: '',
+    billingStreet2: '',
+    billingCity: '',
+    billingState: '',
+    billingZip: '',
+    email: '',
+    phone: '',
+    creditCard: '',
+    cardholder: '',
+    cvv: '',
+    expiration: ''
+  });
 
   const onBillingChange = (e) => {
     setBillingData({ ...billingData, [e.target.id]: e.target.value });
   };
 
-  const [deliveryData, setDeliveryData] = React.useState({});
+  const [deliveryData, setDeliveryData] = useState({
+    deliveryFirstName: '', deliveryLastName: '', deliveryStreet: '', deliveryStreet2: '', deliveryCity: '', deliveryState: '', deliveryZip: ''
+  });
 
   const onDeliveryChange = (e) => {
     setDeliveryData({ ...deliveryData, [e.target.id]: e.target.value });
   };
 
-  const [checked, setChecked] = React.useState(false);
+  const [fieldErrors, setFieldErrors] = useState({ delivery: [], billing: [] });
+
+  const [checked, setChecked] = useState(false);
   const handleCheck = () => {
     setChecked(!checked);
   };
 
-  const handlePay = () => {
-    const productData = products.map(({ id, quantity }) => ({ id, quantity }));
+  const attemptPurchase = (deliveryAddress, billingAddress, creditCard, productData) => {
+    // Front end validation
+    const [
+      invalidDelivery,
+      invalidBilling
+    ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
+    // If all fields are valid
+    if (productData.length === 0) {
+      toast.error('No products in cart');
+    } else if (Object.keys(invalidDelivery).length === 0
+     && Object.keys(invalidBilling).length === 0) {
+      makePurchase(productData, deliveryAddress,
+        billingAddress, creditCard).then(() => {
+        history.push('/confirmation');
+      }).catch(() => {
+        setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
+        toast.error('Transaction could not be processed');
+      });
+    } else {
+      setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
+      toast.error('Please correct errors and try again');
+    }
+  };
+  const handlePay = async () => {
+    const productData = products.map(({ productId, quantity }) => ({ productId, quantity }));
     const deliveryAddress = {
-      firstName: deliveryData.firstName,
-      lastName: deliveryData.lastName,
-      street: deliveryData.street,
-      street2: deliveryData.street2,
-      city: deliveryData.city,
-      state: deliveryData.state,
-      zip: deliveryData.zip
+      deliveryFirstName: deliveryData.deliveryFirstName,
+      deliveryLastName: deliveryData.deliveryLastName,
+      deliveryStreet: deliveryData.deliveryStreet,
+      deliveryStreet2: deliveryData.deliveryStreet2,
+      deliveryCity: deliveryData.deliveryCity,
+      // Convert to state code for API compatibility
+      deliveryState: regionToCode(deliveryData.deliveryState),
+      deliveryZip: deliveryData.deliveryZip
     };
     const billingAddress = {};
     if (checked) {
-      billingAddress.street = deliveryAddress.street;
-      billingAddress.street2 = deliveryAddress.street2;
-      billingAddress.city = deliveryAddress.city;
-      billingAddress.state = deliveryAddress.state;
-      billingAddress.zip = deliveryAddress.zip;
+      billingAddress.billingStreet = deliveryAddress.deliveryStreet;
+      billingAddress.billingStreet2 = deliveryAddress.deliveryStreet2;
+      billingAddress.billingCity = deliveryAddress.deliveryCity;
+      billingAddress.billingState = deliveryAddress.deliveryState;
+      billingAddress.billingZip = deliveryAddress.deliveryZip;
     } else {
-      billingAddress.street = billingData.billingStreet;
-      billingAddress.street2 = billingData.billingStreet2;
-      billingAddress.city = billingData.billingCity;
-      billingAddress.state = billingData.billingState;
-      billingAddress.zip = billingData.billingZip;
+      billingAddress.billingStreet = billingData.billingStreet;
+      billingAddress.billingStreet2 = billingData.billingStreet2;
+      billingAddress.billingCity = billingData.billingCity;
+      // Convert to state code for API compatibility
+      billingAddress.billingState = regionToCode(billingData.billingState);
+      billingAddress.billingZip = billingData.billingZip;
     }
     billingAddress.email = billingData.email;
     billingAddress.phone = billingData.phone;
@@ -70,7 +116,7 @@ const CheckoutPage = () => {
       expiration: billingData.expiration,
       cardholder: billingData.cardholder
     };
-    makePurchase(productData, deliveryAddress, billingAddress, creditCard).then(() => history.push('/confirmation'));
+    attemptPurchase(deliveryAddress, billingAddress, creditCard, productData);
   };
 
   return (
@@ -81,7 +127,11 @@ const CheckoutPage = () => {
       </div>
       <div className={`${styles.step} ${styles.delivery}`}>
         <h3 className={styles.title}>2. Delivery Address</h3>
-        <DeliveryAddress onChange={onDeliveryChange} deliveryData={deliveryData} />
+        <DeliveryAddress
+          onChange={onDeliveryChange}
+          deliveryData={deliveryData}
+          errors={fieldErrors.delivery}
+        />
         <label htmlFor="useSame" className={styles.sameAddressText}>
           <div className={styles.useSameAddress}>
             <input
@@ -100,6 +150,7 @@ const CheckoutPage = () => {
           onChange={onBillingChange}
           billingData={billingData}
           useShippingForBilling={checked}
+          errors={fieldErrors.billing}
         />
       </div>
       <div className={styles.payNow}>
