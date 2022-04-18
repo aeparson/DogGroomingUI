@@ -113,4 +113,101 @@ describe('Checkout Page Validation Tests', () => {
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: '|_(^_^)_/*' })[1].cardholder).toEqual('Invalid characters');
     expect(validatePurchase(validDelivery, validBilling, { ...validCreditCard, cardholder: 'Cthulu Amon-Gorloth-Ayi\'ig' })[1]).toEqual({});
   });
+
+  it('validates that delivery first and last name contain only letters, periods, apostrophes and hyphens', () => {
+    const invalid = { deliveryFirstName: 'May only contain letters, periods, and hyphens', deliveryLastName: 'May only contain letters, periods, and hyphens' };
+    // Spaces
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: 'a b', deliveryLastName: '  a' }, validBilling, validCreditCard)[0]).toEqual(invalid);
+    // Numbers
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: 'abc123', deliveryLastName: '5' }, validBilling, validCreditCard)[0]).toEqual(invalid);
+    // Special Characters
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: '@', deliveryLastName: '!' }, validBilling, validCreditCard)[0]).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: '*', deliveryLastName: '&' }, validBilling, validCreditCard)[0]).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: '(', deliveryLastName: '}' }, validBilling, validCreditCard)[0]).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: '%', deliveryLastName: '^' }, validBilling, validCreditCard)[0]).toEqual(invalid);
+    // Valid
+    expect(validatePurchase({ ...validDelivery, deliveryFirstName: 'A-b\'c.', deliveryLastName: '--\'..a' }, validBilling, validCreditCard)[0]).toEqual({});
+  });
+
+  it('validates that phone number contains 10 digits with optional formatting', () => {
+    // Too short
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '123456789' }, validCreditCard)[1].phone).toEqual('Must be 10 digits, e.g. (123) 456-7890');
+    // Too long
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '12345678901' }, validCreditCard)[1].phone).toEqual('Must be 10 digits, e.g. (123) 456-7890');
+    // Alphabetical characters
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '123456789a' }, validCreditCard)[1].phone).toEqual('Must be 10 digits, e.g. (123) 456-7890');
+    // Special characters
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '123456789 ' }, validCreditCard)[1].phone).toEqual('Must be 10 digits, e.g. (123) 456-7890');
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '123456789)' }, validCreditCard)[1].phone).toEqual('Must be 10 digits, e.g. (123) 456-7890');
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '123456789-' }, validCreditCard)[1].phone).toEqual('Must be 10 digits, e.g. (123) 456-7890');
+    // Valid
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '1234567890' }, validCreditCard)[1]).toEqual({});
+    // Valid with formatting
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '(123) 456-7890' }, validCreditCard)[1]).toEqual({});
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '123-456-7890' }, validCreditCard)[1]).toEqual({});
+    expect(validatePurchase(validDelivery, { ...validBilling, phone: '(123)-456 7890' }, validCreditCard)[1]).toEqual({});
+  });
+
+  it('validates that email address is properly formatted as [alphanumeric username]@[period-separated alphabetic subdomains]', () => {
+    const errorMessage = 'Must be formatted as user@email.com';
+    // Numeric domain
+    expect(validatePurchase(validDelivery, { ...validBilling, email: 'abc@123.org' }, validCreditCard)[1].email).toEqual(errorMessage);
+    // Special characters username
+    expect(validatePurchase(validDelivery, { ...validBilling, email: '1 3@abc.org' }, validCreditCard)[1].email).toEqual(errorMessage);
+    expect(validatePurchase(validDelivery, { ...validBilling, email: '1\'3@abc.org' }, validCreditCard)[1].email).toEqual(errorMessage);
+    expect(validatePurchase(validDelivery, { ...validBilling, email: 'abc@123.org' }, validCreditCard)[1].email).toEqual(errorMessage);
+    // Ends with .
+    expect(validatePurchase(validDelivery, { ...validBilling, email: '123@abc.' }, validCreditCard)[1].email).toEqual(errorMessage);
+    // Valid
+    expect(validatePurchase(validDelivery, { ...validBilling, email: 'abc123@abc.co.uk' }, validCreditCard)[1]).toEqual({});
+  });
+
+  it('validates that delivery and billing street only contain letters, numbers, spaces, hyphens, apostrophes, and periods', () => {
+    const invalid = [{ deliveryStreet: 'Invalid characters' }, { billingStreet: 'Invalid characters' }];
+    expect(validatePurchase({ ...validDelivery, deliveryStreet: '*' }, { ...validBilling, billingStreet: '#' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryStreet: '&' }, { ...validBilling, billingStreet: '^' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryStreet: '(' }, { ...validBilling, billingStreet: ')' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryStreet: '[' }, { ...validBilling, billingStreet: '}' }, validCreditCard)).toEqual(invalid);
+
+    expect(validatePurchase({ ...validDelivery, deliveryStreet: '123 ABC-DEF\'s Ln. ' }, { ...validBilling, billingStreet: '. 1a\'-' }, validCreditCard)).toEqual([{}, {}]);
+  });
+  it('validates that delivery and billing street2 only contain letters, numbers, spaces, hyphens, apostrophes, and periods', () => {
+    const invalid = [{ deliveryStreet2: 'Invalid characters' }, { billingStreet2: 'Invalid characters' }];
+    expect(validatePurchase({ ...validDelivery, deliveryStreet2: '*' }, { ...validBilling, billingStreet2: '#' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryStreet2: '&' }, { ...validBilling, billingStreet2: '^' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryStreet2: '(' }, { ...validBilling, billingStreet2: ')' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryStreet2: '[' }, { ...validBilling, billingStreet2: '}' }, validCreditCard)).toEqual(invalid);
+
+    expect(validatePurchase({ ...validDelivery, deliveryStreet2: '123 ABC-DEF\'s Ln. ' }, { ...validBilling, billingStreet2: '. 1a\'-' }, validCreditCard)).toEqual([{}, {}]);
+  });
+
+  it('validates that delivery and billing city only contain letters, spaces, hyphens, apostrophes and periods', () => {
+    const invalid = [{ deliveryCity: 'Invalid characters' }, { billingCity: 'Invalid characters' }];
+    // Numbers
+    expect(validatePurchase({ ...validDelivery, deliveryCity: '1' }, { ...validBilling, billingCity: '12345' }, validCreditCard)).toEqual(invalid);
+    // Special characters
+    expect(validatePurchase({ ...validDelivery, deliveryCity: '*' }, { ...validBilling, billingCity: '&' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryCity: 'a_x' }, { ...validBilling, billingCity: '$' }, validCreditCard)).toEqual(invalid);
+    expect(validatePurchase({ ...validDelivery, deliveryCity: '%' }, { ...validBilling, billingCity: '+' }, validCreditCard)).toEqual(invalid);
+    // Valid
+    expect(validatePurchase({ ...validDelivery, deliveryCity: 'A a - \' .' }, { ...validBilling, billingCity: 'a-\'.' }, validCreditCard)).toEqual([{}, {}]);
+  });
+
+  it('validates that zip code contains 5 or 9 digits, with optional hyphen after first 5 digits', () => {
+    const invalid = [{ deliveryZip: 'Must be 5 or 9 numerical digits' }, { billingZip: 'Must be 5 or 9 numerical digits' }];
+    // Too short
+    expect(validatePurchase({ ...validDelivery, deliveryZip: '1234' }, { ...validBilling, billingZip: '1' }, validCreditCard)).toEqual(invalid);
+    // Too long
+    expect(validatePurchase({ ...validDelivery, deliveryZip: '1234567890123' }, { ...validBilling, billingZip: '1234567890' }, validCreditCard)).toEqual(invalid);
+    // Between 5 and 9
+    expect(validatePurchase({ ...validDelivery, deliveryZip: '123456' }, { ...validBilling, billingZip: '12345678' }, validCreditCard)).toEqual(invalid);
+    // Alphabetical characters
+    expect(validatePurchase({ ...validDelivery, deliveryZip: 'abcde' }, { ...validBilling, billingZip: 'fghijklmn' }, validCreditCard)).toEqual(invalid);
+    // Special characters
+    expect(validatePurchase({ ...validDelivery, deliveryZip: '12345*1235' }, { ...validBilling, billingZip: '12345+1234' }, validCreditCard)).toEqual(invalid);
+    // Valid
+    expect(validatePurchase({ ...validDelivery, deliveryZip: '12345' }, { ...validBilling, billingZip: '123456789' }, validCreditCard)).toEqual([{}, {}]);
+    // Valid with formatting
+    expect(validatePurchase({ ...validDelivery, deliveryZip: '12345' }, { ...validBilling, billingZip: '12345-6789' }, validCreditCard)).toEqual([{}, {}]);
+  });
 });
