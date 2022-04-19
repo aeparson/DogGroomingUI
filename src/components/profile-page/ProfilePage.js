@@ -20,22 +20,22 @@ const formatDate = (dateString) => {
 
 /**
  * @name ProfilePage
- * @description fetches user info from API and displays in a form
+ * @description fetches user & purchase info from API and displays in two blocks when logged in.
  * @return component
  */
 const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
-  console.log(purchases);
+
   useEffect(() => {
     fetchUserPurchase(setPurchase, setApiError, user);
   }, [user]);
 
   const PurchaseTableData = (props) => {
     const { purchase } = props;
+
     return (
       <>
-        <TableHeadings />
         <tr>
           <td className={styles.lineItems}>{formatDate(purchase.orderDate)}</td>
           <td className={styles.lineItems}>{`$${purchase.purchaseTotal.toFixed(2)}`}</td>
@@ -128,23 +128,26 @@ const ProfilePage = ({ user }) => {
         </div>
       </div>
 
-      <div className={styles.purchaseHistoryTable}>
-        <details>
-          <summary><h3 className={styles.viewPurchaseHistory}>View Purchase History</h3></summary>
-          <hr />
-          <table>
-            <thead>
-              {' '}
-              {purchases.length === 0 ? (
-                <h2>You have no past purchases.</h2>) : <PurchaseTableData />}
-            </thead>
-            <tbody>
-              {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
-                .map((purchase) => <PurchaseTableData key={purchase.OrderDate} purchase={purchase} />)}
-            </tbody>
-          </table>
-        </details>
-      </div>
+      {user !== '' ? (
+        <div className={styles.purchaseHistoryTable}>
+          <details>
+            <summary><h3 className={styles.viewPurchaseHistory}>Purchase History</h3></summary>
+            <hr />
+            <table>
+              {purchases.length !== 0 ? (
+                <>
+                  <TableHeadings />
+                  {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
+                    .map((purchase) => <PurchaseTableData key={purchase.OrderDate} purchase={purchase} />)}
+                </>
+              )
+                : (
+                  <h2>You have no past purchases.</h2>
+                )}
+            </table>
+          </details>
+        </div>
+      ) : (<p />)}
     </>
 
   );
