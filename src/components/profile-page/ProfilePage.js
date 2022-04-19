@@ -26,38 +26,38 @@ const formatDate = (dateString) => {
 const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
-
+  console.log(purchases);
   useEffect(() => {
     fetchUserPurchase(setPurchase, setApiError, user);
   }, [user]);
 
   const PurchaseTableData = (props) => {
     const { purchase } = props;
-
     return (
-      <tr>
-        <td className={styles.lineItems}>{formatDate(purchase.orderDate)}</td>
-        <td className={styles.lineItems}>{`$${purchase.purchaseTotal.toFixed(2)}`}</td>
-        <td>
-          <details className={styles.purchaseDetails}>
-            <summary className={styles.lineItems}>click to show products</summary>
-            <div>
-              {purchase.lineItems.map((lineItem) => (
-                <div key={lineItem.productId}>
-                  <p>
-                    {' '}
-                    {lineItem.quantity}
-                    {' of '}
-                    <vr />
-                    {lineItem.productName}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </details>
-        </td>
-
-      </tr>
+      <>
+        <TableHeadings />
+        <tr>
+          <td className={styles.lineItems}>{formatDate(purchase.orderDate)}</td>
+          <td className={styles.lineItems}>{`$${purchase.purchaseTotal.toFixed(2)}`}</td>
+          <td>
+            <details className={styles.purchaseDetails}>
+              <summary className={styles.lineItems}>click to show products</summary>
+              <div>
+                {purchase.lineItems.map((lineItem) => (
+                  <div key={lineItem.productId}>
+                    <p>
+                      {' '}
+                      {lineItem.quantity}
+                      {' of '}
+                      {lineItem.productName}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </details>
+          </td>
+        </tr>
+      </>
     );
   };
 
@@ -134,7 +134,9 @@ const ProfilePage = ({ user }) => {
           <hr />
           <table>
             <thead>
-              <TableHeadings />
+              {' '}
+              {purchases.length === 0 ? (
+                <h2>You have no past purchases.</h2>) : <PurchaseTableData />}
             </thead>
             <tbody>
               {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
