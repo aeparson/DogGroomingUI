@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Box } from '@mui/system';
 import ProductCard from '../product-card/ProductCard';
-// import thing from '../app/App.css';
 import thing from './ProductPage.module.css';
 import Constants from '../../utils/constants';
 import fetchProductsCount, { fetchFirstPageOfProducts } from '../pagination/PaginationService';
@@ -56,7 +55,7 @@ const ProductPage = () => {
    */
   function handlePageClick({ selected: selectedPage }) {
     setPage(selectedPage);
-    fetchDemographicProducts(setProducts, setApiError, page, webRoute);
+    fetchDemographicProducts(setProducts, setApiError, selectedPage, webRoute);
   }
 
   return (
