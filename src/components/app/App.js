@@ -18,38 +18,7 @@ toast.configure();
  * @name App
  * @returns component
  */
-<<<<<<< HEAD
-<<<<<<< HEAD
-const App = () => (
-  <BrowserRouter>
-    <Header />
-    <div id="content">
-      <Switch>
-        <Route exact path="/" render={() => <ProductPage />} />
-        <Route exact path="/checkout" render={() => <CheckoutPage />} />
-        <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
-        <Route exact path="/maintenance" render={() => <MaintenancePage />} />
-        <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
-      </Switch>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable={false}
-        pauseOnHover={false}
-        limit={1}
-      />
-    </div>
-    <Footer />
-  </BrowserRouter>
-);
-=======
-=======
->>>>>>> bb8a26f4213ea5c5ad5434e0746503d72624d65a
+
 const App = () => {
   const [user, setUser] = useState('');
   return (
@@ -62,10 +31,7 @@ const App = () => {
           <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
           <Route exact path="/maintenance" render={() => <MaintenancePage />} />
           <Route exact path="/profile" render={() => <ProfilePage user={user} />} />
-<<<<<<< HEAD
-=======
           <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
->>>>>>> bb8a26f4213ea5c5ad5434e0746503d72624d65a
         </Switch>
         <ToastContainer
           position="top-center"
@@ -77,19 +43,11 @@ const App = () => {
           pauseOnFocusLoss={false}
           draggable={false}
           pauseOnHover={false}
-<<<<<<< HEAD
-          limit={1}
-=======
->>>>>>> bb8a26f4213ea5c5ad5434e0746503d72624d65a
         />
       </div>
       <Footer />
     </BrowserRouter>
   );
 };
-<<<<<<< HEAD
->>>>>>> a49bf11c27ba6463a9c8f0b22cb540e3b1c19922
-=======
->>>>>>> bb8a26f4213ea5c5ad5434e0746503d72624d65a
 
 export default App;

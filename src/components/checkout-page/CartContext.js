@@ -11,6 +11,15 @@ function cartReducer(state, action) {
       };
     }
     case 'add': {
+      const index = state.products.findIndex((product) => product.productId === action.product.id);
+      if (index >= 0) {
+        const newState = { ...state };
+        newState.products[index].quantity += 1;
+        return {
+          ...newState
+        };
+      }
+
       return {
         ...state,
         products: [...state.products, action.product]
