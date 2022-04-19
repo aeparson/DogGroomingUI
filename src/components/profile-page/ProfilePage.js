@@ -47,7 +47,8 @@ const ProfilePage = ({ user }) => {
                   <p>
                     {' '}
                     {lineItem.quantity}
-                    {' '}
+                    {' of '}
+                    <vr />
                     {lineItem.productName}
                   </p>
                 </div>
