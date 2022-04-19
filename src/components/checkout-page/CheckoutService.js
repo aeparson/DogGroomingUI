@@ -25,7 +25,7 @@ export default async function makePurchase(products, deliveryAddress, billingAdd
       phone: removePunctuation(billingAddress.phone)
     },
     creditCard,
-    purchaseTotal
+    purchaseTotal: purchaseTotal.substring(1)
   })
     .then((response) => {
       if (response.ok) {
