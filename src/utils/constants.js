@@ -9,19 +9,8 @@ module.exports = Object.freeze({
   PRODUCT_ENDPOINT: '/products/active',
 
   ALL_PRODUCTS_ENDPOINT: '/products',
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-  GOOGLE_CLIENT_ID:
-    '912899852587-7996nh9mlpvpa2446q0il4f9hj5o492h.apps.googleusercontent.com' // ENTER CLIENT ID HERE
-=======
   GOOGLE_CLIENT_ID: '912899852587-7996nh9mlpvpa2446q0il4f9hj5o492h.apps.googleusercontent.com', // ENTER CLIENT ID HERE
   USER_ENDPOINT: '/users/email'
 
->>>>>>> a49bf11c27ba6463a9c8f0b22cb540e3b1c19922
-=======
-  GOOGLE_CLIENT_ID: '912899852587-7996nh9mlpvpa2446q0il4f9hj5o492h.apps.googleusercontent.com', // ENTER CLIENT ID HERE
-  USER_ENDPOINT: '/users/email'
-
->>>>>>> bb8a26f4213ea5c5ad5434e0746503d72624d65a
 });
