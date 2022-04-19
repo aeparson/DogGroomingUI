@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Constants from '../../utils/constants';
-import styles from './MaintenancePage.css';
-
+import styles from './MaintenancePage.module.css';
 import fetchAllProducts from './MaintenancePageService';
 
 /**
@@ -31,7 +30,7 @@ const MaintenancePage = () => {
             <button className="button" type="button">Create Product</button>
           </NavLink>
         </div>
-        <div style={styles} className="scrollable">
+        <div className={styles.maintenanceTable}>
           <table>
             <thead>
               <TableHeadings />
