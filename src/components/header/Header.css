@@ -5,24 +5,27 @@
   top: 0px;
   height: 50px;
   z-index: 1;
-  background-color: #5CE1E6;
+  background-color: #5CE1E6; 
+  /* background-color:#179297; */
 }
 
 .logo{
   order:1;
 }
 
-.loginLogout{
+.profileIcon{
   order:2;
+  margin: 10px;
   margin-left: auto;
 }
 
-.checkoutItem{
+.loginLogout{
   order:3;
   margin: 10px;
   position: relative;
 }
 
+<<<<<<< HEAD
 .checkoutItem img{
   width: 40px;
 }
@@ -44,3 +47,10 @@
 
   
 }
+=======
+.checkoutItem{
+  order:4;
+  margin: 10px;
+  margin-right:20px;
+}
+>>>>>>> 813108a3e58f4113797616aa34ba530186c41240
