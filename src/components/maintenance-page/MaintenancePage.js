@@ -27,7 +27,7 @@ const MaintenancePage = () => {
         )}
         <div className="MaintenanceMenu">
           <NavLink to="/createProductPage">
-            <button className="button" type="button">Create Product</button>
+            <button className={styles.button} type="button">Create Product</button>
           </NavLink>
         </div>
         <div className={styles.maintenanceTable}>

@@ -28,7 +28,7 @@ export default async function fetchProductsCount(setCount, setApiError, filterAd
  * @description Utilizes HttpHelper to make a get request to an API
  * @param {*} setProducts sets state for products
  * @param {*} setApiError sets error if response other than 200 is returned
- * @returns sets state for products if 200 response, else sets state for apiError
+ * @returns first page of products
  */
 export async function fetchFirstPageOfProducts(setProducts, setApiError) {
   await HttpHelper(`${Constants.PRODUCT_ENDPOINT}?page=0&itemsperpage=20`, 'GET')
