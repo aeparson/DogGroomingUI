@@ -5,7 +5,7 @@ import ProductCard from '../product-card/ProductCard';
 // import thing from '../app/App.css';
 import thing from './ProductPage.module.css';
 import Constants from '../../utils/constants';
-import fetchProductsCount from '../pagination/PaginationService';
+import fetchProductsCount, { fetchFirstPageOfProducts } from '../pagination/PaginationService';
 import FilterMenu from '../filter-menu/FilterMenu';
 import fetchDemographicProducts from '../filter-menu/FilterMenuService';
 
@@ -33,8 +33,8 @@ const ProductPage = () => {
     window.scrollTo({ behavior: 'smooth', top: '0px' });
   }, [page]);
   useEffect(() => {
-    fetchDemographicProducts(setProducts, setApiError, page, webRoute);
-  }, [page, webRoute]);
+    fetchFirstPageOfProducts(setProducts, setApiError);
+  }, []);
   useEffect(() => {
     fetchProductsCount(setCount, setApiError, webRoute);
   }, [webRoute]);
@@ -56,6 +56,7 @@ const ProductPage = () => {
    */
   function handlePageClick({ selected: selectedPage }) {
     setPage(selectedPage);
+    fetchDemographicProducts(setProducts, setApiError, page, webRoute);
   }
 
   return (
