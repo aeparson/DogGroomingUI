@@ -101,7 +101,7 @@ const ProductModal = ({ open, product, handleClose }) => {
       {
         type: 'add',
         product: {
-          id: product.id,
+          productId: product.id,
           title: product.name,
           price: product.price,
           description: product.description,
