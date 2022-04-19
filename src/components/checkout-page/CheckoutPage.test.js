@@ -103,4 +103,25 @@ describe('Checkout Page Component Tests', () => {
     expect(toastCalls).toEqual(['Please correct errors and try again']);
     expect(mockHistory).not.toHaveBeenCalled();
   });
+
+  it('toasts and does not redirect when there are no products in cart', async () => {
+    useCart.mockImplementation(() => React.useContext(
+      React.createContext({
+        state: {
+          products: []
+        }
+      })
+    ));
+    const toastCalls = [];
+    toast.error.mockImplementation((text) => { toastCalls.push(text); });
+    render(
+      <CheckoutPage />, container
+    );
+
+    await act(async () => {
+      userEvent.click(screen.getByText('Checkout'));
+    });
+    expect(toastCalls).toEqual(['No products in cart']);
+    expect(mockHistory).not.toHaveBeenCalled();
+  });
 });
