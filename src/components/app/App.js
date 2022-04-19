@@ -18,6 +18,7 @@ toast.configure();
  * @name App
  * @returns component
  */
+
 const App = () => {
   const [user, setUser] = useState('');
   return (
@@ -31,6 +32,7 @@ const App = () => {
           <Route exact path="/maintenance" render={() => <MaintenancePage />} />
           <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
           <Route exact path="/profile" render={() => <ProfilePage user={user} />} />
+
         </Switch>
         <ToastContainer
           position="top-center"
@@ -42,6 +44,7 @@ const App = () => {
           pauseOnFocusLoss={false}
           draggable={false}
           pauseOnHover={false}
+
         />
       </div>
       <Footer />

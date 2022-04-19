@@ -21,12 +21,11 @@ body{
   }
 
   .input{
-  color: black;
-  font-size: 120%;
-  display: flex;
-
+    color: black;
+    font-size: 120%;
+    display: flex;
   }
-  
+
   h4 {
     color: #666666;
   }
