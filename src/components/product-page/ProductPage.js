@@ -26,7 +26,9 @@ const ProductPage = () => {
   const filterByDemographic = () => {
     fetchDemographicProducts(setProducts, setApiError, page, webRoute);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     window.scrollTo({ behavior: 'smooth', top: '0px' });
   }, [page]);
@@ -37,12 +39,21 @@ const ProductPage = () => {
     fetchProductsCount(setCount, setApiError, webRoute);
   }, [webRoute]);
 
+  /**
+ * @name totalNumberOfPages
+ * @description Takes total count of products and divides it by datalimit to attain number of pages
+ * @returns totalPages
+ */
   const totalNumberOfPages = () => {
     const dataLimit = 20;
     const totalPages = Math.ceil(count / dataLimit);
     return totalPages;
   };
 
+  /**
+   *@name handlePageClick
+   *@description sets the page clicked to the selected page
+   */
   function handlePageClick({ selected: selectedPage }) {
     setPage(selectedPage);
   }
