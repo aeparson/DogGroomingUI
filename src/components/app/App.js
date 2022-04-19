@@ -30,9 +30,8 @@ const App = () => {
           <Route exact path="/checkout" render={() => <CheckoutPage />} />
           <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
           <Route exact path="/maintenance" render={() => <MaintenancePage />} />
-          <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
           <Route exact path="/profile" render={() => <ProfilePage user={user} />} />
-
+          <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
         </Switch>
         <ToastContainer
           position="top-center"
@@ -44,7 +43,6 @@ const App = () => {
           pauseOnFocusLoss={false}
           draggable={false}
           pauseOnHover={false}
-
         />
       </div>
       <Footer />

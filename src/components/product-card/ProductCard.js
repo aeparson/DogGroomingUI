@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -73,6 +74,7 @@ const ProductCard = ({ product }) => {
   };
 
   const onAdd = (event) => {
+    toast.success(`1 ${product.name} successfully added to cart.`);
     event.stopPropagation();
     dispatch(
       {
@@ -130,7 +132,7 @@ const ProductCard = ({ product }) => {
           <br />
           <Typography variant="body2" color="textSecondary" component="p">
             Price: $
-            {product.price}
+            {product.price.toFixed(2)}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
