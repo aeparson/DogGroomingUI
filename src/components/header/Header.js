@@ -6,11 +6,8 @@ import constants from '../../utils/constants';
 import './Header.css';
 import companyLogo from './arrayOfSunshine.png';
 import ShoppingCartIcon from './shopping-trolley.png';
-<<<<<<< HEAD
 import { useCart } from '../checkout-page/CartContext';
-=======
 import ProfileIcon from './profileicon.png';
->>>>>>> 813108a3e58f4113797616aa34ba530186c41240
 
 /**
  * @name Header
@@ -107,12 +104,10 @@ const Header = ({ setUser, user }) => {
       </div>
       <div className="checkoutItem">
         <NavLink to="/checkout">
-<<<<<<< HEAD
-          <img src={ShoppingCartIcon} alt="cart" />
-          <div className="checkoutBadge">{products.length}</div>
-=======
+
           <img src={ShoppingCartIcon} alt="cart" width="35px" />
->>>>>>> 813108a3e58f4113797616aa34ba530186c41240
+          <div className="checkoutBadge">{products.length}</div>
+
         </NavLink>
       </div>
     </section>

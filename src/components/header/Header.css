@@ -25,10 +25,7 @@
   position: relative;
 }
 
-<<<<<<< HEAD
-.checkoutItem img{
-  width: 40px;
-}
+
 
 .checkoutBadge{
     height: 23px;
@@ -47,10 +44,10 @@
 
   
 }
-=======
+
 .checkoutItem{
   order:4;
   margin: 10px;
   margin-right:20px;
 }
->>>>>>> 813108a3e58f4113797616aa34ba530186c41240
+
