@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import styles from './ProfilePage.module.css';
 import Constants from '../../utils/constants';
 import fetchUserPurchase from './ProfilePageService';
@@ -25,6 +28,7 @@ const formatDate = (dateString) => {
 const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
+  const [value, setValue] = React.useState(2);
 
   useEffect(() => {
     fetchUserPurchase(setPurchase, setApiError, user);
@@ -62,100 +66,119 @@ const ProfilePage = ({ user }) => {
 
   return (
     <>
+      <>
+        <Paper square>
+          <Tabs
+            value={value}
+            textColor="primary"
+            indicatorColor="primary"
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <Tab label="Profile Information" />
+            {user !== '' ? (
+              <Tab label="Purchase History" />
+            ) : null}
+          </Tabs>
+        </Paper>
+      </>
       <div className={styles.container}>
         {apiError && (
         <p data-testid="errMsg">
           {Constants.API_ERROR}
         </p>
         )}
-        <div className={styles.profileContainer}>
-          <p data-testid="createProfilePage">
-            <h2 className={styles.title}>
-              User Profile
+        {value === 0 && (
+          <div className={styles.profileContainer}>
+            <p data-testid="createProfilePage">
+              <h2 className={styles.title}>
+                User Profile
+                <hr />
+              </h2>
+              <h3 className={styles.category}>
+                Name
+              </h3>
+              <h4>
+                First Name:
+                {' '}
+                <span className={styles.input}>
+                  {user.firstName}
+                </span>
+              </h4>
+              <h4>
+                Last Name:
+                {' '}
+                <span className={styles.input}>
+                  {user.lastName}
+                </span>
+                <hr />
+              </h4>
+              <h3 className={styles.category}>
+                Address
+              </h3>
+              <h4>
+                Street:
+                {' '}
+                <span className={styles.input}>
+                  {user.street}
+                </span>
+              </h4>
+              <h4>
+                City:
+                {' '}
+                <span className={styles.input}>
+                  {user.city}
+                </span>
+              </h4>
+              <h4>
+                State:
+                {' '}
+                <span className={styles.input}>
+                  {user.state}
+                </span>
+              </h4>
+              <h4>
+                Zip:
+                {' '}
+                <span className={styles.input}>
+                  {user.zip}
+                </span>
+              </h4>
+            </p>
+          </div>
+        )}
+        { value === 1 && (
+        <>
+          {user !== '' ? (
+            <div className={styles.purchaseHistoryTable}>
+              <h3 className={styles.viewPurchaseHistory}>Purchase History</h3>
               <hr />
-            </h2>
-            <h3 className={styles.category}>
-              Name
-            </h3>
-            <h4>
-              First Name:
-              {' '}
-              <span className={styles.input}>
-                {user.firstName}
-              </span>
-            </h4>
-            <h4>
-              Last Name:
-              {' '}
-              <span className={styles.input}>
-                {user.lastName}
-              </span>
-              <hr />
-            </h4>
-            <h3 className={styles.category}>
-              Address
-            </h3>
-            <h4>
-              Street:
-              {' '}
-              <span className={styles.input}>
-                {user.street}
-              </span>
-            </h4>
-            <h4>
-              City:
-              {' '}
-              <span className={styles.input}>
-                {user.city}
-              </span>
-            </h4>
-            <h4>
-              State:
-              {' '}
-              <span className={styles.input}>
-                {user.state}
-              </span>
-            </h4>
-            <h4>
-              Zip:
-              {' '}
-              <span className={styles.input}>
-                {user.zip}
-              </span>
-            </h4>
-          </p>
-        </div>
+              <table>
+                {purchases.length !== 0 ? (
+                  <>
+                    <TableHeadings />
+                    {purchases.sort(
+                      (purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate
+                    )
+                      .map((purchase) => (
+                        <PurchaseTableData
+                          key={purchase.OrderDate}
+                          purchase={purchase}
+                        />
+                      ))}
+                  </>
+                )
+                  : (
+                    <h2>You have no past purchases.</h2>
+                  )}
+              </table>
+            </div>
+          ) : (<p />)}
+        </>
+        )}
       </div>
-
-      {user !== '' ? (
-        <div className={styles.purchaseHistoryTable}>
-          <details>
-            <summary><h3 className={styles.viewPurchaseHistory}>Purchase History</h3></summary>
-            <hr />
-            <table>
-              {purchases.length !== 0 ? (
-                <>
-                  <TableHeadings />
-                  {purchases.sort(
-                    (purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate
-                  )
-                    .map((purchase) => (
-                      <PurchaseTableData
-                        key={purchase.OrderDate}
-                        purchase={purchase}
-                      />
-                    ))}
-                </>
-              )
-                : (
-                  <h2>You have no past purchases.</h2>
-                )}
-            </table>
-          </details>
-        </div>
-      ) : (<p />)}
     </>
-
   );
 };
 
