@@ -11,6 +11,7 @@ import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
 import validatePurchase from './CheckoutValidation';
 import regionToCode from './RegionToCode';
+import { getSubtotal } from './ReviewOrderWidgetService';
 
 /**
  * @name CheckoutPage
@@ -57,7 +58,7 @@ const CheckoutPage = () => {
     setChecked(!checked);
   };
 
-  const attemptPurchase = (deliveryAddress, billingAddress, creditCard, productData) => {
+  const attemptPurchase = (deliveryAddress, billingAddress, creditCard, productData, subtotal) => {
     // Front end validation
     const [
       invalidDelivery,
@@ -69,7 +70,7 @@ const CheckoutPage = () => {
     } else if (Object.keys(invalidDelivery).length === 0
      && Object.keys(invalidBilling).length === 0) {
       makePurchase(productData, deliveryAddress,
-        billingAddress, creditCard).then(() => {
+        billingAddress, creditCard, subtotal).then(() => {
         history.push('/confirmation');
       }).catch(() => {
         setFieldErrors({ delivery: invalidDelivery, billing: invalidBilling });
@@ -81,7 +82,8 @@ const CheckoutPage = () => {
     }
   };
   const handlePay = async () => {
-    const productData = products.map(({ productId, quantity }) => ({ productId, quantity }));
+    const productData = products.map(({ productId, quantity, title }) => (
+      { productId, quantity, productName: title }));
     const deliveryAddress = {
       deliveryFirstName: deliveryData.deliveryFirstName,
       deliveryLastName: deliveryData.deliveryLastName,
@@ -116,7 +118,9 @@ const CheckoutPage = () => {
       expiration: billingData.expiration,
       cardholder: billingData.cardholder
     };
-    attemptPurchase(deliveryAddress, billingAddress, creditCard, productData);
+    attemptPurchase(
+      deliveryAddress, billingAddress, creditCard, productData, getSubtotal(products)
+    );
   };
 
   return (
