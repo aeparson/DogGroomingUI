@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NewProductForm from './CreateProductForm';
-import styles from './CreateProductPage.css';
+import styles from './CreateProductPage.module.css';
 import postNewProduct from './CreateProductPageService';
 
 /**
@@ -40,15 +40,14 @@ const CreateProductPage = () => {
   };
 
   return (
-    <div className="wholePage">
-      <div style={{ backgroundColor: '#1db9bf' }} className={CreateProductPage}>
-        <h1 className={styles.CreateProductPage}>Create Product</h1>
+    <div className={styles.wholePage}>
+      <div className={styles.createProductPage}>
+        <h1 className={styles.h1}>Create Product</h1>
         <NewProductForm onChange={handleChange} productData={productData} />
         <button
           type="submit"
-          className="createButton"
           onClick={handleCreate}
-          style={styles.CreateProductPage}
+          className={styles.createButton}
         >
           Create Product
         </button>
