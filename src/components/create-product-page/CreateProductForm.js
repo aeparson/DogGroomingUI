@@ -1,12 +1,13 @@
 import React from 'react';
 import FormItem from '../form/FormItem';
+import styles from './CreateProductPage.module.css';
 
 /// summary - Builds the create product page form
 
 const NewProductForm = ({ onChange, productData }) => (
-  <div className="productFields">
+  <div className={styles.productFields}>
     <form>
-      <div className="column">
+      <div className={styles.column}>
         <FormItem
           type="text"
           id="active"
@@ -64,7 +65,7 @@ const NewProductForm = ({ onChange, productData }) => (
           onChange={onChange}
         />
       </div>
-      <div className="column">
+      <div className={styles.column}>
         <FormItem
           type="text"
           id="price"
