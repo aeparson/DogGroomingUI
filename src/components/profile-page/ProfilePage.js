@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import styles from './ProfilePage.module.css';
 import Constants from '../../utils/constants';
@@ -137,8 +136,15 @@ const ProfilePage = ({ user }) => {
               {purchases.length !== 0 ? (
                 <>
                   <TableHeadings />
-                  {purchases.sort((purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate)
-                    .map((purchase) => <PurchaseTableData key={purchase.OrderDate} purchase={purchase} />)}
+                  {purchases.sort(
+                    (purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate
+                  )
+                    .map((purchase) => (
+                      <PurchaseTableData
+                        key={purchase.OrderDate}
+                        purchase={purchase}
+                      />
+                    ))}
                 </>
               )
                 : (
