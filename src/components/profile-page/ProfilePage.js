@@ -158,15 +158,14 @@ const ProfilePage = ({ user }) => {
                 {purchases.length !== 0 ? (
                   <>
                     <TableHeadings />
-                    {purchases.sort(
-                      (purchaseA, purchaseB) => purchaseA.OrderDate - purchaseB.OrderDate
-                    )
+                    {[...purchases].reverse()
                       .map((purchase) => (
                         <PurchaseTableData
                           key={purchase.OrderDate}
                           purchase={purchase}
                         />
                       ))}
+
                   </>
                 )
                   : (
