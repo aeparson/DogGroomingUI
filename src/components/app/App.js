@@ -38,7 +38,7 @@ const App = () => {
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
-          closeOnClick
+          closeOnClick={false}
           rtl={false}
           pauseOnFocusLoss={false}
           draggable={false}
