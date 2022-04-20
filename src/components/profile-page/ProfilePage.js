@@ -29,7 +29,6 @@ const ProfilePage = ({ user }) => {
   const [purchases, setPurchase] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [value, setValue] = React.useState(2);
-  const reversedPurchases = [...purchases].reverse();
 
   useEffect(() => {
     fetchUserPurchase(setPurchase, setApiError, user);
@@ -159,7 +158,7 @@ const ProfilePage = ({ user }) => {
                 {purchases.length !== 0 ? (
                   <>
                     <TableHeadings />
-                    {reversedPurchases
+                    {[...purchases].reverse()
                       .map((purchase) => (
                         <PurchaseTableData
                           key={purchase.OrderDate}
