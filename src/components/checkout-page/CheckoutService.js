@@ -8,17 +8,29 @@ import Constants from '../../utils/constants';
  * @param {*} cartContents items to purchase
  * @returns payment confirmation response
  */
-export default async function makePurchase(products, deliveryAddress, billingAddress, creditCard) {
-  await HttpHelper(Constants.PURCHASE_ENDPOINT, 'POST', {
-    products,
-    deliveryAddress,
-    billingAddress,
-    creditCard
+export default async function makePurchase(products, deliveryAddress, billingAddress,
+  creditCard, purchaseTotal) {
+  const removePunctuation = (data) => data.replace(/[^\w]|_/g, '');
+  return HttpHelper(Constants.PURCHASE_ENDPOINT, 'POST', {
+    lineItems: products,
+    deliveryAddress: {
+      ...deliveryAddress,
+      // 12345-6789 => 123456789
+      deliveryZip: removePunctuation(deliveryAddress.deliveryZip)
+    },
+    billingAddress: {
+      ...billingAddress,
+      billingZip: removePunctuation(billingAddress.billingZip),
+      // (123)-456-7890 => 1234567890
+      phone: removePunctuation(billingAddress.phone)
+    },
+    creditCard,
+    purchaseTotal: purchaseTotal.substring(1)
   })
-    .then((response) => response.json())
-    .catch(() => {
-      /* eslint-disable no-console */
-      console.log('Failed to purchase');
-      /* eslint-enable no-console */
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(Constants.API_ERROR);
     });
 }

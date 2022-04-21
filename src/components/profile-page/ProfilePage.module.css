@@ -1,0 +1,111 @@
+body{
+  background-color: #AFE8EB;
+}
+
+.profileContainer {
+    display: block;
+    width: 50%;
+    border-radius: 2px;
+    border-color: #666666;
+    padding: 1em;
+    margin: 50px;
+    box-shadow: .2em .2em .2em rgba(0,0,0,0.23);
+    background: #fff;
+    
+}
+  
+  .title {
+    text-transform: uppercase;
+    color: #666666;
+    margin: 0 0 1em 0;
+  }
+
+  .input{
+    color: black;
+    font-size: 120%;
+    display: flex;
+  }
+
+  h4 {
+    color: #666666;
+  }
+
+.category {
+    text-transform: uppercase;
+    color: #666666;
+}
+
+
+/*All Table styling below*/
+.lineItems {
+  vertical-align: top;
+  color: #666666;
+  white-space: wrap;
+}
+
+.purchaseDetails {
+  vertical-align: top;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+  padding: 4px;
+}
+
+.purchaseHistoryTable p {
+  color: #666666;
+  width: 95%;
+  font-weight: normal;
+  margin-left: 1em;
+}
+
+.purchaseHistoryTable summary > * {
+  display: inline;
+  color: #666666;
+}
+
+.viewPurchaseHistory {
+  /* purchase history div that creates a box around the table. */
+  color: #666666;
+  font-weight: bold;
+  font-size: 120%;
+  text-transform: uppercase;
+}
+
+.purchaseHistoryTable {
+    display: block;
+    width: 50%;
+    border-radius: 2px;
+    border-color: #666666;
+    padding: 1em;
+    margin: 50px;
+    box-shadow: .2em .2em .2em rgba(0,0,0,0.23);
+    background: #fff;
+}
+
+.purchaseHistoryTable details {
+  width: 100%;
+}
+
+.purchaseHistoryTable table {
+  width: 100%;
+}
+
+.purchaseHistoryTable td {
+    text-align: left;
+    color: #666666;
+    font-weight: bold;
+    padding-top: 3px;
+    background: white;
+}
+
+.purchaseHistoryTable th {
+    color: black;
+    position: sticky;
+    top: 0px;
+    /* border: 1px solid black; */
+    text-align: left;
+    width: 25%;
+}
+
+
+

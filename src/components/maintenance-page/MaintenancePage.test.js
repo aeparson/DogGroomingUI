@@ -1,5 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import MaintenancePage from './MaintenancePage';
 import fetchAllProducts from './MaintenancePageService';
@@ -26,7 +27,9 @@ describe('Maintenance Page Component Tests', () => {
       setApiError(true);
     });
     render(
-      <MaintenancePage />, container
+      <BrowserRouter>
+        <MaintenancePage />
+      </BrowserRouter>, container
     );
     expect(screen.getByTestId('errMsg')).toHaveTextContent('Oops, something went wrong');
   });
@@ -37,7 +40,9 @@ describe('Maintenance Page Component Tests', () => {
       setProducts([{ id: 0, price: 80.00 }, { id: 1, price: 80.00 }]);
     });
     render(
-      <MaintenancePage />, container
+      <BrowserRouter>
+        <MaintenancePage />
+      </BrowserRouter>, container
     );
     expect(screen.getAllByRole('columnheader').length).toBe(20);
     expect(screen.getAllByRole('row').length).toEqual(3);
@@ -51,7 +56,9 @@ describe('Maintenance Page Component Tests', () => {
         { id: 0, price: 80.00 }]);
     });
     render(
-      <MaintenancePage />, container
+      <BrowserRouter>
+        <MaintenancePage />
+      </BrowserRouter>, container
     );
     const rows = screen.getAllByRole('row');
     expect(rows[0].firstChild.textContent).toBe('ID');

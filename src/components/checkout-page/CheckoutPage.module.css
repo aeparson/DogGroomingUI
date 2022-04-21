@@ -1,3 +1,7 @@
+body{
+  background-color: #AFE8EB !important;
+}
+
 .checkoutContainer {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;

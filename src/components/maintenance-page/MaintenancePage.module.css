@@ -1,0 +1,62 @@
+.button{
+    background-color: #179297;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    margin: 4px 2px;
+    padding: 5px ;
+}
+
+.MaintenanceMenu {
+  background-color: whitesmoke;
+}
+
+.maintenanceTable {
+    width: 100%;
+    /* The total height of the viewport minus the height of the header */
+    height: calc(100vh - 135.5px);
+    overflow: auto;
+}
+
+.maintenanceTable table {
+    border-spacing: 0px;
+    color: white;
+}
+
+.maintenanceTable td,
+.maintenanceTable th {
+    /* No borders on the top and left so each edge only has one border */
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    padding: 4px 3px 4px 3px;
+    white-space: nowrap;
+}
+
+.maintenanceTable td {
+    /* Numeric fields have inline style to align right */
+    text-align: left;
+}
+
+.maintenanceTable th {
+    position: sticky;
+    top: 0px;
+    /* Borders on the top because the headers are the top row */
+    border-top: 1px solid black;
+    text-align: center;
+    background: #d0a800;
+}
+
+.maintenanceTable th:first-child,
+.maintenanceTable td:first-child {
+    /* borders on the left side of the table */
+    border-left: 1px solid black;
+}
+
+.maintenanceTable tr:nth-child(even) {
+    background-color: #1db9bf
+}
+
+.maintenanceTable tr:nth-child(odd) {
+    background-color: #179297;
+}
