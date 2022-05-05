@@ -1,13 +1,17 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { toast } from 'react-toastify';
+import { render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import MaintenancePage from './MaintenancePage';
-import fetchAllProducts from './MaintenancePageService';
+import { fetchAllProducts, deleteProductById } from './MaintenancePageService';
 
 jest.mock('./MaintenancePageService');
+jest.mock('react-toastify');
 let container = null;
 
+toast.configure();
 describe('Maintenance Page Component Tests', () => {
   beforeEach(() => {
     // setup a DOM element as a render target
@@ -34,7 +38,7 @@ describe('Maintenance Page Component Tests', () => {
     expect(screen.getByTestId('errMsg')).toHaveTextContent('Oops, something went wrong');
   });
 
-  it('shows 20 columns in each row and one row per product', () => {
+  it('shows 21 columns in each row and one row per product', () => {
     fetchAllProducts.mockImplementation((setProducts, setApiError) => {
       setApiError(false);
       setProducts([{ id: 0, price: 80.00 }, { id: 1, price: 80.00 }]);
@@ -44,7 +48,7 @@ describe('Maintenance Page Component Tests', () => {
         <MaintenancePage />
       </BrowserRouter>, container
     );
-    expect(screen.getAllByRole('columnheader').length).toBe(20);
+    expect(screen.getAllByRole('columnheader').length).toBe(21);
     expect(screen.getAllByRole('row').length).toEqual(3);
   });
 
@@ -61,9 +65,65 @@ describe('Maintenance Page Component Tests', () => {
       </BrowserRouter>, container
     );
     const rows = screen.getAllByRole('row');
-    expect(rows[0].firstChild.textContent).toBe('ID');
-    expect(rows[1].firstChild.textContent).toBe('0');
-    expect(rows[2].firstChild.textContent).toBe('5');
-    expect(rows[3].firstChild.textContent).toBe('999999999');
+    expect(rows[0].childNodes[1].textContent).toBe('ID');
+    expect(rows[1].childNodes[1].textContent).toBe('0');
+    expect(rows[2].childNodes[1].textContent).toBe('5');
+    expect(rows[3].childNodes[1].textContent).toBe('999999999');
+  });
+
+  it('displays delete button only when product has no reviews', () => {
+    fetchAllProducts.mockImplementation((setProducts, setApiError) => {
+      setApiError(false);
+      setProducts([{ id: 5, price: 80.00 },
+        { id: 1, price: 80.00, reviewCount: 0 },
+        { id: 2, price: 80.00, reviewCount: 10 }]);
+    });
+    render(
+      <BrowserRouter>
+        <MaintenancePage />
+      </BrowserRouter>, container
+    );
+    const rows = screen.getAllByRole('row');
+    expect(rows[1].childNodes[0].childNodes.length).toBe(1);
+    expect(rows[2].childNodes[0].childNodes.length).toBe(0);
+  });
+
+  it('toasts a success message when a product is deleted', async () => {
+    fetchAllProducts.mockImplementation((setProducts, setApiError) => {
+      setApiError(false);
+      setProducts([{
+        name: 'testProduct', id: 1, price: 10.00, reviewCount: 0
+      }]);
+    });
+    deleteProductById.mockImplementation(async (productId) => productId);
+    const toastCalls = [];
+    toast.success.mockImplementation((text) => { toastCalls.push(text); });
+    render(
+      <BrowserRouter>
+        <MaintenancePage />
+      </BrowserRouter>, container
+    );
+    await act(async () => {
+      userEvent.click(screen.getByTestId('delete 1'));
+    });
+    expect(toastCalls).toEqual(['testProduct successfully deleted.']);
+  });
+  it('toasts an error message when product is not deleted', async () => {
+    fetchAllProducts.mockImplementation((setProducts, setApiError) => {
+      setApiError(false);
+      setProducts([{ id: 1, price: 10.00, reviewCount: 0 }]);
+    });
+    deleteProductById.mockImplementation(async (productId) => { throw Error(productId); });
+    const toastCalls = [];
+    toast.error.mockImplementation((text) => { toastCalls.push(text); });
+    render(
+      <BrowserRouter>
+        <MaintenancePage />
+      </BrowserRouter>, container
+    );
+    await act(async () => {
+      userEvent.click(screen.getByTestId('delete 1'));
+    });
+    expect(toastCalls).toEqual(['Server Error. Product not deleted. Please try again.']);
   });
 });

@@ -1,0 +1,39 @@
+.tooltip {
+    background-Color: white;
+    color: 'rgba(0, 0, 0, 0.87)';
+    box-shadow: 1;
+    font-Size: 11;
+};
+
+.addReview {
+    background-color: #179297;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    margin: .75em;
+    margin-left: 2em;
+    padding: 3px 20px 5px 20px;
+    width: auto;
+}
+:hover {
+    
+        transition: all 0.2s ease-in-out;
+    }
+
+.errorField{
+    color: red;
+    margin-top: 0em;
+}
+
+.inputField{
+    margin-top: 0;
+    margin-bottom: 0.2em;
+    padding: 0.5em;
+}
+
+.reviewFormFields {
+    text-align: justify;
+    grid-area: 2 / 1/ span 2 / span 3 !important;
+}

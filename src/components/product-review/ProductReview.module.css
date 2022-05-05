@@ -1,0 +1,13 @@
+.reviewData {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reviewTitle {
+  color: #333
+}
+
+.reviewComment,
+.reviewTitle {
+  padding-right: 1rem;
+}

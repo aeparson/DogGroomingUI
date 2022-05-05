@@ -1,0 +1,25 @@
+.highlight {
+  color: rgb(255, 219, 71);
+}
+
+.grey {
+  color: #ccc;
+}
+
+.starContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.greyContainer {
+  position: relative;
+}
+
+.highlightedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}

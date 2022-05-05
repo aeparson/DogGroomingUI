@@ -68,6 +68,7 @@ const BillingDetails = ({
               label="State"
               onChange={onChange}
               value={billingData.billingState}
+              defaultValue="Select State"
               options={usStates}
             />
           </div>

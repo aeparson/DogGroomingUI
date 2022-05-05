@@ -14,9 +14,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Constants from '../../utils/constants';
+// import Constants from '../../utils/constants';
+import assignImage from '../../utils/AssignImages';
 import { useCart } from '../checkout-page/CartContext';
 import ProductModal from '../product-modal/ProductModal';
+import StarRating from '../star-rating/StarRating';
 
 /**
  * @name useStyles
@@ -26,6 +28,12 @@ import ProductModal from '../product-modal/ProductModal';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345
+  },
+  cardContent: {
+    paddingBottom: 0
+  },
+  price: {
+    marginBottom: '0.5rem'
   },
   media: {
     height: 0,
@@ -52,12 +60,19 @@ const useStyles = makeStyles((theme) => ({
  * @param {*} props product
  * @return component
  */
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, user }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [showReviewsOnOpen, setShowReviewsOnOpen] = useState(false);
 
   const classes = useStyles();
 
   const { dispatch } = useCart();
+
+  const handleRatingClick = (event) => {
+    event.stopPropagation();
+    setShowReviewsOnOpen(true);
+    setModalIsOpen(true);
+  };
 
   const onFavorite = (event) => {
     event.stopPropagation();
@@ -104,6 +119,8 @@ const ProductCard = ({ product }) => {
         open={modalIsOpen}
         product={product}
         handleClose={handleModalClose}
+        user={user}
+        showReviewsOnOpen={showReviewsOnOpen}
       />
       <Card className={classes.root} onClick={openModal}>
         <CardHeader
@@ -122,18 +139,22 @@ const ProductCard = ({ product }) => {
         />
         <CardMedia
           className={classes.media}
-          image={Constants.PLACEHOLDER_IMAGE}
-          title="placeholder"
+          image={assignImage(product)}
+          title="product image"
         />
-        <CardContent>
+        <CardContent className={classes.cardContent}>
           <Typography variant="body2" color="textSecondary" component="p">
             {product.description}
           </Typography>
           <br />
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography className={classes.price} variant="body2" color="textSecondary" component="p">
             Price: $
             {product.price.toFixed(2)}
           </Typography>
+          <StarRating
+            onClick={handleRatingClick}
+            rating={product.averageRating}
+          />
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites" onClick={onFavorite}>

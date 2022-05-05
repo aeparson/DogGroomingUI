@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
+
 import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import loginUser from './HeaderService';
 import constants from '../../utils/constants';
-import './Header.css';
+import styles from './Header.module.css';
 import companyLogo from './arrayOfSunshine.png';
 import ShoppingCartIcon from './shopping-trolley.png';
 import { useCart } from '../checkout-page/CartContext';
@@ -15,6 +16,7 @@ import ProfileIcon from './profileicon.png';
  * @return component
  */
 const Header = ({ setUser, user }) => {
+  const history = useHistory();
   const [googleError, setGoogleError] = useState('');
   const [apiError, setApiError] = useState(false);
   const {
@@ -52,6 +54,7 @@ const Header = ({ setUser, user }) => {
   const handleGoogleLogoutSuccess = () => {
     setUser('');
     setGoogleError('');
+    history.push('/');
   };
 
   /**
@@ -63,24 +66,26 @@ const Header = ({ setUser, user }) => {
   };
 
   return (
-    <section className="header">
-      <div className="logo">
+    <section className={styles.header}>
+      <div className={styles.logo}>
         <NavLink to="/home">
           <img src={companyLogo} alt="Logo" height="45px" />
         </NavLink>
       </div>
-      <div className="profileIcon">
-        <NavLink to="/profile">
-          <img src={ProfileIcon} alt="profile" width="35px" />
-        </NavLink>
+      <div className={styles.profileIcon}>
+        {user !== '' ? (
+          <NavLink to="/profile">
+            <img src={ProfileIcon} alt="profile" width="35px" />
+          </NavLink>
+        ) : null}
       </div>
-      <div className="loginLogout">
+      <div className={styles.loginLogout}>
         {user && <span>{user.firstName}</span>}
         {' '}
         {user && (
         <span>
           {user.lastName}
-          &nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </span>
         )}
         {googleError && <span>{googleError}</span>}
@@ -102,11 +107,11 @@ const Header = ({ setUser, user }) => {
           />
         )}
       </div>
-      <div className="checkoutItem">
+      <div className={styles.checkoutItem}>
         <NavLink to="/checkout">
 
           <img src={ShoppingCartIcon} alt="cart" width="35px" />
-          <div className="checkoutBadge">{products.length}</div>
+          <div className={styles.checkoutBadge}>{(products.length < 100) ? products.length : '99+'}</div>
 
         </NavLink>
       </div>
