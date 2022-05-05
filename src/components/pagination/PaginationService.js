@@ -8,8 +8,8 @@ import Constants from '../../utils/constants';
  * @param {*} setApiError sets error if response other than 200 is returned
  * @returns sets state for product count if 200 response, else sets state for apiError
  */
-export default async function fetchProductsCount(setCount, setApiError, filterAddy) {
-  await HttpHelper(`${Constants.PRODUCT_COUNT_ENDPOINT}?filterBy=demographic${filterAddy}`, 'GET')
+export default async function fetchProductsCount(setCount, setApiError, queryString) {
+  await HttpHelper(`${Constants.PRODUCT_COUNT_ENDPOINT}?${queryString}`, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();

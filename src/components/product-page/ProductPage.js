@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Box } from '@mui/system';
@@ -6,7 +7,7 @@ import thing from './ProductPage.module.css';
 import Constants from '../../utils/constants';
 import fetchProductsCount, { fetchFirstPageOfProducts } from '../pagination/PaginationService';
 import FilterMenu from '../filter-menu/FilterMenu';
-import fetchDemographicProducts from '../filter-menu/FilterMenuService';
+import fetchProducts from '../filter-menu/FilterMenuService';
 
 /**
  * @name ProductPage
@@ -14,16 +15,17 @@ import fetchDemographicProducts from '../filter-menu/FilterMenuService';
  * @return component
  */
 
-const ProductPage = () => {
+const ProductPage = ({ user }) => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [webRoute, setWebRoute] = useState([]);
+  const [webRoute, setWebRoute] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const filterByDemographic = () => {
-    fetchDemographicProducts(setProducts, setApiError, page, webRoute);
+  const filterByQuery = (pageToFetch) => {
+    setPage(pageToFetch);
+    fetchProducts(setProducts, setApiError, pageToFetch, webRoute);
   };
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -55,7 +57,7 @@ const ProductPage = () => {
    */
   function handlePageClick({ selected: selectedPage }) {
     setPage(selectedPage);
-    fetchDemographicProducts(setProducts, setApiError, selectedPage, webRoute);
+    filterByQuery(selectedPage);
   }
 
   return (
@@ -63,14 +65,14 @@ const ProductPage = () => {
       <Box>
         <FilterMenu
           setWebRoute={setWebRoute}
-          onFilter={filterByDemographic}
+          onFilter={filterByQuery}
           pushover={setSidebarOpen}
         />
         {apiError && <p className={thing.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
         <div className={sidebarOpen ? thing.pushed : thing.app}>
           {products.map((product) => (
             <div key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} user={user} />
             </div>
           ))}
         </div>

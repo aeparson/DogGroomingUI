@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Constants from '../../utils/constants';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import { toast } from 'react-toastify';
 import styles from './MaintenancePage.module.css';
-import fetchAllProducts from './MaintenancePageService';
-
+import Constants from '../../utils/constants';
+import { fetchAllProducts, deleteProductById } from './MaintenancePageService';
 /**
  * @description fetches products from API and displays in a table
  * @returns component
@@ -13,35 +15,44 @@ const MaintenancePage = () => {
   const [products, setProducts] = useState([]);
   const [apiError, setApiError] = useState(false);
 
+  const updateProductList = () => fetchAllProducts(setProducts, setApiError);
+
   useEffect(() => {
-    fetchAllProducts(setProducts, setApiError);
+    updateProductList();
   }, []);
 
   return (
     <>
-      <>
-        {apiError && (
+      {apiError && (
         <p data-testid="errMsg">
           {Constants.API_ERROR}
         </p>
-        )}
-        <div className="MaintenanceMenu">
-          <NavLink to="/createProductPage">
-            <button className={styles.button} type="button">Create Product</button>
-          </NavLink>
-        </div>
-        <div className={styles.maintenanceTable}>
-          <table>
-            <thead>
-              <TableHeadings />
-            </thead>
-            <tbody>
-              {products.sort((productA, productB) => productA.id - productB.id)
-                .map((product) => <TableData key={product.id} product={product} />)}
-            </tbody>
-          </table>
-        </div>
-      </>
+      )}
+      <div className="MaintenanceMenu">
+        <NavLink to="/createProductPage">
+          <button className={styles.button} type="button">Create Product</button>
+        </NavLink>
+        <NavLink to="/createPromoCodePage">
+          <button className={styles.button} type="button">Create Promo</button>
+        </NavLink>
+      </div>
+      <div className={styles.maintenanceTable}>
+        <table>
+          <thead>
+            <TableHeadings />
+          </thead>
+          <tbody>
+            {products.sort((productA, productB) => productA.id - productB.id)
+              .map((product) => (
+                <TableData
+                  key={product.id}
+                  updateProducts={updateProductList}
+                  product={product}
+                />
+              ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
@@ -52,6 +63,7 @@ const MaintenancePage = () => {
  */
 const TableHeadings = () => (
   <tr>
+    <th />
     <th>ID</th>
     <th>Active</th>
     <th>Name</th>
@@ -90,14 +102,59 @@ const formatDate = (dateString) => {
 };
 
 /**
+ * A clickable trash can icon for deleting products
+ * @prop {{id: number, name: string, ...}} product product object
+ * @prop {function} updateProducts function to refetch all products
+ * @returns Delete button component
+ */
+const DeleteButton = (props) => {
+  const {
+    product, updateProducts
+  } = props;
+  const [clickable, setClickable] = useState(true);
+
+  const onClick = () => {
+    if (clickable) {
+      setClickable(false); // Prevent double clicks
+      deleteProductById(product.id)
+        .then(() => {
+          updateProducts();
+          toast.success(`${product.name} successfully deleted.`);
+        })
+        .catch(() => {
+          updateProducts(); // Account for errors caused by backend changes since page render
+          toast.error('Server Error. Product not deleted. Please try again.');
+          setClickable(true);
+        });
+    }
+  };
+
+  return (
+    <IconButton onClick={onClick} color="inherit" size="small" className="actionButton" data-testid={`delete ${product.id}`}>
+      <DeleteIcon />
+    </IconButton>
+  );
+};
+
+/**
  * @description a row of table data for a product
  * @param {Object} props Contains a product object
  * @returns component
  */
 const TableData = (props) => {
-  const { product } = props;
+  const {
+    product, updateProducts
+  } = props;
   return (
     <tr>
+      <td style={{ padding: 0 }}>
+        {product.reviewCount === 0 && (
+          <DeleteButton
+            product={product}
+            updateProducts={updateProducts}
+          />
+        )}
+      </td>
       <td style={{ textAlign: 'right' }}>{product.id}</td>
       <td>{product.active ? 'Active' : 'Inactive'}</td>
       <td>{product.name}</td>

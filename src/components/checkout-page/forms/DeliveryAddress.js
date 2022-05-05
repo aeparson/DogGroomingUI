@@ -91,6 +91,7 @@ const DeliveryAddress = ({
           label="State"
           onChange={onChange}
           value={deliveryData.deliveryState}
+          defaultValue="Select State"
           options={usStates}
         />
       </div>

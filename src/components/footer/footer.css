@@ -12,6 +12,8 @@
     margin: auto;
     color: white;
     font-weight: bold;
+    font-size: 20px;
     padding-left: 15px;
+    text-shadow: 1px 1px #179297;
     border: 5px solid #5CE1E6;
 }

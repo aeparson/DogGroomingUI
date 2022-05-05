@@ -31,6 +31,8 @@
     border-right: 1px solid black;
     padding: 4px 3px 4px 3px;
     white-space: nowrap;
+    z-index: 10;
+    height: 29px;
 }
 
 .maintenanceTable td {
@@ -59,4 +61,8 @@
 
 .maintenanceTable tr:nth-child(odd) {
     background-color: #179297;
+}
+
+.actionButton {
+    padding: 0px;
 }
