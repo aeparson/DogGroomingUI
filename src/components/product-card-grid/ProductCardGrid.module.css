@@ -1,0 +1,45 @@
+:root {
+  /* using a fixed width makes as-103 work.
+  ** leaving --card-min-width and --card-max-width
+  ** in place anyway because if it can be made to work
+  ** with variable card widths in the future
+  ** the effect is much cooler.
+  */
+  --card-width: 345px;
+  --card-min-width: var(--card-width);
+  /* max-width is not needed for layout
+  ** but it looks better */
+  --card-max-width: var(--card-width);
+  --card-gap: 20px;
+  --grid-margin: 20px;
+  --max-cards: 10;
+
+  /* 100% of containing element minus margins */
+  --container-min-width: calc(100% - calc(2 * var(--grid-margin)));
+
+  /* The narrowest a row can be with n+1 cards, minus one pixel,
+  ** is the widest a row can be with n cards. */
+  --container-max-width: calc((var(--max-cards) + 1) * var(--card-min-width) + var(--max-cards) * var(--card-gap) - 1px);
+}
+
+.outerContainer {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  transition: 850ms;
+}
+
+.pushed {
+  margin-left: 275px;
+  transition: 350ms;
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--card-gap);
+  min-width: var(--card-min-width);
+  width: min(var(--container-min-width), var(--container-max-width));
+  margin: var(--grid-margin);
+}

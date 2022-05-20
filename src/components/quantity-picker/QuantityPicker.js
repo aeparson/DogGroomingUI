@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent */
 import React from 'react';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { Add, Remove } from '@material-ui/icons';
@@ -8,29 +9,32 @@ const QuantityPicker = ({ quantity, onChange, updateQuantity }) => {
   };
 
   const decrementQuantity = () => {
-    if (quantity < 1) return;
+    if (quantity === 1) return;
     updateQuantity(quantity - 1);
   };
 
   const inputProps = {
     startAdornment:
-  <InputAdornment position="start">
-    <IconButton onClick={decrementQuantity}><Remove /></IconButton>
-  </InputAdornment>,
+      <InputAdornment position="start">
+        <IconButton onClick={decrementQuantity}><Remove /></IconButton>
+      </InputAdornment>,
     endAdornment:
-  <InputAdornment position="end">
-    <IconButton onClick={incrementQuantity}><Add /></IconButton>
-  </InputAdornment>
+      <InputAdornment position="end">
+        <IconButton onClick={incrementQuantity}><Add /></IconButton>
+      </InputAdornment>
   };
 
   const inputElementProps = {
     style: {
-      width: '4ch'
+      width: '4ch',
+      textAlign: 'center',
+      fontSize: '1.5rem'
     }
   };
 
   return (
     <TextField
+      disabled
       label="Quantity"
       sx={{ m: 1, width: '25ch' }}
       value={quantity}

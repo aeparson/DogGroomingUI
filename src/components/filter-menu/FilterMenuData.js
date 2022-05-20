@@ -50,7 +50,7 @@ const colorFilters = [
     id: 2,
     title: 'BLACK',
     cName: 'navText',
-    filterAddy: 'color=%23ffffff&',
+    filterAddy: 'color=%23000000&',
     value: false
   },
   {
@@ -141,7 +141,7 @@ const colorFilters = [
     id: 15,
     title: 'WHITE',
     cName: 'navText',
-    filterAddy: 'color=%23000000&',
+    filterAddy: 'color=%23ffffff&',
     value: false
   }
 ];

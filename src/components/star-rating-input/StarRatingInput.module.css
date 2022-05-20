@@ -1,0 +1,30 @@
+.root {
+  --color-grey: #ccc;
+  --color-highlight: rgb(255, 219, 71);
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+
+.grey {
+  color: var(--color-grey);
+}
+
+.starContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.greyContainer {
+  position: relative;
+}
+
+.highlightedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}

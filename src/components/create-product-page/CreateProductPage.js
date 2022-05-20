@@ -17,7 +17,7 @@ const CreateProductPage = () => {
   const history = useHistory();
 
   const [productData, setProductData] = useState({
-    active: '',
+    active: 'true',
     name: '',
     brand: '',
     category: '',
@@ -45,12 +45,12 @@ const CreateProductPage = () => {
     const [invalidFields] = validateProductCreation(newProductForm);
     // if all fields are valid
     if (Object.keys(invalidFields).length === 0) {
-      postNewProduct(newProductForm, history).then(() => {
-        // history.push('/confirmation');
-      }).catch(() => {
-        setFieldErrors({ product: invalidFields });
-        toast.error('Product not created');
-      });
+      postNewProduct(newProductForm, history)
+        .then(() => {
+        }).catch(() => {
+          setFieldErrors({ product: invalidFields });
+          toast.error('Product not created');
+        });
     } else {
       setFieldErrors({ product: invalidFields });
       toast.error('Invalid input. Please check form for errors.');
@@ -87,13 +87,41 @@ const CreateProductPage = () => {
           productData={productData}
           errors={fieldErrors.product}
         />
-        <button
-          type="submit"
-          onClick={handleCreate}
-          className={styles.createButton}
-        >
-          Create Product
-        </button>
+        <div className={styles.buttonContainer}>
+          <div className={styles.column3}>
+            <div>
+              <strong>Active Status</strong>
+              <span className={styles.radio}>
+                &nbsp;&nbsp;&nbsp;
+                <input
+                  type="radio"
+                  id="active"
+                  name="status"
+                  value="true"
+                  checked={productData.active === 'true'}
+                  onChange={handleChange}
+                />
+                active&nbsp;&nbsp;&nbsp;
+                <input
+                  type="radio"
+                  id="active"
+                  name="status"
+                  value="false"
+                  checked={productData.active === 'false'}
+                  onChange={handleChange}
+                />
+                inactive
+              </span>
+            </div>
+          </div>
+          <button
+            type="submit"
+            onClick={handleCreate}
+            className={`${styles.createButton} ${styles.column4}`}
+          >
+            Create Product
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import { makeStyles } from '@material-ui/core/styles';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import {
   Dialog,
   DialogActions,
@@ -16,8 +18,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown as Down, faChevronUp as Up } from '@fortawesome/free-solid-svg-icons';
-import Image from 'mui-image';
+import { Image } from 'mui-image';
 import { Tooltip } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import QuantityPicker from '../quantity-picker/QuantityPicker';
 import { useCart } from '../checkout-page/CartContext';
 import AddReview from './AddReview';
@@ -26,6 +29,8 @@ import { fetchUserPurchase } from '../profile-page/ProfilePageService';
 import reviewStyles from './ProductModal.module.css';
 import ProductReviewList from '../product-review/ProductReviewList';
 import assignImage from '../../utils/AssignImages';
+import { addNewWish, deleteWish, fetchUserWishlist } from '../product-card/ProductCardService';
+import fetchProductReviews from '../product-review/ProductReviewService';
 
 const useStyles = makeStyles({
   dialogContent: {
@@ -52,7 +57,10 @@ const useStyles = makeStyles({
   title: {
     padding: 0,
     flexShrink: 1,
-    maxWidth: '32ch'
+    maxWidth: '43ch'
+  },
+  titleFont: {
+    fontSize: '1.75em'
   },
   productDescription: {
     marginBottom: '2rem',
@@ -60,6 +68,9 @@ const useStyles = makeStyles({
       maxWidth: '40ch'
     },
     maxWidth: '90%'
+  },
+  descriptionFont: {
+    fontSize: '1.25em'
   },
   productTags: {
     display: 'flex',
@@ -79,13 +90,13 @@ const useStyles = makeStyles({
   },
   bottom: {
     display: 'flex',
-    marginTop: 'auto'
+    marginTop: 'auto',
+    alignItems: 'flex-start'
   },
   price: {
-    fontSize: '1.5rem',
+    fontSize: '2rem',
     alignSelf: 'center',
-    marginRight: 'auto',
-    marginLeft: 'auto'
+    marginRight: '1rem'
   },
   reviewActions: {
     display: 'flex',
@@ -98,6 +109,36 @@ const useStyles = makeStyles({
   },
   downIcon: {
     transform: 'translateY(-1px)'
+  },
+  cartIcon: {
+    fontSize: 36
+  },
+  heartIcon: {
+    fontSize: 24,
+    padding: '0px'
+  },
+  viewReviewIcon: {
+    fontSize: 24
+  },
+  categoryChip: {
+    fontSize: '1.25rem',
+    minWidth: 100,
+    height: 40
+  },
+  wishListButton: {
+    paddingLeft: '.5rem',
+    paddingRight: '0rem',
+    paddingTop: '0rem',
+    paddingBottom: '0rem'
+  },
+  viewReviewsButton: {
+    paddingLeft: '1rem',
+    paddingRight: '0rem',
+    paddingTop: '0rem',
+    paddingBottom: '0rem'
+  },
+  wishListButtonContainer: {
+    marginTop: '2rem'
   }
 });
 
@@ -119,22 +160,62 @@ const ProductModal = ({
   open,
   product,
   handleClose,
-  showReviewsOnOpen
+  showReviewsOnOpen,
+  wishes,
+  setWishes
 }) => {
   const [quantity, setQuantity] = useState(1);
   const [showReviews, setShowReviews] = useState(showReviewsOnOpen);
   const [sortOrder, setSortOrder] = useState('descending');
+  const [disabled, setDisabled] = useState(false);
 
   const reviewContainerRef = useRef(null);
+
+  const attemptWishlistAdd = (newFavoriteItem) => {
+    if (user !== '') {
+      addNewWish(newFavoriteItem, setDisabled).then(() => {
+        fetchUserWishlist(setWishes, user);
+      }).catch(() => {
+        toast.error(`A server error occured. ${newFavoriteItem.productName} could not be added to wishlist.`);
+      });
+    } else {
+      toast.error('Please log in to save items to wishlist.');
+    }
+  };
+  const attemptWishlistDelete = (favoriteItem) => {
+    const favoriteItemToDelete = (wishes.find((w) => w.productId === product.id));
+    if (user !== '') {
+      deleteWish(favoriteItem, favoriteItemToDelete.id).then(() => {
+        fetchUserWishlist(setWishes, user);
+      }).catch(() => {
+        toast.error(`A server error occured. ${favoriteItem.name} could not be removed from wishlist.`);
+      });
+    } else {
+      toast.error('Please log in to remove items from wishlist.');
+    }
+  };
+
+  const onFavoriteModal = (e) => {
+    e.stopPropagation();
+    const newFavoriteItem = {
+      productName: product.name,
+      productId: product.id,
+      userId: user.id
+    };
+    if (wishes.some((w) => w.productId === product.id)) {
+      attemptWishlistDelete(product);
+    } else {
+      attemptWishlistAdd(newFavoriteItem, setDisabled);
+    }
+  };
 
   useEffect(() => {
     // opens modal with reviews hidden if product has no reviews
     if (product.reviewCount > 0) { setShowReviews(showReviewsOnOpen); }
   }, [showReviewsOnOpen, product.reviewCount]);
 
-  useEffect(() => {
-    if (showReviews) reviewContainerRef.current.scrollIntoView();
-  }, [showReviews]);
+  const [reviews, setReviews] = useState([]);
+  const [isReviewed, setIsReviewed] = useState(false);
 
   const { dispatch } = useCart();
 
@@ -142,8 +223,26 @@ const ProductModal = ({
   const [purchases, setPurchase] = useState([]);
 
   useEffect(() => {
-    fetchUserPurchase(setPurchase, setApiError, user);
+    if (user !== null) {
+      fetchUserPurchase(setPurchase, setApiError, user);
+    }
   }, [user]);
+
+  useEffect(() => {
+    if (showReviews) {
+      reviewContainerRef.current.scrollIntoView();
+      fetchProductReviews(product.id, setReviews, setApiError);
+    }
+  }, [showReviews, product.id]);
+
+  useEffect(() => {
+    // Determines if the user has posted a review for the product
+    if (reviews.some((review) => review.userId === user.id)) {
+      setIsReviewed(true);
+    }
+  }, [reviews, user.id]);
+
+  const updateReviews = () => fetchProductReviews(product.id, setReviews, setApiError);
 
   const styles = useStyles();
 
@@ -166,15 +265,15 @@ const ProductModal = ({
   const updateQuantity = (newQuantity) => {
     setQuantity(Number(newQuantity));
   };
-
+  // event listener for the quantity picker
   const handleChange = (event) => {
     updateQuantity(event.target.value);
   };
 
-  const [show, setShow] = useState(false);
+  const [showAddReviewForm, setShowAddReviewForm] = useState(false);
 
   const addReviewForm = () => {
-    setShow(!show);
+    setShowAddReviewForm(!showAddReviewForm);
   };
 
   const loggedIn = (_product) => {
@@ -192,7 +291,9 @@ const ProductModal = ({
               variant="outlined"
               size="small"
             >
+              <FavoriteIcon />
               Review
+              {' '}
             </Button>
           </Tooltip>
         </div>
@@ -214,16 +315,14 @@ const ProductModal = ({
         </div>
       );
     }
-    if (hasPurchased) {
+    if (hasPurchased && !isReviewed) {
       return (
         <Button
           type="button"
           className={reviewStyles.addReview}
           variant="outlined"
           size="small"
-          onClick={() => {
-            addReviewForm(); setShowReviews(showReviews);
-          }}
+          onClick={addReviewForm}
         >
           Review
         </Button>
@@ -240,7 +339,7 @@ const ProductModal = ({
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="md" scroll="paper">
+    <Dialog open={open} onClose={handleClose} maxWidth="lg" scroll="paper">
       <DialogContent className={styles.dialogContent}>
         <Grid container spacing={3} className={styles.containerGrid}>
           <Grid item xs={8} className={styles.imageWrap}>
@@ -255,7 +354,9 @@ const ProductModal = ({
           <Grid container direction="column" item xs={4} className={styles.productDetails}>
             <Grid container item direction="row" className={styles.titleRow}>
               <DialogTitle className={styles.title}>
-                {product.name}
+                <Typography classes={{ body1: styles.titleFont }}>
+                  {product.name}
+                </Typography>
               </DialogTitle>
               <IconButton
                 aria-label="close"
@@ -266,34 +367,83 @@ const ProductModal = ({
               </IconButton>
             </Grid>
             <Grid item className={styles.productDescription}>
-              <Typography>{product.description}</Typography>
+              <Typography classes={{ body1: styles.descriptionFont }}>
+                {product.description}
+              </Typography>
             </Grid>
+            <p className={reviewStyles.chipTitle}>Categories:</p>
             <Box className={styles.productTags}>
-              <Chip label={product.category} variant="outlined" />
-              <Chip label={product.type} variant="outlined" />
+              <Chip
+                className={styles.categoryChip}
+                label={product.category}
+                variant="outlined"
+              />
+              <Chip
+                className={styles.categoryChip}
+                label={product.type}
+                variant="outlined"
+              />
             </Box>
+            <p className={reviewStyles.chipTitle}>Product Colors:</p>
             <Box className={styles.productColors}>
               <Chip
                 className={styles[getTextColorClass(product.primaryColorCode)]}
-                label={product.primaryColorCode.toUpperCase()}
-                style={{ backgroundColor: product.primaryColorCode }}
+                style={{
+                  backgroundColor: product.primaryColorCode,
+                  minWidth: 100,
+                  height: 40
+                }}
+                variant="outlined"
               />
               <Chip
                 className={styles[getTextColorClass(product.secondaryColorCode)]}
-                label={product.secondaryColorCode.toUpperCase()}
-                style={{ backgroundColor: product.secondaryColorCode }}
+                style={{
+                  backgroundColor: product.secondaryColorCode,
+                  minWidth: 100,
+                  height: 40
+                }}
+                variant="outlined"
               />
             </Box>
-            <Box className={styles.viewReviewsButtonContainer}>
-              <Button
-                variant="outlined"
-                size="small"
-                className={styles.viewReviewsButton}
-                onClick={() => setShowReviews(!showReviews)}
-              >
-                {showReviews ? 'Hide Reviews' : 'View Reviews'}
-              </Button>
-            </Box>
+            <Grid>
+              <Box className={styles.wishListButtonContainer}>
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  className={styles.wishListButton}
+                  onClick={onFavoriteModal}
+                  style={wishes.some((e) => e.productId === product.id) ? { color: 'red' } : undefined}
+                >
+                  Add To Wish List
+                  <IconButton aria-label="add to favorites" disabled={disabled} onClick={onFavoriteModal}>
+                    <FavoriteIcon
+                      className={styles.heartIcon}
+                      style={wishes.some((e) => e.productId === product.id) ? { color: 'red' } : undefined}
+                    />
+                  </IconButton>
+                </Button>
+              </Box>
+            </Grid>
+            <Grid>
+              <Box className={styles.viewReviewsButtonContainer}>
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  style={{
+                    marginTop: '2rem'
+                  }}
+                  className={styles.viewReviewsButton}
+                  onClick={() => setShowReviews(!showReviews)}
+                >
+                  {showReviews ? 'Hide Reviews' : 'View Reviews'}
+                  <IconButton aria-label="view reviews">
+                    <VisibilityIcon
+                      className={styles.viewReviewIcon}
+                    />
+                  </IconButton>
+                </Button>
+              </Box>
+            </Grid>
             <Box className={styles.bottom}>
               <Typography className={styles.price}>
                 $
@@ -305,8 +455,11 @@ const ProductModal = ({
                   onChange={handleChange}
                   updateQuantity={updateQuantity}
                 />
-                <IconButton aria-label="add to shopping cart" onClick={onAdd}>
-                  <AddShoppingCartIcon />
+                <IconButton
+                  aria-label="add to shopping cart"
+                  onClick={onAdd}
+                >
+                  <AddShoppingCartIcon className={styles.cartIcon} />
                 </IconButton>
               </DialogActions>
             </Box>
@@ -318,47 +471,53 @@ const ProductModal = ({
                   <Button
                     variant="outlined"
                     size="small"
-                    className={styles.viewReviewsButton}
+                    className={styles.lowerViewReviewsButton}
                     onClick={() => setShowReviews(!showReviews)}
                   >
                     {showReviews ? 'Hide Reviews' : 'View Reviews'}
                   </Button>
                   {showReviews
-                && (
-                <>
-                  <Button
-                    size="small"
-                    onClick={toggleSortOrder}
-                    className={styles.sortOrderButton}
-                  >
-                    {sortOrder === 'descending' ? 'Newest first' : 'Oldest first'}
-                    <FontAwesomeIcon
-                      className={sortOrder === 'descending' ? `${styles.sortOrderIcon} ${styles.downIcon}` : styles.sortOrderIcon}
-                      icon={sortOrder === 'descending' ? Down : Up}
-                      size="1x"
-                    />
-                  </Button>
-                </>
-                )}
+                    && (
+                      <>
+                        <Button
+                          size="small"
+                          onClick={toggleSortOrder}
+                          className={styles.sortOrderButton}
+                        >
+                          {sortOrder === 'descending' ? 'Newest first' : 'Oldest first'}
+                          <FontAwesomeIcon
+                            className={sortOrder === 'descending' ? `${styles.sortOrderIcon} ${styles.downIcon}` : styles.sortOrderIcon}
+                            icon={sortOrder === 'descending' ? Down : Up}
+                            size="1x"
+                          />
+                        </Button>
+                      </>
+                    )}
                 </Box>
                 <Box className={styles.reviewsContainer}>
                   <>
                     {loggedIn(product)}
-                    {show && (
-                    <AddReview
-                      user={user}
-                      product={product}
-                      setShowReviews={setShowReviews}
-                      setShow={setShow}
-                    />
+                    {showAddReviewForm && (
+                      <AddReview
+                        user={user}
+                        product={product}
+                        setShowReviews={setShowReviews}
+                        setShow={setShowAddReviewForm}
+                      />
                     )}
                     {apiError && (
-                    <p data-testid="errMsg">
-                      {constants.API_ERROR}
-                    </p>
+                      <p data-testid="errMsg">
+                        {constants.API_ERROR}
+                      </p>
                     )}
                   </>
-                  <ProductReviewList productId={product.id} sortOrder={sortOrder} />
+                  <ProductReviewList
+                    user={user}
+                    sortOrder={sortOrder}
+                    reviews={reviews}
+                    updateReviews={updateReviews}
+                    product={product}
+                  />
                 </Box>
               </div>
             </Grid>

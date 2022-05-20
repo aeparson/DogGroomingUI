@@ -1,8 +1,6 @@
 import { List } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import fetchProductReviews from './ProductReviewService';
+import React from 'react';
 import ProductReview from './ProductReview';
-import Constants from '../../utils/constants';
 
 import styles from './ProductReviewList.module.css';
 
@@ -17,17 +15,11 @@ const sortDateDescending = (review1, review2) => new Date(review2.datePosted)
 const sortDateAscending = (review1, review2) => new Date(review1.datePosted)
   - new Date(review2.datePosted);
 
-function ProductReviewList({ productId, sortOrder }) {
-  const [reviews, setReviews] = useState([]);
-  const [apiError, setApiError] = useState(false);
-
-  useEffect(() => {
-    fetchProductReviews(productId, setReviews, setApiError);
-  }, [productId]);
-
+function ProductReviewList({
+  user, sortOrder, reviews, updateReviews, product
+}) {
   return (
     <>
-      {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
       <List className={styles.reviewList}>
         {reviews
           .slice()
@@ -35,7 +27,10 @@ function ProductReviewList({ productId, sortOrder }) {
           .map((review) => (
             <ProductReview
               key={review.id}
+              user={user}
               productReview={review}
+              update={updateReviews}
+              product={product}
             />
           ))}
       </List>

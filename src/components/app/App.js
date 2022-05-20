@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -35,6 +35,15 @@ const PrivateRoute = ({ user, setUser }) => (
 
 const App = () => {
   const [user, setUser] = useState('');
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser !== undefined && loggedInUser !== null) {
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Header setUser={setUser} user={user} />
@@ -43,7 +52,7 @@ const App = () => {
           <Route exact path="/" render={() => <ProductPage user={user} />} />
           <Route exact path="/checkout" render={() => <CheckoutPage />} />
           <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
-          <Route exact path="/maintenance" render={() => <MaintenancePage />} />
+          <Route exact path="/maintenance" render={() => <MaintenancePage user={user} />} />
           <PrivateRoute path="/profile" user={user} setUser={setUser} />
           <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
           <Route exact path="/createPromoCodePage" render={() => <CreatePromoCodePage />} />

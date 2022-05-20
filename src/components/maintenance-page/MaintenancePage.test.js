@@ -6,8 +6,11 @@ import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import MaintenancePage from './MaintenancePage';
 import { fetchAllProducts, deleteProductById } from './MaintenancePageService';
+import { fetchUserPurchase } from '../profile-page/ProfilePageService';
+// import { createArrayLiteral } from 'typescript';
 
 jest.mock('./MaintenancePageService');
+jest.mock('../profile-page/ProfilePageService');
 jest.mock('react-toastify');
 let container = null;
 
@@ -114,6 +117,7 @@ describe('Maintenance Page Component Tests', () => {
       setProducts([{ id: 1, price: 10.00, reviewCount: 0 }]);
     });
     deleteProductById.mockImplementation(async (productId) => { throw Error(productId); });
+    fetchUserPurchase.mockImplementation();
     const toastCalls = [];
     toast.error.mockImplementation((text) => { toastCalls.push(text); });
     render(
@@ -126,4 +130,37 @@ describe('Maintenance Page Component Tests', () => {
     });
     expect(toastCalls).toEqual(['Server Error. Product not deleted. Please try again.']);
   });
+
+  // it('modal opens when attempt to delete a product that has been purchased', async () => {
+  //   fetchAllProducts.mockImplementation((setProducts, setApiError) => {
+  //     setApiError(false);
+  //     setProducts([{
+  //       name: 'testProduct', id: 1, price: 10.00, reviewCount: 0, active: true
+  //     }]);
+  //   });
+  //   fetchUserPurchase.mockImplementation((setPurchase) => {
+  //     setPurchase([{
+  //       // object that looks like a purchase
+  //       lineItems: [
+  //         {
+  //           productId: 1,
+  //           quantity: 1,
+  //           productName: 'Next Gen Soccer Wristband'
+  //         }
+  //       ]
+  //     }]);
+  //   });
+  //   deleteProductById.mockImplementation(async (productId) => productId);
+  //   const toastCalls = [];
+  //   toast.success.mockImplementation((text) => { toastCalls.push(text); });
+  //   render(
+  //     <BrowserRouter>
+  //       <MaintenancePage />
+  //     </BrowserRouter>, container
+  //   );
+  //   await act(async () => {
+  //     userEvent.click(screen.getByTestId('delete 1'));
+  //   });
+  //   expect(screen.getByText('Next Gen Soccer Wristband')).toBeEnabled();
+  // });
 });

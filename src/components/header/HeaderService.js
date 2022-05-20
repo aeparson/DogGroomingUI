@@ -23,6 +23,7 @@ const getUserByEmail = async (email, setUser) => {
     .then((body) => {
       setUser(body);
       document.cookie = `user=${JSON.stringify(body)}`;
+      localStorage.setItem('user', JSON.stringify(body));
     })
     .catch(() => {});
 
