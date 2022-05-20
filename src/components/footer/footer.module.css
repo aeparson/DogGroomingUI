@@ -7,7 +7,7 @@
   background-color: #5CE1E6;
 }
 
-#footerText {
+.footerText {
     display: flex-box;
     margin: auto;
     color: white;

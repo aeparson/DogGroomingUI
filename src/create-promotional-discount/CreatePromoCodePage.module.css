@@ -20,7 +20,7 @@
 }
 
 .createPromoCodePage {
-    min-height: 800px;
+    min-height: calc(100vh - 100px);
 }
 
 .promoCodeFields {

@@ -9,9 +9,8 @@ import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';
 import styles from './ProfilePage.module.css';
 import Constants from '../../utils/constants';
-import { fetchUserPurchase, updateUserInfo } from './ProfilePageService';
+import { fetchUserPurchase, fetchWishlistCards, updateUserInfo } from './ProfilePageService';
 import validateProfile from './ProfileValidation';
-
 /**
  *
  * @param {string} dateString UTC Datestring from API (YYYY-MM-DDTHH:MM:SS.SSSSSS)
@@ -41,6 +40,7 @@ const ProfilePage = ({ user, setUser }) => {
     firstName: '', lastName: '', street: '', city: '', state: user.state, zip: '', email: user.email
   });
   const [fieldErrors, setFieldErrors] = useState([]);
+  const [wishes, setWishes] = useState([]);
 
   /**
    * @description Changes state of edit text, which then changes profile information
@@ -63,6 +63,7 @@ const ProfilePage = ({ user, setUser }) => {
    */
 
   const profilePacket = {
+    id: user.id,
     firstName: (profileInfo.firstName === '' ? user.firstName : profileInfo.firstName),
     lastName: (profileInfo.lastName === '' ? user.lastName : profileInfo.lastName),
     street: (profileInfo.street === '' ? user.street : profileInfo.street),
@@ -109,8 +110,22 @@ const ProfilePage = ({ user, setUser }) => {
   };
 
   useEffect(() => {
-    fetchUserPurchase(setPurchase, setApiError, user);
+    if (user !== null) {
+      fetchUserPurchase(setPurchase, setApiError, user);
+    }
   }, [user]);
+
+  useEffect(() => {
+    fetchWishlistCards(user, setWishes, setApiError);
+  }, [user]);
+
+  /**
+   *@name handlePageClick
+   *@description sets the page clicked to the selected page
+  function handlePageClick({ selected: selectedPage }) {
+    setPage(selectedPage);
+  }
+  */
 
   const PurchaseTableData = (props) => {
     const { purchase } = props;
@@ -158,14 +173,15 @@ const ProfilePage = ({ user, setUser }) => {
             {user !== '' ? (
               <Tab label="Purchase History" />
             ) : null}
+            <Tab label="Wishlist" />
           </Tabs>
         </Paper>
       </>
       <div className={styles.container}>
         {apiError && (
-        <p data-testid="errMsg">
-          {Constants.API_ERROR}
-        </p>
+          <p data-testid="errMsg">
+            {Constants.API_ERROR}
+          </p>
         )}
         {value === 0 && (
           <div className={styles.profileInfoContainer}>
@@ -328,7 +344,7 @@ const ProfilePage = ({ user, setUser }) => {
                   >
                     CANCEL
                   </Button>
-                ) : null }
+                ) : null}
                 <Button
                   onClick={editText ? attemptProfileChange : changeText}
                   variant="contained"
@@ -342,33 +358,53 @@ const ProfilePage = ({ user, setUser }) => {
             </div>
           </div>
         )}
-        { value === 1 && (
-        <>
-          {user !== '' ? (
-            <div className={styles.purchaseHistoryTable}>
-              <h3 className={styles.viewPurchaseHistory}>Purchase History</h3>
-              <hr />
-              <table>
-                {purchases.length !== 0 ? (
-                  <>
-                    <TableHeadings />
-                    {[...purchases].reverse()
-                      .map((purchase) => (
-                        <PurchaseTableData
-                          key={purchase.OrderDate}
-                          purchase={purchase}
-                        />
-                      ))}
+        {value === 1 && (
+          <>
+            {user !== '' ? (
+              <div className={styles.purchaseHistoryTable}>
+                <h3 className={styles.viewPurchaseHistory}>Purchase History</h3>
+                <hr />
+                <table>
+                  {purchases.length !== 0 ? (
+                    <>
+                      <TableHeadings />
+                      {[...purchases].reverse()
+                        .map((purchase) => (
+                          <PurchaseTableData
+                            key={purchase.OrderDate}
+                            purchase={purchase}
+                          />
+                        ))}
 
-                  </>
-                )
-                  : (
-                    <h2>You have no past purchases.</h2>
-                  )}
-              </table>
-            </div>
-          ) : (<p />)}
-        </>
+                    </>
+                  )
+                    : (
+                      <h2>You have no past purchases.</h2>
+                    )}
+                </table>
+              </div>
+            ) : (<p />)}
+          </>
+        )}
+        {value === 2 && (
+          <>
+            {user !== '' ? (
+              <div className={styles.purchaseHistoryTable}>
+                <h3 className={styles.viewPurchaseHistory}>Wishlist</h3>
+                <hr />
+                <div>
+                  {[...wishes].reverse()
+                    .map((wish) => (
+                      <div key={wish.id}>
+                        <p>
+                          {wish.productName}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ) : (<p />)}
+          </>
         )}
       </div>
     </>

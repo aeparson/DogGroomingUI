@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -14,11 +14,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-// import Constants from '../../utils/constants';
 import assignImage from '../../utils/AssignImages';
 import { useCart } from '../checkout-page/CartContext';
 import ProductModal from '../product-modal/ProductModal';
 import StarRating from '../star-rating/StarRating';
+import { addNewWish, deleteWish, fetchUserWishlist } from './ProductCardService';
 
 /**
  * @name useStyles
@@ -27,7 +27,8 @@ import StarRating from '../star-rating/StarRating';
  */
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345
+    height: '100%',
+    width: 'var(--card-width)'
   },
   cardContent: {
     paddingBottom: 0
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%'
+    paddingTop: '56.25%' // percentage of *width* of containing block
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -63,6 +64,14 @@ const useStyles = makeStyles((theme) => ({
 const ProductCard = ({ product, user }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showReviewsOnOpen, setShowReviewsOnOpen] = useState(false);
+  const [wishes, setWishes] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (user !== '') {
+      fetchUserWishlist(setWishes, user);
+    }
+  }, [user]);
 
   const classes = useStyles();
 
@@ -74,11 +83,46 @@ const ProductCard = ({ product, user }) => {
     setModalIsOpen(true);
   };
 
-  const onFavorite = (event) => {
-    event.stopPropagation();
-    // this exists to intercept the click event
-    // so that the modal doesn't open
-    // add your code for Add-to-Favorites functionality here
+  const attemptWishlistAdd = (newFavoriteItem) => {
+    if (user !== '') {
+      addNewWish(newFavoriteItem, setDisabled).then(() => {
+        fetchUserWishlist(setWishes, user);
+      }).catch(() => {
+        toast.error(`A server error occured. ${newFavoriteItem.productName} could not be added to wishlist.`);
+      });
+      fetchUserWishlist(setWishes, user);
+    } else {
+      toast.error('Please log in to save items to wishlist.');
+    }
+  };
+
+  const attemptWishlistDelete = (favoriteItem) => {
+    const favoriteItemToDelete = (wishes.find((w) => w.productId === product.id));
+    if (user !== '') {
+      deleteWish(favoriteItem, favoriteItemToDelete.id).then(() => {
+        fetchUserWishlist(setWishes, user);
+      }).catch(() => {
+        toast.error(`A server error occured. ${favoriteItem.name} could not be removed from wishlist.`);
+      });
+      fetchUserWishlist(setWishes, user);
+    } else {
+      toast.error('Please log in to remove items from wishlist.');
+    }
+  };
+
+  const handleWish = (e) => {
+    fetchUserWishlist(setWishes, user);
+    e.stopPropagation();
+    const newFavoriteItem = {
+      productName: product.name,
+      productId: product.id,
+      userId: user.id
+    };
+    if (wishes.some((w) => w.productId === product.id)) {
+      attemptWishlistDelete(product);
+    } else {
+      attemptWishlistAdd(newFavoriteItem);
+    }
   };
 
   const onShare = (event) => {
@@ -95,6 +139,9 @@ const ProductCard = ({ product, user }) => {
       {
         type: 'add',
         product: {
+          id: product.id,
+          dateCreated: Date.now,
+          dateModified: Date.now,
           productId: product.id,
           title: product.name,
           price: product.price,
@@ -111,6 +158,9 @@ const ProductCard = ({ product, user }) => {
 
   const handleModalClose = () => {
     setModalIsOpen(false);
+    if (user !== '') {
+      fetchUserWishlist(setWishes, user);
+    }
   };
 
   return (
@@ -121,6 +171,8 @@ const ProductCard = ({ product, user }) => {
         handleClose={handleModalClose}
         user={user}
         showReviewsOnOpen={showReviewsOnOpen}
+        wishes={wishes}
+        setWishes={setWishes}
       />
       <Card className={classes.root} onClick={openModal}>
         <CardHeader
@@ -128,12 +180,12 @@ const ProductCard = ({ product, user }) => {
             <Avatar aria-label="demographics" className={classes.avatar}>
               {product.demographic.charAt(0)}
             </Avatar>
-        )}
+          )}
           action={(
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>
-        )}
+          )}
           title={product.name}
           subheader={`${product.demographic} ${product.category} ${product.type}`}
         />
@@ -157,8 +209,8 @@ const ProductCard = ({ product, user }) => {
           />
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={onFavorite}>
-            <FavoriteIcon />
+          <IconButton aria-label="add to favorites" onClick={handleWish} disabled={disabled}>
+            <FavoriteIcon style={wishes.some((e) => e.productId === product.id) ? { color: 'red' } : undefined} />
           </IconButton>
           <IconButton aria-label="share" onClick={onShare}>
             <ShareIcon />

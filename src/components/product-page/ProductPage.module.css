@@ -1,24 +1,10 @@
-.app {
-  display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  justify-content: space-evenly;
-  margin: 20px;
-  margin-left: 20px;
-  transition: 850ms;
-}
-.pushed {
-  display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  justify-content: space-evenly;
-  margin: 20px;
-  margin-left: 270px;
-  transition: 350ms;
-}
-
 .errMsg {
   color: red;
   font-size: 14px;
   margin: 0px 2px 4px 4px;
+}
+
+.productPageLayoutContainer {
+  display: flex;
+  flex-wrap: wrap;
 }

@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Box } from '@mui/system';
-import ProductCard from '../product-card/ProductCard';
-import thing from './ProductPage.module.css';
+import paginationStyles from './Pagination.module.css';
+import pageStyles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
 import fetchProductsCount, { fetchFirstPageOfProducts } from '../pagination/PaginationService';
 import FilterMenu from '../filter-menu/FilterMenu';
 import fetchProducts from '../filter-menu/FilterMenuService';
+import ProductCardGrid from '../product-card-grid/ProductCardGrid';
 
 /**
  * @name ProductPage
@@ -62,20 +63,14 @@ const ProductPage = ({ user }) => {
 
   return (
     <div>
-      <Box>
+      <Box className={pageStyles.productPageLayoutContainer}>
         <FilterMenu
           setWebRoute={setWebRoute}
           onFilter={filterByQuery}
           pushover={setSidebarOpen}
         />
-        {apiError && <p className={thing.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
-        <div className={sidebarOpen ? thing.pushed : thing.app}>
-          {products.map((product) => (
-            <div key={product.id}>
-              <ProductCard product={product} user={user} />
-            </div>
-          ))}
-        </div>
+        {apiError && <p className={pageStyles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
+        <ProductCardGrid products={products} user={user} sidebarOpen={sidebarOpen} />
       </Box>
       <div>
         <ReactPaginate
@@ -86,17 +81,9 @@ const ProductPage = ({ user }) => {
           marginPagesDisplayed={0}
           pageRangeDisplayed={9}
           onPageChange={handlePageClick}
-          containerClassName="pagination justify-content-center"
-          pageClassName="page-item"
-          pageLinkClassName="page-link"
-          previousClassName="page-item"
-          previousLinkClassName="page-link"
-          nextClassName="page-item"
-          nextLinkClassName="page-link"
-          breakClassName="page-item"
-          breakLinkClassName="page-item"
-          activeClassName="active"
-          diabledClassName="disabled"
+          containerClassName={paginationStyles.pagination}
+          pageClassName={paginationStyles.pagination}
+          activeClassName={paginationStyles.active}
         />
       </div>
     </div>

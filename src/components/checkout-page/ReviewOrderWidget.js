@@ -38,6 +38,12 @@ const ReviewOrderWidget = () => {
             </div>
           </div>
         )}
+      {products.length === 0
+        && (
+          <div className={styles.subtotal}>
+            <p>{getSubtotal(products)}</p>
+          </div>
+        )}
     </>
   );
 };

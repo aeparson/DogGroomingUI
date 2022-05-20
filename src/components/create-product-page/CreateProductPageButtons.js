@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CreateProductPage.module.css';
 
-function Buttons({ onChange, productData }) {
+function Buttons({ onChange }) {
+  const [activeStatus, setActiveStatus] = useState('false');
+
+  const handleChange = (event) => {
+    setActiveStatus(event.target.value);
+  };
   return (
-    <div className={styles.radio} onChange={onChange}>
+    <span className={styles.radio} onChange={onChange}>
+      &nbsp;&nbsp;&nbsp;
       <input
         type="radio"
         id="active"
         name="status"
-        value="true"
-        defaultChecked={productData.active === 'true'}
+        value="false"
+        checked={activeStatus === 'false'}
+        onChange={handleChange}
       />
       active&nbsp;&nbsp;&nbsp;
       <input
         type="radio"
         id="active"
         name="status"
-        value="false"
-        defaultChecked={productData.active === 'false'}
+        value="true"
+        checked={activeStatus === 'true'}
+        onChange={handleChange}
       />
       inactive
-    </div>
+    </span>
   );
 }
 

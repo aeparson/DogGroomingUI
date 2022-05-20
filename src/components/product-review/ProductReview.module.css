@@ -1,10 +1,18 @@
 .reviewData {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  align-items: center;
+  position: relative;
 }
-
+.actionButton {
+  padding: 0px;
+}
 .reviewTitle {
   color: #333
+}
+
+.reviewDelete {
+  padding: 0px;
 }
 
 .reviewComment,

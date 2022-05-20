@@ -54,6 +54,8 @@ const Header = ({ setUser, user }) => {
   const handleGoogleLogoutSuccess = () => {
     setUser('');
     setGoogleError('');
+    window.location.reload();
+    localStorage.removeItem('user');
     history.push('/');
   };
 
@@ -73,7 +75,7 @@ const Header = ({ setUser, user }) => {
         </NavLink>
       </div>
       <div className={styles.profileIcon}>
-        {user !== '' ? (
+        {user !== '' && user !== null ? (
           <NavLink to="/profile">
             <img src={ProfileIcon} alt="profile" width="35px" />
           </NavLink>

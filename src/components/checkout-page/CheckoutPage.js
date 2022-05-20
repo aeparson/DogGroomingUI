@@ -66,7 +66,7 @@ const CheckoutPage = () => {
     ] = validatePurchase(deliveryAddress, billingAddress, creditCard);
     // If all fields are valid
     if (productData.length === 0) {
-      toast.error('No products in cart');
+      toast.error('Your shopping cart is empty. Add products to your cart to make a purchase.');
     } else if (Object.keys(invalidDelivery).length === 0
      && Object.keys(invalidBilling).length === 0) {
       makePurchase(productData, deliveryAddress,

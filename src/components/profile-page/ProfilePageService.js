@@ -44,4 +44,28 @@ async function updateUserInfo(profileInfo, user, setApiError) {
       setApiError(true);
     });
 }
-export { updateUserInfo, fetchUserPurchase };
+
+/**
+ *
+ * @name fetchWishlistCards
+ * @description Utilizes HttpHelper to make a get request to an API
+ * @param {*} swtWishes sets state for wishlist items
+ * @param {*} setApiError sets error if response other than 200 is returned
+ * @returns sets state for products if 200 response, else sets state for apiError
+ */
+
+async function fetchWishlistCards(user, setWishes, setApiError) {
+  await HttpHelper(`${Constants.WISHLIST_ENDPOINT}/${user.id}`, 'GET')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(Constants.API_ERROR);
+    })
+    .then(setWishes)
+    .catch(() => {
+      setApiError(true);
+    });
+}
+
+export { updateUserInfo, fetchUserPurchase, fetchWishlistCards };

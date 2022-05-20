@@ -10,12 +10,13 @@
 
 .MaintenanceMenu {
   background-color: whitesmoke;
+  height: 36px;
 }
 
 .maintenanceTable {
     width: 100%;
     /* The total height of the viewport minus the height of the header */
-    height: calc(100vh - 135.5px);
+    height: calc(100vh - 136px);
     overflow: auto;
 }
 
@@ -36,8 +37,9 @@
 }
 
 .maintenanceTable td {
-    /* Numeric fields have inline style to align right */
+    /* Numeric fields have inline style */
     text-align: left;
+    margin: auto;
 }
 
 .maintenanceTable th {
@@ -63,6 +65,104 @@
     background-color: #179297;
 }
 
-.actionButton {
-    padding: 0px;
+.leftButton {
+    padding-left: 3px;
+}
+
+.rightButton {
+    padding-left: 6px;
+}
+
+.disabledEditButton {
+    color: black;
+    opacity: 0.4;
+    pointer-events: none;
+    padding-left: 3px;
+    padding-bottom: 4px;
+}
+.disabledDeleteButton {
+    color: black;
+    opacity: 0.4;
+    pointer-events: none;
+    padding-left: 3px;
+}
+.deleteModalTitle {
+    text-align: center;
+    padding: 20px;
+}
+
+.deleteModalBody {
+    font-size: 1.7rem;
+    text-align: center;
+    font-weight: bold;
+    padding: 15px;
+}
+
+.footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.cancelBtn {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color:#d0a800;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.confirmBtn {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: #179297;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.modalBackground {
+    position: absolute; 
+    background: white;
+    bottom: 50%; 
+} 
+
+.menuBars {
+    background-color: #5CE1E6;
+    margin-left: 2rem;
+    font-size: 2rem;
+}
+
+.modalContainer {
+  border-radius: 12px;
+  background-color: white;
+  vertical-align: text-top;
+  padding: 20px;
+}
+
+.modalCloseBtn {
+    float: right;
+    margin: -25px -5px 0px 0px !important;
+    padding: 20px !important;
+}
+
+.confirmBtnText {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 10px 10px 10px;
+    padding: 0px 10px 10px 10px;
+}
+
+dialog::backdrop {
+background: rgba(0, 0, 0, 0.3)
 }

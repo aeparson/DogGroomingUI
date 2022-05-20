@@ -11,17 +11,6 @@ const isEmpty = (field) => {
 };
 /**
  * Validates that a name only contains alphabetical characters, periods and hyphens
- * @param {string} active
- * @returns an empty string if valid, otherwise an error message
-*/
-const validateActive = (active) => {
-  if (active !== true && active !== false) {
-    return 'This field is required';
-  }
-  return '';
-};
-/**
- * Validates that a name only contains alphabetical characters, periods and hyphens
  * @param {string} name
  * @returns an empty string if valid, otherwise an error message
 */
@@ -228,15 +217,12 @@ const validateImageSrc = (imageSrc) => {
  * @returns an object with field errors given as {field: 'message'}
  */
 const validateProductCreation = ({
-  active, name, brand, category, type, material,
+  name, brand, category, type, material,
   description, demographic, price, quantity, primaryColorCode,
   secondaryColorCode, styleNumber, releaseDate, imageSrc
 }) => {
   const invalidFields = {};
-  const activeValidation = validateActive(active);
-  if (activeValidation) {
-    invalidFields.active = activeValidation;
-  }
+
   const nameValidation = validateName(name);
   if (nameValidation) {
     invalidFields.name = nameValidation;

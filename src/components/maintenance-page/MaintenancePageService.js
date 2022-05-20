@@ -43,4 +43,42 @@ async function deleteProductById(productId) {
     });
 }
 
-export { fetchAllProducts, deleteProductById };
+/**
+ * @name updateProductById
+ * @description Utilizes HttpHelper to make a PUT request to an API
+ * @param {int} productId
+ * @param {object} updatedProduct object passed from front end form elements.
+ */
+async function updateProductById(product, updatedProduct) {
+  await HttpHelper(`${Constants.ALL_PRODUCTS_ENDPOINT}/${product.id}`, 'PUT', updatedProduct)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      if (response.status === 400) {
+        throw new Error('A server error occurred. Your updates have not been saved');
+      }
+      throw new Error(Constants.API_ERROR);
+    });
+}
+
+/**
+ *
+ * @name toggleProductActiveStateById
+ * @description Utilizes HttpHelper to make a PUT request to an API
+ * @param {int} productId id of product to be updated
+ * @returns a updated product or throws an error
+ */
+async function toggleProductActiveStateById(productId) {
+  await HttpHelper(`${Constants.ALL_PRODUCTS_ENDPOINT}/activeProducts/${productId}`, 'PUT')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(Constants.API_ERROR);
+    });
+}
+
+export {
+  fetchAllProducts, deleteProductById, updateProductById, toggleProductActiveStateById
+};

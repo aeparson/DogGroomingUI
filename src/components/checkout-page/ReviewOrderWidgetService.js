@@ -16,5 +16,8 @@ export const getSubtotal = (products) => {
       (acc, item) => acc + (item.quantity * item.price), 0
     ));
   }
-  throw new Error('No products found');
+  if (products.length === 0) {
+    return 'No products in cart';
+  }
+  return getSubtotal;
 };

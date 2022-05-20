@@ -1,6 +1,6 @@
 .closedMenu {
-    background-color: none;
-    overflow: scroll to end
+    background-color: transparent;
+    flex-basis: 100%;
 }
 
 .menuBars {
@@ -12,7 +12,7 @@
 .navMenu {
     background-color: #5CE1E6;
     border-bottom-right-radius: 5px;
-    width: 250px;
+    width: 275px;
     height: 100vh;
     padding-bottom: 3vh;
     padding-top: 1vh;
@@ -22,13 +22,16 @@
     top: 0;
     transform: translateX(-100%);
     transition: 850ms;
-    overflow: scroll
+    overflow: scroll;
+        /* Works on Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: #4bb9bd #3e989c;
 }
 
 .navMenuActive {
     background-color: #5CE1E6;
     border-bottom-right-radius: 5px;
-    width: 250px;
+    width: 275px;
     height: 100vh;
     padding-bottom: 3vh;
     padding-top: 1vh;
@@ -52,7 +55,6 @@
     align-items: center;
     padding: 0px 0px 10px 0px;
     list-style: none;
-    height: 30px;
     font-weight: bold;
     font-size: 15px;
 
@@ -71,11 +73,12 @@
 }
 
 .navMenuItems {
+    padding-left: 10px;
+    padding-right: 10px;
     width: 100%;
 }
 
 .navMenuItemsInput {
-    
   position: absolute;
   height: 25px;
   width: 25px;
@@ -113,7 +116,7 @@
 }
 
 .marginLeft {
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .accordion {
@@ -121,14 +124,13 @@
     display: inline-flexbox;
     align-items: left;
     align-content: left;
-    justify-content: flex-end;
+    justify-content: flex-start;
     width: 95%;
 }
 
 .accordionTypography {
     color: #179297 !important;
     font-weight: bold !important;
-    font-size: 15px !important;
     margin-left: 3px !important;
 }
 
@@ -151,15 +153,33 @@
 .accordionSummary {
     display: flex !important;
     justify-content: space-between !important;
-
 }
 
 .minPrice {
     color: black;
+    margin-bottom: 10px;
     width: 100%
 }
 
 .maxPrice {
     color: black;
     width: 100%
+}
+
+/*Scrollbar styling */
+
+/* Works on Chrome, Edge, and Safari */
+.navMenuActive::-webkit-scrollbar {
+    width: 12px;
+}
+  
+.navMenuActive::-webkit-scrollbar-track {
+    background: #4bb9bd;
+    width: 10px;
+}
+  
+.navMenuActive::-webkit-scrollbar-thumb {
+    background-color: #3e989c;
+    border-radius: 20px;
+    border: 3px solid #3e989c;
 }

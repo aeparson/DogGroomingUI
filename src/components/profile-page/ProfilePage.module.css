@@ -16,8 +16,6 @@ body{
     box-shadow: .2em .2em .2em rgba(0,0,0,0.23);
     background: #fff;
     height: 717px;
-    
-    
 }
   
   .title {
@@ -41,7 +39,6 @@ body{
   h4 {
     color: #666666;
     margin-top: 14px;
-  
   }
 
 .category {
@@ -153,4 +150,15 @@ body{
   position: relative;
   right: 0px; 
   top: -5px;
+}
+
+.errMsg {
+  color: red;
+  font-size: 14px;
+  margin: 0px 2px 4px 4px;
+}
+
+.wishlistTabLayoutContainer {
+  display: flex;
+  flex-wrap: wrap;
 }
