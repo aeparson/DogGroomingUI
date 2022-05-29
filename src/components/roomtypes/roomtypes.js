@@ -1,13 +1,13 @@
 import React from 'react';
 import { PLACEHOLDER_IMAGE } from '../../utils/constants';
-import styles from './reservations.module.css';
+import styles from './roomtypes.module.css';
 
-const Reservations = () => (
+const Roomtypes = () => (
   <div>
-    <p>Reservations</p>
+    <p>Room Types</p>
     <img src={PLACEHOLDER_IMAGE} alt="luxurious dog hotel" className={styles.homepageImage} />
   </div>
 
 );
 
-export default Reservations;
+export default Roomtypes;

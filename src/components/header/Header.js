@@ -10,7 +10,7 @@ import companyLogo from './hotel-header-image.png';
 const Header = () => (
   <section className={styles.header}>
     <div className={styles.logo}>
-      <NavLink to="/HomePage">
+      <NavLink to="/">
         <img src={companyLogo} alt="Logo" height="100px" />
       </NavLink>
     </div>
