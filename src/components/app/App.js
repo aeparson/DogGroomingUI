@@ -5,12 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   BrowserRouter, Route, Switch, Redirect
 } from 'react-router-dom';
-import ProductPage from '../product-page/ProductPage';
-import CheckoutPage from '../checkout-page/CheckoutPage';
-import ConfirmationPage from '../confirmation-page/ConfirmationPage';
-import MaintenancePage from '../maintenance-page/MaintenancePage';
-import CreateProductPage from '../create-product-page/CreateProductPage';
-import CreatePromoCodePage from '../../create-promotional-discount/CreatePromoCodePage';
+// import ProductPage from '../product-page/ProductPage';
+// import CheckoutPage from '../checkout-page/CheckoutPage';
+// import ConfirmationPage from '../confirmation-page/ConfirmationPage';
+// import MaintenancePage from '../maintenance-page/MaintenancePage';
+// import CreateProductPage from '../create-product-page/CreateProductPage';
+// import CreatePromoCodePage from '../../create-promotional-discount/CreatePromoCodePage';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
 import ProfilePage from '../profile-page/ProfilePage';

@@ -20,7 +20,7 @@ const validateTitle = (title) => {
   if (isEmpty(title)) {
     return 'This field is required';
   }
-  if (constants.CAPITAL_LETTERS_NUMBERS_REGEX.test(title)) {
+  if (regex.CAPITAL_LETTERS_NUMBERS_REGEX.test(title)) {
     return '';
   }
   return 'Title shouldst includeth only capital lett’rs and numb’rs.';
@@ -73,7 +73,7 @@ const validateFlat = (rate, type) => {
     if (isEmpty(rate)) {
       return '';
     }
-    if (constants.TWO_DECIMAL_POINT_REGEX.test(rate)) {
+    if (regex.TWO_DECIMAL_POINT_REGEX.test(rate)) {
       return '';
     }
     return 'Flat dollar rate must include a number with exactly two decimal places';
@@ -95,7 +95,7 @@ const validatePercent = (rate, type) => {
     if (rate < 1 || rate > 99) {
       return 'Percentage off rate must be a whole number from 1 to 100';
     }
-    if (constants.ONLY_NUMBERS_REGEX.test(rate)) {
+    if (regex.ONLY_NUMBERS_REGEX.test(rate)) {
       return '';
     }
     return 'Percentage off rate must be a whole number from 1 to 100';

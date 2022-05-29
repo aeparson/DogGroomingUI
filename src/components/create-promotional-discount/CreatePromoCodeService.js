@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
-import HttpHelper from '../utils/HttpHelper';
-import constants from '../utils/constants';
+import HttpHelper from '../../utils/HttpHelper';
+import constants from '../../utils/constants';
 
 /// summary- creates an HTTP helper function to post the new promo code to the API
 

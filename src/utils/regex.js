@@ -9,6 +9,4 @@ module.exports = Object.freeze({
   // RegEx checks for only uppercase letters and numbers
   CAPITAL_LETTERS_NUMBERS_REGEX: /^[A-Z_0-9]*$/,
 
-  
-  
 });
