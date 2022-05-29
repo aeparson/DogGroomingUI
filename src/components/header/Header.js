@@ -16,9 +16,13 @@ const Header = () => (
     </div>
     <div className={styles.reservations}>
       <NavLink to="/Reservations">
-        <p>Reservations</p>
+        Reservations
       </NavLink>
-
+    </div>
+    <div className={styles.roomtypes}>
+      <NavLink to="/RoomTypes">
+        Room Types
+      </NavLink>
     </div>
 
   </section>
