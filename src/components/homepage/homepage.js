@@ -1,10 +1,14 @@
-import pagePhoto from './homepage-image.jpg';
+import React from 'react';
+import pagePhoto from './homepageImage.jpeg';
 import styles from './homepage.module.css';
 
 const Homepage = () => (
-  <section className={styles.homepage}>
-    <img src={pagePhoto} alt="main page photo" />
-  </section>
+  <body className={styles.homepageBody}>
+    <div>
+      <img src={pagePhoto} alt="luxurious dog hotel" className={styles.homepageImage} />
+    </div>
+  </body>
+
 );
 
 export default Homepage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import NavLink from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import companyLogo from './hotel-header-image.png';
 /**
@@ -10,10 +10,17 @@ import companyLogo from './hotel-header-image.png';
 const Header = () => (
   <section className={styles.header}>
     <div className={styles.logo}>
-      <NavLink to="/home">
-        <img src={companyLogo} alt="Logo" height="45px" />
+      <NavLink to="/HomePage">
+        <img src={companyLogo} alt="Logo" height="100px" />
       </NavLink>
     </div>
+    <div className={styles.reservations}>
+      <NavLink to="/Reservations">
+        <p>Reservations</p>
+      </NavLink>
+
+    </div>
+
   </section>
 
 );

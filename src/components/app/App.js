@@ -1,77 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
-  BrowserRouter, Route, Switch, Redirect
+  BrowserRouter, Route, Routes
 } from 'react-router-dom';
-// import ProductPage from '../product-page/ProductPage';
-// import CheckoutPage from '../checkout-page/CheckoutPage';
-// import ConfirmationPage from '../confirmation-page/ConfirmationPage';
-// import MaintenancePage from '../maintenance-page/MaintenancePage';
-// import CreateProductPage from '../create-product-page/CreateProductPage';
-// import CreatePromoCodePage from '../../create-promotional-discount/CreatePromoCodePage';
+import Homepage from '../homepage/Homepage';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
-import ProfilePage from '../profile-page/ProfilePage';
 
 toast.configure();
 
-/**
- * @name PrivateRoute
- * @description Sets Profile Page as a private route and redirects
- * website user to the home page if they are not logged in.
- */
-
-const PrivateRoute = ({ user, setUser }) => (
-  <Route
-    render={() => (user ? <ProfilePage user={user} setUser={setUser} /> : <Redirect to="/home" />)}
-  />
+const App = () => (
+  <BrowserRouter>
+    <Header />
+    <div id="content">
+      <Routes>
+        <Route exact path="/" element={<Homepage />} />
+      </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+      />
+    </div>
+    <Footer />
+  </BrowserRouter>
 );
-/**
- * @name App
- * @returns component
- */
-
-const App = () => {
-  const [user, setUser] = useState('');
-
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser !== undefined && loggedInUser !== null) {
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
-    }
-  }, []);
-
-  return (
-    <BrowserRouter>
-      <Header setUser={setUser} user={user} />
-      <div id="content">
-        <Switch>
-          <Route exact path="/" render={() => <ProductPage user={user} />} />
-          <Route exact path="/checkout" render={() => <CheckoutPage />} />
-          <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
-          <Route exact path="/maintenance" render={() => <MaintenancePage user={user} />} />
-          <PrivateRoute path="/profile" user={user} setUser={setUser} />
-          <Route exact path="/createProductPage" render={() => <CreateProductPage />} />
-          <Route exact path="/createPromoCodePage" render={() => <CreatePromoCodePage />} />
-        </Switch>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable={false}
-          pauseOnHover={false}
-        />
-      </div>
-      <Footer />
-    </BrowserRouter>
-  );
-};
-
 export default App;
