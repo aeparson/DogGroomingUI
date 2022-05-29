@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory, NavLink } from 'react-router-dom';
-
-import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import loginUser from './HeaderService';
 import constants from '../../utils/constants';
 import styles from './Header.module.css';
-import companyLogo from './arrayOfSunshine.png';
+import companyLogo from './hotel-header-image.png';
 import ShoppingCartIcon from './shopping-trolley.png';
 import { useCart } from '../checkout-page/CartContext';
 import ProfileIcon from './profileicon.png';

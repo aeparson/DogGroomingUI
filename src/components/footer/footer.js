@@ -5,7 +5,7 @@ import styles from './footer.module.css';
 
 const Footer = () => (
   <section className={styles.footer}>
-    <div className={styles.footerText}>&copy; 2022 Array of Sunshine, Inc.</div>
+    <div className={styles.footerText}>&copy; Hotel Bookings</div>
   </section>
 );
 
