@@ -1,18 +1,20 @@
 module.exports = Object.freeze({
   API_ERROR: 'Oops, something went wrong',
-  // BASE_URL_API: 'https://array-of-sunshine-apparel-api.herokuapp.com',
-  BASE_URL_API: 'http://localhost:8085',
+  BASE_URL_API: 'https://arcadia-hotel-booking-project.herokuapp.com/',
+  // BASE_URL_API: 'http://localhost:8085',
   PLACEHOLDER_IMAGE:
-    'https://www.signfix.com.au/wp-content/uploads/2017/09/placeholder-600x400.png',
-  PURCHASE_ENDPOINT: '/purchases',
+    'https://www.telegraph.co.uk/content/dam/family/2021/06/22/dog-hotel-love_4_trans_NvBQzQNjv4BqplGOf-dgG3z4gg9owgQTXH-5rYAcEMfZ-k6qzXXxMMM.jpg',
+  RESERVATIONS_ENDPOINT: '/reservations',
 
-  PRODUCT_ENDPOINT: '/products/active',
+  CREATE_RESERVATION_ENDPOINT: '/reservations/create',
 
-  PRODUCT_COUNT_ENDPOINT: '/products/count',
+  EDIT_RESERVATIONS_ENDPOINT: '/reservations/edit',
 
-  ALL_PRODUCTS_ENDPOINT: '/products',
+  ROOM_TYPES_ENDPOINT: '/roomTypes',
 
-  PROMO_CODE_ENDPOINT: '/promos',
+  CREATE_ROOM_TYPES_ENDPOINT: '/roomTypes/create',
+
+  EDIT_ROOM_TYPES_ENDPOINT: '/roomTypes/edit',
 
   // RegEx checks for exactly two decimal places
   TWO_DECIMAL_POINT_REGEX: /^[0-9]*\.[0-9]{2}$/,
@@ -23,10 +25,5 @@ module.exports = Object.freeze({
   // RegEx checks for only uppercase letters and numbers
   CAPITAL_LETTERS_NUMBERS_REGEX: /^[A-Z_0-9]*$/,
 
-  GOOGLE_CLIENT_ID: '912899852587-7996nh9mlpvpa2446q0il4f9hj5o492h.apps.googleusercontent.com', // ENTER CLIENT ID HERE
-  USER_ENDPOINT: '/users',
-
-  PRODUCT_REVIEWS_ENDPOINT: '/reviews',
-
-  WISHLIST_ENDPOINT: '/wishlist'
+  
 });
