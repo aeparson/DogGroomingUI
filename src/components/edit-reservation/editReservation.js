@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import validateReservation from './reservationValidation';
 
 const EditReservationPage = ({ reservation, setReservation }) => {
   const [apiError, setApiError] = useState(false);
@@ -45,8 +46,7 @@ const EditReservationPage = ({ reservation, setReservation }) => {
   const attemptReservationChange = () => {
     const invalidInfo = validateReservation(reservationPacket);
     if (Object.keys(invalidInfo).length === 0) {
-      updateUserInfo(reservationPacket, setApiError);
-      cancelChanges();
+      updateReservationInfo(reservationPacket, setApiError);
       setFieldErrors([]);
       Object.assign(reservationPacket);
       setUser(reservationPacket);
