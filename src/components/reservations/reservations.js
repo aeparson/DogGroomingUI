@@ -67,7 +67,7 @@ const TableData = ({ reservation }) => {
   const EditButton = () => {
     const navigate = useNavigate();
     const routeChange = () => {
-      const path = '/reservations/edit';
+      const path = '/reservations/edit/:id';
       navigate(path);
     };
 

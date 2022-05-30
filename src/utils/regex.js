@@ -9,4 +9,9 @@ module.exports = Object.freeze({
   // RegEx checks for only uppercase letters and numbers
   CAPITAL_LETTERS_NUMBERS_REGEX: /^[A-Z_0-9]*$/,
 
+  // RegEx checks for valid email address
+  VALID_EMAIL_REGEX: (/^\w+@([a-z]+\.)+[a-z]+$/i).test(),
+
+  //RegEx checks for valid date format
+  VALID_DATE_REGEX: 
 });
