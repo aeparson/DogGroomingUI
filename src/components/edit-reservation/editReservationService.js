@@ -2,23 +2,24 @@ import HttpHelper from '../../utils/HttpHelper';
 import Constants from '../../utils/constants';
 
 /**
- *
- * @name fetchProducts
+ * @name fetchReservationById
  * @description Utilizes HttpHelper to make a get request to an API
- * @param {*} setProducts sets state for products
+ * @param {*} setPurchase sets state for data
  * @param {*} setApiError sets error if response other than 200 is returned
- * @returns sets state for products if 200 response, else sets state for apiError
+ * @returns sets state for data if 200 response, else sets state for apiError
  */
-export default async function fetchProducts(setProducts, setApiError) {
-  await HttpHelper(Constants.PRODUCT_ENDPOINT, 'GET')
+async function fetchReservationById(setReservation, setApiError, reservation) {
+  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
       throw new Error(Constants.API_ERROR);
     })
-    .then(setProducts)
+    .then(setReservation)
     .catch(() => {
       setApiError(true);
     });
 }
+
+export default fetchReservationById;
