@@ -1,37 +1,57 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import IconButton from '@material-ui/core/IconButton';
 // import { toast } from 'react-toastify';
 import styles from './reservations.module.css';
 import TableHeadings from './reservationTableHeadings';
-// import { fetchAllReservations, deleteReservationById } from './reservationsService';
+import { fetchAllReservations } from './reservationsService';
+import Constants from '../../utils/constants';
 
-const Reservations = () => (
-  <>
-    <div className={styles.create}>
-      <NavLink to="/reservations/create">
-        <button className={styles.button} type="button">Create</button>
-      </NavLink>
-    </div>
-    <div className={styles.reservationTable}>
-      <table>
-        <thead>
-          <TableHeadings />
-        </thead>
-        <tbody>
-          {/* {reservations.sort((reservationA, reservationB) => reservationA.id - reservationB.id)
-              .map((res) => ( */}
-          <TableData />
-          {/* ))} */}
-        </tbody>
-      </table>
-    </div>
-  </>
-);
+const Reservations = () => {
+  const [reservations, setReservations] = useState([]);
+  const [apiError, setApiError] = useState(false);
+
+  const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
+
+  useEffect(() => {
+    updateReservationList();
+  }, []);
+
+  return (
+    <>
+      {apiError && (
+      <p data-testid="errMsg">
+        {Constants.API_ERROR}
+      </p>
+      )}
+      <div className={styles.create}>
+        <NavLink to="/reservations/create">
+          <button className={styles.button} type="button">Create</button>
+        </NavLink>
+      </div>
+      <div className={styles.reservationTable}>
+        <table>
+          <thead>
+            <TableHeadings />
+          </thead>
+          <tbody>
+            {reservations.sort((reservationA, reservationB) => reservationA.id - reservationB.id)
+              .map((reservation) => (
+                <TableData
+                  key={reservation.id}
+                  updateReservations={updateReservationList}
+                  reservation={reservation}
+                />
+              ))}
+
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+};
 
 /**
  * @description a row of table data for a reservation
@@ -39,7 +59,7 @@ const Reservations = () => (
 * @returns component
  */
 
-const TableData = () => {
+const TableData = ({ reservation }) => {
   /**
    * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
    * @returns a pencil icon.
@@ -78,7 +98,15 @@ const TableData = () => {
       <td>
         <EditButton />
         <DeleteButton />
+        {/* reservation={reservation}
+          updateReservations={updateReservations} */}
+
       </td>
+      <td>{reservation.guestEmail}</td>
+      <td>{reservation.roomTypeId}</td>
+      <td>{reservation.checkInDate}</td>
+      <td>{reservation.numberOfNights}</td>
+      <td>Reservation Total</td>
     </tr>
   );
 };
