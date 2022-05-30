@@ -44,5 +44,5 @@
 }
 
 nav a.active {
-  text-decoration: underline;
+  text-decoration: overline;
 }

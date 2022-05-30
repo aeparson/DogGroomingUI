@@ -41,8 +41,8 @@
   font-size: 1.5em;
 }
 
-a:hover {
+nav a:hover {
   color: white;
-  text-decoration: underline;
+  text-decoration: overline;
   font-size: 1.5em;
 }
