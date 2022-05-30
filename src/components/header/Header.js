@@ -8,7 +8,7 @@ import companyLogo from './hotel-header-image.png';
  * @return component
  */
 const Header = () => (
-  <section className={styles.header}>
+  <nav className={styles.header}>
     <div className={styles.logo}>
       <NavLink to="/">
         <img src={companyLogo} alt="Logo" height="100px" />
@@ -25,7 +25,7 @@ const Header = () => (
       </NavLink>
     </div>
 
-  </section>
+  </nav>
 
 );
 export default Header;
