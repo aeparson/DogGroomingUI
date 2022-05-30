@@ -37,3 +37,15 @@
     font-weight: 400;
     font-size: 1em;
 }
+
+.reservationTable td {
+    text-align: center;
+}
+
+.leftButton {
+    padding-left: 3px;
+}
+
+.rightButton {
+    padding-left: 6px;
+}
