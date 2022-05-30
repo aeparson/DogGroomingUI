@@ -12,6 +12,7 @@ module.exports = Object.freeze({
   // RegEx checks for valid email address
   VALID_EMAIL_REGEX: (/^\w+@([a-z]+\.)+[a-z]+$/i).test(),
 
-  //RegEx checks for valid date format
-  VALID_DATE_REGEX: 
+  // RegEx checks for valid date format
+  VALID_DATE_REGEX: /^(0[1-9]|1[0-2])([-]{1})\d{2}([-]{1})(\d{4})$/
+
 });

@@ -22,6 +22,22 @@ async function fetchAllReservations(setReservations, setApiError) {
       setApiError(true);
     });
 }
+/**
+ *
+ * @name getReservationById
+ * @description Utilizes HttpHelper to make a GET request to an API
+ * @param {int} reservationId id of reservation to be retrieved
+ * @returns a getd reservation or throws an error
+ */
+async function getReservationById(reservationId) {
+  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservationId}`, 'GET')
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(Constants.API_ERROR);
+    });
+}
 
 /**
  *
@@ -35,9 +51,6 @@ async function deleteReservationById(reservationId) {
     .then((response) => {
       if (response.ok) {
         return response.json();
-      }
-      if (response.status === 400) {
-        throw new Error('Reservation has reviews');
       }
       throw new Error(Constants.API_ERROR);
     });
@@ -63,5 +76,5 @@ async function updateReservationById(reservation, updatedReservation) {
 }
 
 export {
-  fetchAllReservations, deleteReservationById, updateReservationById
+  fetchAllReservations, deleteReservationById, updateReservationById, getReservationById
 };
