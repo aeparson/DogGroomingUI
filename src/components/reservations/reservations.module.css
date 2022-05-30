@@ -9,3 +9,28 @@
     font-size: 20px;
 }
 
+.reservationTable {
+    overflow: auto;
+}
+
+.reservationTable table {
+    color: black;
+    width: 100vw;
+    height: calc(100vh - 180px);
+}
+
+.reservationTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #FF8484;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+
+
+
+
+
+}
