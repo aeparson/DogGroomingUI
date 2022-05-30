@@ -1,11 +1,12 @@
 import React from 'react';
-import { PLACEHOLDER_IMAGE } from '../../utils/constants';
+import { NavLink } from 'react-router-dom';
 import styles from './reservations.module.css';
 
 const Reservations = () => (
-  <div>
-    <p>Reservations</p>
-    <img src={PLACEHOLDER_IMAGE} alt="luxurious dog hotel" className={styles.homepageImage} />
+  <div className={styles.create}>
+    <NavLink to="/reservations/create">
+      <button className={styles.button} type="button">Create</button>
+    </NavLink>
   </div>
 
 );
