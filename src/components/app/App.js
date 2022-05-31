@@ -11,6 +11,7 @@ import EditReservations from '../edit-reservation/editReservation';
 import Roomtypes from '../roomtypes/roomtypes';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
+import PageNotFound from '../../utils/page-not-found/PageNotFound';
 
 toast.configure();
 
@@ -21,8 +22,9 @@ const App = () => (
       <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route exact path="/reservations" element={<Reservations />} />
-        <Route exact path="/roomTypes" element={<Roomtypes />} />
+        <Route exact path="/room-types" element={<Roomtypes />} />
         <Route path="/reservations/edit/:id" element={<EditReservations />} />
+        <Route exact path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer
         position="top-center"
@@ -40,3 +42,13 @@ const App = () => (
   </BrowserRouter>
 );
 export default App;
+
+// const [reservation, setReservation] = useState('');
+
+// useEffect(() => {
+//   const existingReservation = localStorage.getItem('reservation');
+//   if (existingReservation !== undefined && existingReservation !== null) {
+//     const foundReservation = JSON.parse(existingReservation);
+//     setReservation(foundReservation);
+//   }
+// }, []);

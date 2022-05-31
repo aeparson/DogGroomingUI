@@ -12,12 +12,19 @@ import Constants from '../../utils/constants';
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [apiError, setApiError] = useState(false);
+  // const [roomType, setRoomType] = useState([]);
 
   const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
+
+  // const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
 
   useEffect(() => {
     updateReservationList();
   }, []);
+
+  // useEffect(() => {
+  //   fetchRoomTypes();
+  // });
 
   return (
     <>

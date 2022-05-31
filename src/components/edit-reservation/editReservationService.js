@@ -8,18 +8,14 @@ import Constants from '../../utils/constants';
  * @param {*} setApiError sets error if response other than 200 is returned
  * @returns sets state for data if 200 response, else sets state for apiError
  */
-async function fetchReservationById(setReservation, setApiError, reservation) {
-  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'GET')
+async function fetchReservationById(reservationid, setReservationInfo) {
+  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservationid}`, 'GET')
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
       throw new Error(Constants.API_ERROR);
-    })
-    .then(setReservation)
-    .catch(() => {
-      setApiError(true);
-    });
+    }).then(((info) => setReservationInfo(info)));
 }
 
 /**
@@ -31,18 +27,17 @@ async function fetchReservationById(setReservation, setApiError, reservation) {
  * @param {*} setApiError sets error if response other than 200 is returned
  * @returns sets state for data if 200 response, else sets state for apiError
  */
-async function updateReservationInfo(reservationInfo, reservation, setApiError) {
-  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'PUT', reservationInfo)
+async function updateReservationInfo(updatedReservation, reservation) {
+  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'PUT', updatedReservation)
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
+      if (response.status === 400) {
+        throw new Error('A server error occurred. Your updates have not been saved');
+      }
       throw new Error(Constants.API_ERROR);
-    })
-    .then(Object.assign(reservation, reservationInfo))
-    .catch(() => {
-      setApiError(true);
     });
 }
 
-export default { fetchReservationById, updateReservationInfo };
+export { fetchReservationById, updateReservationInfo };
