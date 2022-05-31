@@ -23,45 +23,6 @@ async function fetchAllReservations(setReservations, setApiError) {
     });
 }
 
-/**
- *
- * @name deleteReservationById
- * @description Utilizes HttpHelper to make a DELETE request to an API
- * @param {int} reservationId id of reservation to be deleted
- * @returns a deleted reservation or throws an error
- */
-async function deleteReservationById(reservationId) {
-  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservationId}`, 'DELETE')
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      if (response.status === 400) {
-        throw new Error('Reservation has reviews');
-      }
-      throw new Error(Constants.API_ERROR);
-    });
-}
-
-/**
- * @name updateReservationById
- * @description Utilizes HttpHelper to make a PUT request to an API
- * @param {int} reservationId
- * @param {object} updatedReservation object passed from front end form elements.
- */
-async function updateReservationById(reservation, updatedReservation) {
-  await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'PUT', updatedReservation)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      if (response.status === 400) {
-        throw new Error('A server error occurred. Your updates have not been saved');
-      }
-      throw new Error(Constants.API_ERROR);
-    });
-}
-
-export {
-  fetchAllReservations, deleteReservationById, updateReservationById
+export default {
+  fetchAllReservations
 };

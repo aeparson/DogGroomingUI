@@ -12,7 +12,7 @@ import Constants from '../../utils/constants';
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [apiError, setApiError] = useState(false);
-  // const [roomType, setRoomType] = useState([]);
+  // const [roomType, setRoomType] = useState([{}]);
 
   const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
 
@@ -24,7 +24,16 @@ const Reservations = () => {
 
   // useEffect(() => {
   //   fetchRoomTypes();
-  // });
+  // }, []);
+
+  // const roomRate = (reservation) => {
+  //   fetchAllRoomTypes(reservation.roomTypeId, setRoomType);
+  //   // eslint-disable-next-line no-plusplus
+  //   for (let r = 0; r < roomType.length; r++) {
+  //     // return setRoomType.rate;
+  //     console.log(roomType[r]);
+  //   }
+  // };
 
   return (
     <>
@@ -50,6 +59,7 @@ const Reservations = () => {
                   key={reservation.id}
                   updateReservations={updateReservationList}
                   reservation={reservation}
+                  // roomRate={roomRate}
                 />
               ))}
 
@@ -66,7 +76,7 @@ const Reservations = () => {
 * @returns component
  */
 
-const TableData = ({ reservation }) => {
+const TableData = ({ reservation, roomRate }) => {
   /**
    * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
    * @returns a pencil icon.
@@ -113,7 +123,7 @@ const TableData = ({ reservation }) => {
       <td>{reservation.roomTypeId}</td>
       <td>{reservation.checkInDate}</td>
       <td>{reservation.numberOfNights}</td>
-      <td>Reservation Total</td>
+      <td>{roomRate * reservation.numberOfNights}</td>
     </tr>
   );
 };
