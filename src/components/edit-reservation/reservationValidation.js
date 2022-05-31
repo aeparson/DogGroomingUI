@@ -1,15 +1,23 @@
-import RegEx from '../../utils/regex';
-
+const isEmpty = (field) => {
+  if (field === undefined || field === null || field.trim().length === 0) {
+    return true;
+  }
+  return false;
+};
 /**
- * Validates that an email address is valid.
- * @param {string} guestEmail
- * @returns an empty string if valid, otherwise an error message
+ * Validates than an email address only has alphanumeric characters in the username
+ * and only alphabetical characters in the domain name.
+ * @param {string} email
+ * @returns
  */
-const validateEmail = (guestEmail) => {
-  if (RegEx.VALID_EMAIL_REGEX(guestEmail)) {
+const validateEmail = (email) => {
+  if (isEmpty(email)) {
+    return 'Required';
+  }
+  if ((/^\w+@([a-z]+\.)+[a-z]+$/i).test(email)) {
     return '';
   }
-  return 'Must be a valid email address.';
+  return 'Must be formatted as user@email.com';
 };
 
 /**
@@ -17,8 +25,11 @@ const validateEmail = (guestEmail) => {
  * @param {string} date
  * @returns an empty string if valid, otherwise an error message
 */
-const validateDate = (date) => {
-  if (RegEx.VALID_DATE_REGEX(date)) {
+const validateDate = (checkInDate) => {
+  if (isEmpty(checkInDate)) {
+    return 'Required';
+  }
+  if ((/^(0[1-9]|1[0-2])([-]{1})\d{2}([-]{1})(\d{4})$/i).test(checkInDate)) {
     return '';
   }
   return 'Date format must be MM-DD-YYYY.';
@@ -29,8 +40,8 @@ const validateDate = (date) => {
  * @param {string} field
  * @returns an empty string if valid, otherwise an error message
 */
-const validateRoomType = (field) => {
-  if (field === undefined || field === null || field.trim().length === 0) {
+const validateRoomType = (roomType) => {
+  if (isEmpty(roomType)) {
     return '';
   }
   return 'Room Type is required';
@@ -41,15 +52,15 @@ const validateRoomType = (field) => {
  * @param {int} days
  * @returns an empty string if valid, otherwise an error message
 */
-const validateNightsStayed = (nights) => {
-  if (nights > 0) {
+const validateNightsStayed = (numberOfNights) => {
+  if (numberOfNights > 0) {
     return '';
   }
   return 'Nights Stayed must be greater than zero.';
 };
 
 const checkReservation = ({
-  guestEmail, date, roomType, nights
+  guestEmail, checkInDate, roomType, numberOfNights
 }) => {
   const invalidFields = {};
 
@@ -58,7 +69,7 @@ const checkReservation = ({
     invalidFields.guestEmail = EmailValidation;
   }
 
-  const dateValidation = validateDate(date);
+  const dateValidation = validateDate(checkInDate);
   if (dateValidation) {
     invalidFields.checkInDate = dateValidation;
   }
@@ -69,12 +80,13 @@ const checkReservation = ({
     return invalidFields;
   }
 
-  const nightsValidation = validateNightsStayed(nights);
+  const nightsValidation = validateNightsStayed(numberOfNights);
   if (nightsValidation) {
     invalidFields.numberOfNights = nightsValidation;
   }
   return invalidFields;
 };
+
 const validateReservation = (reservationInfo) => {
   const invalidReservation = checkReservation(reservationInfo);
   return invalidReservation;

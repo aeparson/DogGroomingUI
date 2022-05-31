@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
-// import validateReservation from './reservationValidation';
+import validateReservation from './reservationValidation';
 import { fetchReservationById, updateReservationInfo } from './editReservationService';
 import styles from './editReservation.module.css';
 import Constants from '../../utils/constants';
@@ -22,12 +22,8 @@ const EditReservationPage = () => {
     user: '', guestEmail: '', roomTypeId: '', checkInDate: '', numberOfNights: ''
   });
   const [fieldErrors, setFieldErrors] = useState([]);
-  // eslint-disable-next-line max-len
   const roomTypes = [1, 2, 3, 4, 5, 6, 7];
-
-  // const updateReservationList = () => fetchReservationById(reservation.id);
-
-  // const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
+  const rereoute = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
@@ -62,17 +58,18 @@ const EditReservationPage = () => {
    * sent to database and changes are persisted.
    */
 
-  const attemptReservationChange = () => {
-    // const invalidInfo = validateReservation(reservationPacket);
-    // if (Object.keys(invalidInfo).length === 0) {
-    updateReservationInfo(reservationPacket, { id }, setApiError);
-    setFieldErrors([]);
-    Object.assign(reservationPacket);
-    setReservation(reservationPacket);
-    // } else {
-    //   setFieldErrors(invalidInfo);
+  const AttemptReservationChange = () => {
+    const invalidInfo = validateReservation(reservationPacket);
+    if (Object.keys(invalidInfo).length === 0) {
+      updateReservationInfo(reservationPacket, { id }, setApiError)
+        .then(rereoute('/reservations'));
+      setFieldErrors([]);
+      Object.assign(reservationPacket);
+      setReservation(reservationPacket);
+    } else {
+      setFieldErrors(invalidInfo);
+    }
   };
-  // };
 
   return (
     <>
@@ -183,7 +180,7 @@ const EditReservationPage = () => {
             </h4>
             <Box className={styles.button}>
               <Button
-                onClick={attemptReservationChange}
+                onClick={AttemptReservationChange}
                 variant="contained"
                 disableElevation
                 size="small"
