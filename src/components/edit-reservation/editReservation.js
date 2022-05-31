@@ -48,12 +48,12 @@ const EditReservationPage = () => {
    */
 
   const reservationPacket = {
-    id: (reservation.id),
+    id: reservation.id,
     user: 'user@mail.com',
-    guestEmail: (reservation.guestEmail === '' ? reservation.guestEmail : reservationInfo.guestEmail),
-    roomTypeId: (reservation.roomTypeId === '' ? reservation.roomTypeId : reservationInfo.roomTypeId),
-    checkInDate: (reservation.checkInDate === '' ? reservation.checkInDate : reservationInfo.checkInDate),
-    numberOfNights: (reservation.numberOfNights === '' ? reservation.numberOfNights : reservationInfo.numberOfNights)
+    guestEmail: reservationInfo.guestEmail,
+    roomTypeId: reservationInfo.roomTypeId,
+    checkInDate: reservationInfo.checkInDate,
+    numberOfNights: reservationInfo.numberOfNights
   };
 
   /**
