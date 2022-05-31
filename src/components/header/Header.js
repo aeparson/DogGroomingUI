@@ -20,7 +20,7 @@ const Header = () => (
       </NavLink>
     </div>
     <div className={styles.roomtypes}>
-      <NavLink to="/RoomTypes">
+      <NavLink to="/room-types">
         Room Types
       </NavLink>
     </div>

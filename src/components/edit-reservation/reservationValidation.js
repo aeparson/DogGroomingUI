@@ -17,7 +17,7 @@ const validateEmail = (email) => {
   if ((/^\w+@([a-z]+\.)+[a-z]+$/i).test(email)) {
     return '';
   }
-  return 'Must be formatted as user@email.com';
+  return 'Must be valid email';
 };
 
 /**
@@ -32,7 +32,7 @@ const validateDate = (checkInDate) => {
   if ((/^(0[1-9]|1[0-2])([-]{1})\d{2}([-]{1})(\d{4})$/i).test(checkInDate)) {
     return '';
   }
-  return 'Date format must be MM-DD-YYYY.';
+  return 'Date must be MM-DD-YYYY.';
 };
 
 /**
@@ -44,7 +44,7 @@ const validateRoomType = (roomType) => {
   if (isEmpty(roomType)) {
     return '';
   }
-  return 'Room Type is required';
+  return 'Must select a room type';
 };
 
 /**
@@ -56,7 +56,7 @@ const validateNightsStayed = (numberOfNights) => {
   if (numberOfNights > 0) {
     return '';
   }
-  return 'Nights Stayed must be greater than zero.';
+  return 'Must be a number greater than zero.';
 };
 
 const checkReservation = ({
