@@ -8,6 +8,7 @@ import {
 import Homepage from '../homepage/Homepage';
 import Reservations from '../reservations/reservations';
 import EditReservations from '../edit-reservation/editReservation';
+import CreateReservation from '../create-reservation/CreateReservation';
 import Roomtypes from '../roomtypes/roomtypes';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
@@ -24,6 +25,7 @@ const App = () => (
         <Route exact path="/reservations" element={<Reservations />} />
         <Route exact path="/room-types" element={<Roomtypes />} />
         <Route path="/reservations/edit/:id" element={<EditReservations />} />
+        <Route path="/reservations/create" element={<CreateReservation />} />
         <Route exact path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer

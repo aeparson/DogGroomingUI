@@ -87,7 +87,7 @@ const EditReservationPage = () => {
               <hr />
             </h3>
             <h4>
-              Guest Email:
+              Guest Email
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.guestEmail === undefined ? undefined
@@ -109,7 +109,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Room Type:
+              Room Type
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.roomType === undefined ? undefined
@@ -131,7 +131,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Check In Date:
+              Check In Date
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.checkInDate === undefined
@@ -155,7 +155,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Number of Nights:
+              Number of Nights
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.numberOfNights === undefined

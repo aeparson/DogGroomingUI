@@ -1,28 +1,31 @@
+import { toast } from 'react-toastify';
 import HttpHelper from '../../utils/HttpHelper';
 import Constants from '../../utils/constants';
 
 /**
  *
- * @name fetchAllReservations
+ * @name postNewReservation
  * @description Utilizes HttpHelper to make a get request to an API
- * @param {*} setReservations sets state for reservations
- * @param {*} setApiError sets error if response other than 200 is returned
+ * @param {object} NewReservationForm takes in input from form elements.
  * @returns sets state for reservations if 200 response, else sets state for apiError
  */
-async function fetchAllReservations(setReservations, setApiError) {
-  await HttpHelper(Constants.RESERVATIONS_ENDPOINT, 'GET')
+/// summary- creates a HTTP helper function to post the new product to the API
+
+async function postNewReservation(newReservationForm, history) {
+  await HttpHelper(Constants.RESERVATIONS_ENDPOINT, 'POST', newReservationForm)
     .then((response) => {
       if (response.ok) {
+        toast.success('Reservation created successfully.');
+        history.push('/maintenance');
         return response.json();
       }
       throw new Error(Constants.API_ERROR);
     })
-    .then(setReservations)
     .catch(() => {
-      setApiError(true);
+      ('Reservation not created.');
     });
 }
 
 export default {
-  fetchAllReservations
+  postNewReservation
 };
