@@ -82,7 +82,7 @@ const EditReservationPage = () => {
         <div className={styles.reservationInfoContainer}>
           <div className={styles.reservationContainer}>
             <h3 className={styles.title}>
-              Reservation
+              Edit Reservation
               <hr />
             </h3>
             <h4>

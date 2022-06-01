@@ -80,7 +80,7 @@ const CreateReservationPage = () => {
         <div className={styles.reservationInfoContainer}>
           <div className={styles.reservationContainer}>
             <h3 className={styles.title}>
-              Reservation
+              Create Reservation
               <hr />
             </h3>
             <h4>
@@ -94,7 +94,6 @@ const CreateReservationPage = () => {
                     <FormItem
                       type="email"
                       id="guestEmail"
-                      placeholder={reservationInfo.guestEmail}
                       value={reservationPacket.guestEmail}
                       onChange={onReservationCreate}
                     />
@@ -117,7 +116,6 @@ const CreateReservationPage = () => {
                       id="roomTypeId"
                       onChange={onReservationCreate}
                       value={reservationInfo.roomTypeId}
-                      defaultValue="Choose Room Type"
                       options={roomTypes}
                     />
                   </span>

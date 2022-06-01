@@ -3,23 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import styles from './reservations.module.css';
 import TableHeadings from './reservationTableHeadings';
-import { fetchAllReservations } from './reservationsService';
+import { deleteReservationById, fetchAllReservations } from './reservationsService';
 import Constants from '../../utils/constants';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [apiError, setApiError] = useState(false);
-  // const [roomType, setRoomType] = useState([{}]);
 
   const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
 
-  // const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
-
   useEffect(() => {
-    updateReservationList();
+    updateReservationList(setReservations);
   }, []);
 
   // useEffect(() => {
@@ -59,7 +56,6 @@ const Reservations = () => {
                   key={reservation.id}
                   updateReservations={updateReservationList}
                   reservation={reservation}
-                  // roomRate={roomRate}
                 />
               ))}
 
@@ -76,7 +72,7 @@ const Reservations = () => {
 * @returns component
  */
 
-const TableData = ({ reservation, roomRate }) => {
+const TableData = ({ reservation, roomRate, updateReservationList }) => {
   /**
    * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
    * @returns a pencil icon.
@@ -102,21 +98,39 @@ const TableData = ({ reservation, roomRate }) => {
    * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
    * @returns a pencil icon.
    */
-  const DeleteButton = () => (
-    <FontAwesomeIcon
-      icon={faTrash}
-      size="2x"
-      className={styles.rightButton}
-    />
-  );
+  const DeleteButton = () => {
+    const deleteProduct = () => {
+      deleteReservationById(reservation.id)
+        .then(() => {
+          updateReservationList();
+          toast.success(`Reservation with Guest Email ${reservation.guestEmail} successfully deleted.`);
+        })
+        .catch(() => {
+          updateReservationList();
+          toast.error('A server error occurred, reservation has not been deleted.');
+        });
+    };
+    const onClick = () => {
+      deleteProduct();
+    };
+    return (
+      <FontAwesomeIcon
+        onClick={onClick}
+        icon={faTrash}
+        size="2x"
+        className={styles.rightButton}
+      />
+    );
+  };
 
   return (
     <tr>
       <td>
         <EditButton />
-        <DeleteButton />
-        {/* reservation={reservation}
-          updateReservations={updateReservations} */}
+        <DeleteButton
+          reservation={reservation}
+          updateReservations={updateReservationList}
+        />
 
       </td>
       <td>{reservation.guestEmail}</td>
