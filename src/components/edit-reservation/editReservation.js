@@ -22,8 +22,7 @@ const EditReservationPage = () => {
     user: '', guestEmail: '', roomTypeId: '', checkInDate: '', numberOfNights: ''
   });
   const [fieldErrors, setFieldErrors] = useState([]);
-  const roomTypes = ['1: King', '2: King Double', '3: Executive Suite', '4: Honeymoon Suite', '5: Queen',
-    '6: Queen Double', '7: Extended Stay'];
+  const roomTypes = [1, 2, 3, 4, 5, 6, 7];
   const rereoute = useNavigate();
   const { id } = useParams();
 

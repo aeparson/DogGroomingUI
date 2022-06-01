@@ -23,9 +23,7 @@
  .input {
      color: black;
      font-size: 80%;
-     display: flex;
      padding-top: 0px;
-     overflow: hidden;
  }
 
  .inputContainer {
