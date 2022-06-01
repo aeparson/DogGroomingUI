@@ -116,11 +116,11 @@ const EditReservationPage = () => {
                 >
                   <span className={styles.input}>
                     <FormItemDropdown
-                      id="roomType"
+                      id="roomTypeId"
                       onChange={onReservationChange}
-                      value={reservationInfo.roomType}
+                      value={reservationPacket.roomTypeId}
                       options={roomTypes}
-                      defaultValue={reservation.roomType}
+                      defaultValue={reservationInfo.roomTypeId}
                     />
                   </span>
                 </div>
@@ -130,7 +130,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Check In Date:
+              Check In Date
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.checkInDate === undefined
@@ -154,7 +154,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Number of Nights:
+              Number of Nights
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.numberOfNights === undefined
