@@ -11,12 +11,12 @@ import Constants from '../../utils/constants';
  */
 /// summary- creates a HTTP helper function to post the new product to the API
 
-async function postNewReservation(newReservationForm, history) {
-  await HttpHelper(Constants.RESERVATIONS_ENDPOINT, 'POST', newReservationForm)
+async function postNewReservation(newReservation, history) {
+  await HttpHelper(Constants.RESERVATIONS_ENDPOINT, 'POST', newReservation)
     .then((response) => {
       if (response.ok) {
         toast.success('Reservation created successfully.');
-        history.push('/maintenance');
+        history.push('/reservations');
         return response.json();
       }
       throw new Error(Constants.API_ERROR);

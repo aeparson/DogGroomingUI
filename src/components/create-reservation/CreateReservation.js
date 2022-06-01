@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 // import NewReservationForm from './CreateReservationForm';
 import styles from './CreateReservation.module.css';
 import postNewReservation from './CreateReservationService';
-import validateReservation from '../edit-reservation/reservationValidation';
+import validateReservation from './CreateReservationValidation';
 import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';
 
@@ -15,6 +15,7 @@ import FormItemDropdown from '../form/FormItemDropdown';
  *
  */
 const CreateReservation = () => {
+  const history = useNavigate();
   const rereoute = useNavigate();
   const [fieldErrors, setFieldErrors] = useState([]);
   const roomTypes = ['1: King', '2: King Double', '3: Executive Suite', '4: Honeymoon Suite', '5: Queen',
@@ -47,15 +48,13 @@ const CreateReservation = () => {
     setReservationInfo({ ...reservationInfo, [e.target.id]: e.target.value });
   };
 
-  const attemptReservationCreation = (newReservationForm) => {
-    console.log(reservationInfo);
-    const invalidInfo = validateReservation(newReservationForm);
+  const attemptReservationCreation = () => {
+    const invalidInfo = validateReservation(reservationPacket);
     if (Object.keys(invalidInfo).length === 0) {
-      postNewReservation(newReservationForm)
+      postNewReservation(reservationPacket, history)
         .then(rereoute('/reservations'));
       setFieldErrors([]);
-      Object.assign(newReservationForm);
-      setReservationInfo(newReservationForm);
+      Object.assign(reservationPacket);
     } else {
       setFieldErrors(invalidInfo);
     }

@@ -1,9 +1,3 @@
-const isEmpty = (field) => {
-  if (field === undefined || field === null || field.trim().length === 0) {
-    return true;
-  }
-  return false;
-};
 /**
  * Validates than an email address only has alphanumeric characters in the username
  * and only alphabetical characters in the domain name.
@@ -11,9 +5,6 @@ const isEmpty = (field) => {
  * @returns
  */
 const validateEmail = (email) => {
-  if (isEmpty(email)) {
-    return 'Required';
-  }
   if ((/^\w+@([a-z]+\.)+[a-z]+$/i).test(email)) {
     return '';
   }
@@ -26,9 +17,6 @@ const validateEmail = (email) => {
  * @returns an empty string if valid, otherwise an error message
 */
 const validateDate = (checkInDate) => {
-  if (isEmpty(checkInDate)) {
-    return 'Required';
-  }
   if ((/^(0[1-9]|1[0-2])([-]{1})\d{2}([-]{1})(\d{4})$/i).test(checkInDate)) {
     return '';
   }
@@ -41,7 +29,7 @@ const validateDate = (checkInDate) => {
  * @returns an empty string if valid, otherwise an error message
 */
 const validateRoomType = (roomType) => {
-  if (isEmpty(roomType)) {
+  if (roomType == null || roomType === '') {
     return '';
   }
   return 'Must select a room type';
@@ -87,9 +75,9 @@ const checkReservation = ({
   return invalidFields;
 };
 
-const validateReservationCreation = (reservationInfo) => {
+const validateReservation = (reservationInfo) => {
   const invalidReservation = checkReservation(reservationInfo);
   return invalidReservation;
 };
 
-export default validateReservationCreation;
+export default validateReservation;
