@@ -2,30 +2,32 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
-// import NewReservationForm from './CreateReservationForm';
-import styles from './CreateReservation.module.css';
-import postNewReservation from './CreateReservationService';
 import validateReservation from './CreateReservationValidation';
+import createNewReservation from './CreateReservationService';
+import styles from './CreateReservation.module.css';
 import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';
 
 /**
  * @name CreateReservationPage
- * @description handles the changes when creating a new reservation, maps new reservation data
- *
+ * @description fetches reservation information based on reservation id & allows editing via a form.
+ * @param {reservation, setReservation}
+ * @returns component
  */
-const CreateReservation = () => {
-  const history = useNavigate();
-  const rereoute = useNavigate();
-  const [fieldErrors, setFieldErrors] = useState([]);
-  const roomTypes = ['1: King', '2: King Double', '3: Executive Suite', '4: Honeymoon Suite', '5: Queen',
-    '6: Queen Double', '7: Extended Stay'];
+const CreateReservationPage = () => {
   const [reservationInfo, setReservationInfo] = useState({
-    guestEmail: '',
-    checkInDate: '',
-    roomType: '',
-    numberOfNights: ''
+    user: '', guestEmail: '', roomTypeId: '', checkInDate: '', numberOfNights: ''
   });
+  const [fieldErrors, setFieldErrors] = useState([]);
+  const roomTypes = [1, 2, 3, 4, 5, 6, 7];
+  const rereoute = useNavigate();
+
+  /**
+   * @description Allows form input boxes to be typed into
+   */
+  const onReservationCreate = (e) => {
+    setReservationInfo({ ...reservationInfo, [e.target.id]: e.target.value });
+  };
 
   /**
    * @description Packet of information being sent to database for put request.
@@ -42,134 +44,136 @@ const CreateReservation = () => {
   };
 
   /**
-   * @description Allows form input boxes to be typed into
+   * @description Event handler that sends PUT request to database on clicking Save. Validation is
+   * initially checked, and either field errors are set where necessary, or information packet is
+   * sent to database and changes are persisted.
    */
-  const onReservationChange = (e) => {
-    setReservationInfo({ ...reservationInfo, [e.target.id]: e.target.value });
-  };
 
-  const attemptReservationCreation = () => {
+  const AttemptReservationCreate = () => {
     const invalidInfo = validateReservation(reservationPacket);
     if (Object.keys(invalidInfo).length === 0) {
-      postNewReservation(reservationPacket, history)
-        .then(rereoute('/reservations'));
-      setFieldErrors([]);
-      Object.assign(reservationPacket);
+      createNewReservation(reservationPacket, setReservationInfo)
+        .then(() => {
+          rereoute('/reservations');
+        });
     } else {
       setFieldErrors(invalidInfo);
     }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.reservationInfoContainer}>
-        <div className={styles.reservationContainer}>
-          <h3 className={styles.title}>
-            Create Reservation
-            <hr />
-          </h3>
-          <h4>
-            Guest Email
-            {' '}
-            <div className={styles.inputContainer}>
-              <div className={fieldErrors.guestEmail === undefined ? undefined
-                : styles.invalid}
-              >
-                <span className={styles.input}>
-                  <FormItem
-                    type="email"
-                    id="guestEmail"
-                    value={reservationPacket.guestEmail}
-                    onChange={onReservationChange}
-                  />
-                </span>
+    <>
+      <div className={styles.container}>
+        <div className={styles.reservationInfoContainer}>
+          <div className={styles.reservationContainer}>
+            <h3 className={styles.title}>
+              Reservation
+              <hr />
+            </h3>
+            <h4>
+              Guest Email
+              {' '}
+              <div className={styles.inputContainer}>
+                <div className={fieldErrors.guestEmail === undefined ? undefined
+                  : styles.invalid}
+                >
+                  <span className={styles.input}>
+                    <FormItem
+                      type="email"
+                      id="guestEmail"
+                      placeholder={reservationInfo.guestEmail}
+                      value={reservationPacket.guestEmail}
+                      onChange={onReservationCreate}
+                    />
+                  </span>
+                </div>
+                <p className={styles.errorMessage}>
+                  {fieldErrors.guestEmail !== undefined && fieldErrors.guestEmail}
+                </p>
               </div>
-              <p className={styles.errorMessage}>
-                {fieldErrors.guestEmail !== undefined && fieldErrors.guestEmail}
-              </p>
-            </div>
-          </h4>
-          <h4>
-            Room Type
-            {' '}
-            <div className={styles.inputContainer}>
-              <div className={fieldErrors.roomType === undefined ? undefined
-                : styles.invalid}
-              >
-                <span className={styles.input}>
-                  <FormItemDropdown
-                    id="roomType"
-                    onChange={onReservationChange}
-                    value={reservationInfo.roomType}
-                    options={roomTypes}
-                  />
-                </span>
+            </h4>
+            <h4>
+              Room Type
+              {' '}
+              <div className={styles.inputContainer}>
+                <div className={fieldErrors.roomType === undefined ? undefined
+                  : styles.invalid}
+                >
+                  <span className={styles.input}>
+                    <FormItemDropdown
+                      id="roomTypeId"
+                      onChange={onReservationCreate}
+                      value={reservationInfo.roomTypeId}
+                      options={roomTypes}
+                    />
+                  </span>
+                </div>
+                <p className={styles.errorMessage}>
+                  {fieldErrors.roomType !== undefined && fieldErrors.roomType}
+                </p>
               </div>
-              <p className={styles.errorMessage}>
-                {fieldErrors.roomType !== undefined && fieldErrors.roomType}
-              </p>
-            </div>
-          </h4>
-          <h4>
-            Check In Date
-            {' '}
-            <div className={styles.inputContainer}>
-              <div className={fieldErrors.checkInDate === undefined
-                ? undefined : styles.invalid}
-              >
-                <span className={styles.input}>
+            </h4>
+            <h4>
+              Check In Date:
+              {' '}
+              <div className={styles.inputContainer}>
+                <div className={fieldErrors.checkInDate === undefined
+                  ? undefined : styles.invalid}
+                >
+                  <span className={styles.input}>
 
-                  <FormItem
-                    type="text"
-                    id="checkInDate"
-                    onChange={onReservationChange}
-                    value={reservationInfo.checkInDate}
-                  />
-                </span>
+                    <FormItem
+                      type="text"
+                      id="checkInDate"
+                      onChange={onReservationCreate}
+                      value={reservationInfo.checkInDate}
+                    />
+                  </span>
+                </div>
+                <p className={styles.errorMessage}>
+                  {fieldErrors.checkInDate !== undefined && fieldErrors.checkInDate}
+                </p>
               </div>
-              <p className={styles.errorMessage}>
-                {fieldErrors.checkInDate !== undefined && fieldErrors.checkInDate}
-              </p>
-            </div>
-          </h4>
-          <h4>
-            Number of Nights
-            {' '}
-            <div className={styles.inputContainer}>
-              <div className={fieldErrors.numberOfNights === undefined
-                ? undefined : styles.invalid}
+            </h4>
+            <h4>
+              Number of Nights:
+              {' '}
+              <div className={styles.inputContainer}>
+                <div className={fieldErrors.numberOfNights === undefined
+                  ? undefined : styles.invalid}
+                >
+                  <span className={styles.input}>
+
+                    <FormItem
+                      type="number"
+                      id="numberOfNights"
+                      onChange={onReservationCreate}
+                      value={reservationInfo.numberOfNights}
+                    />
+
+                  </span>
+                </div>
+                <p className={styles.errorMessage}>
+                  {fieldErrors.numberOfNights !== undefined && fieldErrors.numberOfNights}
+                </p>
+              </div>
+            </h4>
+            <Box className={styles.button}>
+              <Button
+                onClick={AttemptReservationCreate}
+                variant="contained"
+                disableElevation
+                size="small"
+                data-testid="save-spot"
               >
-                <span className={styles.input}>
-
-                  <FormItem
-                    type="number"
-                    id="numberOfNights"
-                    onChange={onReservationChange}
-                    value={reservationInfo.numberOfNights}
-                  />
-
-                </span>
-              </div>
-              <p className={styles.errorMessage}>
-                {fieldErrors.numberOfNights !== undefined && fieldErrors.numberOfNights}
-              </p>
-            </div>
-          </h4>
-          <Box className={styles.button}>
-            <Button
-              onClick={attemptReservationCreation}
-              variant="contained"
-              disableElevation
-              size="small"
-              data-testid="edit-spot"
-            >
-              Save
-            </Button>
-          </Box>
+                Save
+              </Button>
+            </Box>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default CreateReservation;
+export default CreateReservationPage;

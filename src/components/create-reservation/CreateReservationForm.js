@@ -5,68 +5,99 @@
 // import styles from './CreateReservation.module.css';
 
 // /// summary - Builds the create reservation page form
-// const NewReservationForm = ({ onChange, reservationData, errors }) => {
+// const NewReservationForm = ({ onChange, reservationInfo, fieldErrors }) => {
 //   const roomTypes = ['1: King', '2: King Double', '3: Executive Suite', '4: Honeymoon Suite', '5: Queen',
 //     '6: Queen Double', '7: Extended Stay'];
 
 //   return (
 //     <>
-//       <div className={styles.inputContainer}>
-//         <div className={errors.guestEmail === undefined ? undefined : styles.invalid}>
-//           <FormItem
-//             type="email"
-//             id="emailAddress"
-//             label="Guest Email"
-//             value={reservationData.label}
-//             onChange={onChange}
-//           />
+//       <h4>
+//         Guest Email
+//         {' '}
+//         <div className={styles.inputContainer}>
+//           <div className={fieldErrors.guestEmail === undefined ? undefined
+//             : styles.invalid}
+//           >
+//             <span className={styles.input}>
+//               <FormItem
+//                 type="email"
+//                 id="guestEmail"
+//                 reservationInfo={reservationInfo.guestEmail}
+//                 onChange={onChange}
+//               />
+//             </span>
+//           </div>
 //           <p className={styles.errorMessage}>
-//             {errors.guestEmail !== undefined && errors.guestEmail}
+//             {fieldErrors.guestEmail !== undefined && fieldErrors.guestEmail}
 //           </p>
 //         </div>
-//       </div>
-//       <div className={styles.inputContainer}>
-//         <div className={errors.checkInDate === undefined ? undefined : styles.invalid}>
-//           <FormItem
-//             type="text"
-//             id="checkInDate"
-//             label="Check In Date"
-//             value={reservationData.checkInDate}
-//             onChange={onChange}
-//           />
+//       </h4>
+//       <h4>
+//         Room Type
+//         {' '}
+//         <div className={styles.inputContainer}>
+//           <div className={fieldErrors.roomType === undefined ? undefined
+//             : styles.invalid}
+//           >
+//             <span className={styles.input}>
+//               <FormItemDropdown
+//                 id="roomType"
+//                 onChange={onChange}
+//                 reservation={reservationInfo.roomType}
+//                 options={roomTypes}
+//               />
+//             </span>
+//           </div>
 //           <p className={styles.errorMessage}>
-//             {errors.checkInDate !== undefined && errors.checkInDate}
+//             {fieldErrors.roomType !== undefined && fieldErrors.roomType}
 //           </p>
 //         </div>
-//       </div>
-//       <div className={styles.inputContainer}>
-//         <div className={errors.roomType === undefined ? undefined : styles.invalid}>
-//           <FormItemDropdown
-//             id="roomType"
-//             label="Room Type"
-//             value={reservationData.roomType}
-//             options={roomTypes}
-//             onChange={onChange}
-//           />
+//       </h4>
+//       <h4>
+//         Check In Date
+//         {' '}
+//         <div className={styles.inputContainer}>
+//           <div className={fieldErrors.checkInDate === undefined
+//             ? undefined : styles.invalid}
+//           >
+//             <span className={styles.input}>
+
+//               <FormItem
+//                 type="text"
+//                 id="checkInDate"
+//                 onChange={onChange}
+//                 reservationInfo={reservationInfo.checkInDate}
+//               />
+//             </span>
+//           </div>
 //           <p className={styles.errorMessage}>
-//             {errors.roomType !== undefined && errors.roomType}
+//             {fieldErrors.checkInDate !== undefined && fieldErrors.checkInDate}
 //           </p>
 //         </div>
-//       </div>
-//       <div className={styles.inputContainer}>
-//         <div className={errors.nightsStayed === undefined ? undefined : styles.invalid}>
-//           <FormItem
-//             nightsStayed="number"
-//             id="nightsStayed"
-//             label="Nights Stayed"
-//             value={reservationData.nightsStayed}
-//             onChange={onChange}
-//           />
+//       </h4>
+//       <h4>
+//         Number of Nights
+//         {' '}
+//         <div className={styles.inputContainer}>
+//           <div className={fieldErrors.numberOfNights === undefined
+//             ? undefined : styles.invalid}
+//           >
+//             <span className={styles.input}>
+
+//               <FormItem
+//                 type="number"
+//                 id="numberOfNights"
+//                 onChange={onChange}
+//                 resrvationInfo={reservationInfo.numberOfNights}
+//               />
+
+//             </span>
+//           </div>
 //           <p className={styles.errorMessage}>
-//             {errors.nightsStayed !== undefined && errors.nightsStayed}
+//             {fieldErrors.numberOfNights !== undefined && fieldErrors.numberOfNights}
 //           </p>
 //         </div>
-//       </div>
+//       </h4>
 //     </>
 //   );
 // };

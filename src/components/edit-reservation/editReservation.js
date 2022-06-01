@@ -131,7 +131,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Check In Date
+              Check In Date:
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.checkInDate === undefined
@@ -155,7 +155,7 @@ const EditReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Number of Nights
+              Number of Nights:
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.numberOfNights === undefined
