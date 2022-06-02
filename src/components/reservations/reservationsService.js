@@ -4,13 +4,13 @@ import Constants from '../../utils/constants';
 
 /**
  *
- * @name fetchAllReservations
+ * @name getAllReservations
  * @description Utilizes HttpHelper to make a get request to an API
  * @param {*} setReservations sets state for reservations
  * @param {*} setApiError sets error if response other than 200 is returned
  * @returns sets state for reservations if 200 response, else sets state for apiError
  */
-async function fetchAllReservations(setReservations, setApiError) {
+async function getAllReservations(setReservations, setApiError) {
   await HttpHelper(Constants.RESERVATIONS_ENDPOINT, 'GET')
     .then((response) => {
       if (response.ok) {
@@ -104,6 +104,6 @@ async function fetchAllRoomTypes(setRoomType, setApiError) {
 }
 
 export {
-  fetchAllReservations, deleteReservationById, updateReservationById,
+  getAllReservations, deleteReservationById, updateReservationById,
   getReservationById, fetchAllRoomTypes
 };

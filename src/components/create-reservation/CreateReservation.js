@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
 import validateReservation from './CreateReservationValidation';
-import { createNewReservation } from './CreateReservationService';
+import createNewReservation from './CreateReservationService';
 import styles from './CreateReservation.module.css';
 import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styles from './reservations.module.css';
 import TableHeadings from './reservationTableHeadings';
-import { deleteReservationById, fetchAllReservations, fetchAllRoomTypes } from './reservationsService';
+import { deleteReservationById, getAllReservations, fetchAllRoomTypes } from './reservationsService';
 import Constants from '../../utils/constants';
 
 const Reservations = () => {
@@ -13,7 +13,7 @@ const Reservations = () => {
   const [apiError, setApiError] = useState(false);
   const [roomType, setRoomType] = useState([]);
 
-  const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
+  const updateReservationList = () => getAllReservations(setReservations, setApiError);
   const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Reservations = () => {
   }, []);
 
   const getRoomRate = (reservation) => {
-    const roomObject = roomType.find((rt) => (rt.id === reservation.id));
+    const roomObject = roomType.find((object) => (object.id === reservation.id));
     if (roomObject === undefined) {
       return undefined;
     }
@@ -34,7 +34,7 @@ const Reservations = () => {
   };
 
   const getRoomTypeName = (reservation) => {
-    const roomObject = roomType.find((rt) => (rt.id === reservation.id));
+    const roomObject = roomType.find((object) => (object.id === reservation.id));
     if (roomObject === undefined) {
       return undefined;
     }
