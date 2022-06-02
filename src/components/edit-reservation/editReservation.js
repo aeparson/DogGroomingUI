@@ -28,7 +28,6 @@ const EditReservationPage = () => {
   const { id } = useParams();
 
   const [roomType, setRoomType] = useState([{}]);
-  // const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
 
   useEffect(() => {
     getReservationById(Number(id), setReservationInfo);
@@ -65,6 +64,11 @@ const EditReservationPage = () => {
     return roomObject.name;
   };
 
+  /**
+   * Allows mapping of the chosen name back to the id to pass to the database.
+   * @param {name} name
+   * @returns a room type id number.
+   */
   const getRoomTypeId = (name) => {
     const roomObject = roomType.find((object) => (object.name === name));
     if (roomObject === undefined) {

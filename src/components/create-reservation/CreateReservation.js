@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
 import validateReservation from '../../utils/validation/reservationValidation';
 import { createNewReservation } from '../../utils/service-pages/reservationService';
+import { fetchAllRoomTypes } from '../../utils/service-pages/roomService';
 import styles from '../edit-reservation/reservationForm.module.css';
 import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';
@@ -19,14 +20,52 @@ const CreateReservationPage = () => {
     user: '', guestEmail: '', roomTypeId: '', checkInDate: '', numberOfNights: ''
   });
   const [fieldErrors, setFieldErrors] = useState([]);
-  const roomTypes = [1, 2, 3, 4, 5, 6, 7];
+  const [roomType, setRoomType] = useState([{}]);
+  const [roomTypeName, setRoomTypeName] = useState('');
   const rereoute = useNavigate();
 
+  useEffect(() => {
+    fetchAllRoomTypes(setRoomType);
+  }, []);
   /**
    * @description Allows form input boxes to be typed into
    */
   const onReservationCreate = (e) => {
     setReservationInfo({ ...reservationInfo, [e.target.id]: e.target.value });
+  };
+
+  /**
+   * @description Allows form input boxes to be typed into
+   */
+  const onRoomTypeChange = (e) => {
+    setRoomTypeName(e.target.value);
+  };
+
+  /**
+   * Calculates the total cost of the reservation
+   * @param {object} reservation
+   * @returns total room cost after calculating nightly rate times nights stayed.
+   */
+  const getActiveRooms = () => {
+    const roomObject = roomType.filter((object) => (object.active === true));
+    if (roomObject === undefined) {
+      return undefined;
+    }
+    const activeRooms = ([...roomObject].map((r) => (r.name)));
+    return activeRooms;
+  };
+
+  /**
+   * Allows mapping of the chosen name back to the id to pass to the database.
+   * @param {name} name
+   * @returns a room type id number.
+   */
+  const getRoomTypeId = (name) => {
+    const roomObject = roomType.find((object) => (object.name === name));
+    if (roomObject === undefined) {
+      return undefined;
+    }
+    return roomObject.id;
   };
 
   /**
@@ -38,7 +77,7 @@ const CreateReservationPage = () => {
   const reservationPacket = {
     user: 'user@mail.com',
     guestEmail: reservationInfo.guestEmail,
-    roomTypeId: reservationInfo.roomTypeId,
+    roomTypeId: (getRoomTypeId(roomTypeName)),
     checkInDate: reservationInfo.checkInDate,
     numberOfNights: reservationInfo.numberOfNights
   };
@@ -101,10 +140,11 @@ const CreateReservationPage = () => {
                 >
                   <span className={styles.input}>
                     <FormItemDropdown
-                      id="roomTypeId"
-                      onChange={onReservationCreate}
-                      value={reservationInfo.roomTypeId}
-                      options={roomTypes}
+                      id="roomTypeName"
+                      onChange={onRoomTypeChange}
+                      value={roomTypeName}
+                      options={getActiveRooms()}
+                      defaultValue="Room Type"
                     />
                   </span>
                 </div>
