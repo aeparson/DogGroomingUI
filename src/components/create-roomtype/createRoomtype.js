@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
-import validateRoom from '../edit-roomtype/roomValidation';
-import createNewRoom from './createRoomService';
-import styles from './createRoom.module.css';
+import validateRoom from '../../utils/validation/roomValidation';
+import { createNewRoom } from '../../utils/service-pages/roomService';
+import styles from '../edit-roomtype/roomForm.module.css';
 import FormItem from '../form/FormItem';
 
 /**
  * @name CreateRoomPage
- * @description fetches room information based on room id & allows editing via a form.
+ * @description allows you to create a new instance of a room type.
  * @param {room, setRoom}
  * @returns component
  */
@@ -34,8 +34,8 @@ const CreateRoomPage = () => {
 
   /**
    * @description Packet of information being sent to database for put request.
-   * If information has been entered into a form box, it will be read and added
-   * to the packet, otherwise what is sent is the user's existing information.
+   * Information entered into a form box will be read and added
+   * to the packet.
    */
   const activeStatus = checked;
   const roomPacket = {
@@ -46,7 +46,7 @@ const CreateRoomPage = () => {
   };
 
   /**
-   * @description Event handler that sends PUT request to database on clicking Save. Validation is
+   * @description Event handler that sends POST request to database on clicking Save. Validation is
    * initially checked, and either field errors are set where necessary, or information packet is
    * sent to database and changes are persisted.
    */

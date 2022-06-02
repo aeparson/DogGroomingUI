@@ -3,10 +3,15 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import styles from './roomtypes.module.css';
-import fetchAllRoomTypes from './roomtypesService';
+import { fetchAllRoomTypes } from '../../utils/service-pages/roomService';
 import TableHeadings from './roomtypesTableHeadings';
 import Constants from '../../utils/constants';
 
+/**
+ * This large function calls on helper functions to fetch and display all
+ * relavent room type data.
+ * @returns a table with all the current room types and their data.
+ */
 const RoomTypes = () => {
   const [apiError, setApiError] = useState(false);
   const [roomTypes, setRoomTypes] = useState([]);

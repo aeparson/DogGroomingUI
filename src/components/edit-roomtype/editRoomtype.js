@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
-import { fetchRoomById, updateRoomInfo } from './editRoomService';
-import validateRoom from './roomValidation';
-import styles from './editRoom.module.css';
+import { fetchRoomById, updateRoomInfo } from '../../utils/service-pages/roomService';
+import validateRoom from '../../utils/validation/roomValidation';
+import styles from './roomForm.module.css';
 import Constants from '../../utils/constants';
 import FormItem from '../form/FormItem';
 
@@ -39,22 +39,10 @@ const EditRoomTypePage = () => {
     setRoomInfo({ ...roomInfo, [e.target.id]: e.target.value });
   };
 
-  // /**
-  //  * @description checks for the status of the active checkbox in edit mode and assigns active
-  //  * status according to that.
-  //  */
-  // const setRoomActiveStatus = () => {
-  //   if (document.getElementById('active').checked === true) {
-  //     roomInfo.active = true;
-  //     return roomInfo.active;
-  //   }
-  //   roomInfo.active = false;
-  //   return roomInfo.active;
-  // };
   /**
    * @description Packet of information being sent to database for put request.
    * If information has been entered into a form box, it will be read and added
-   * to the packet, otherwise what is sent is the user's existing information.
+   * to the packet, otherwise what is sent is the room's existing information.
    */
   const activeStatus = checked;
   const roomPacket = {

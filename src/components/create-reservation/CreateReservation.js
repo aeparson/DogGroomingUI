@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
-import validateReservation from './CreateReservationValidation';
-import createNewReservation from './CreateReservationService';
-import styles from './CreateReservation.module.css';
+import validateReservation from '../../utils/validation/reservationValidation';
+import { createNewReservation } from '../../utils/service-pages/reservationService';
+import styles from '../edit-reservation/reservationForm.module.css';
 import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';
 
 /**
  * @name CreateReservationPage
- * @description fetches reservation information based on reservation id & allows editing via a form.
+ * @description allows you to submit a new instance of a reservation to the database
  * @param {reservation, setReservation}
  * @returns component
  */
@@ -31,8 +31,8 @@ const CreateReservationPage = () => {
 
   /**
    * @description Packet of information being sent to database for put request.
-   * If information has been entered into a form box, it will be read and added
-   * to the packet, otherwise what is sent is the user's existing information.
+   * Information entered into a form box will be read and added
+   * to the packet.
    */
 
   const reservationPacket = {
@@ -44,7 +44,7 @@ const CreateReservationPage = () => {
   };
 
   /**
-   * @description Event handler that sends PUT request to database on clicking Save. Validation is
+   * @description Event handler that sends POST request to database on clicking Save. Validation is
    * initially checked, and either field errors are set where necessary, or information packet is
    * sent to database and changes are persisted.
    */

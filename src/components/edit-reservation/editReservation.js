@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
-import validateReservation from './reservationValidation';
-import { fetchReservationById, updateReservationInfo } from './editReservationService';
-import styles from './editReservation.module.css';
+import validateReservation from '../../utils/validation/reservationValidation';
+import { getReservationById, updateReservationById } from '../../utils/service-pages/reservationService';
+import styles from './reservationForm.module.css';
 import Constants from '../../utils/constants';
 import FormItem from '../form/FormItem';
 import FormItemDropdown from '../form/FormItemDropdown';
@@ -27,7 +27,7 @@ const EditReservationPage = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetchReservationById(Number(id), setReservationInfo);
+    getReservationById(Number(id), setReservationInfo);
   }, [id]);
 
   /**
@@ -40,7 +40,7 @@ const EditReservationPage = () => {
   /**
    * @description Packet of information being sent to database for put request.
    * If information has been entered into a form box, it will be read and added
-   * to the packet, otherwise what is sent is the user's existing information.
+   * to the packet, otherwise what is sent is the reservations's existing information.
    */
 
   const reservationPacket = {
@@ -61,7 +61,7 @@ const EditReservationPage = () => {
   const AttemptReservationChange = () => {
     const invalidInfo = validateReservation(reservationPacket);
     if (Object.keys(invalidInfo).length === 0) {
-      updateReservationInfo(reservationPacket, { id }, setApiError)
+      updateReservationById(reservationPacket, { id }, setApiError)
         .then(rereoute('/reservations'));
       setFieldErrors([]);
       Object.assign(reservationPacket);
