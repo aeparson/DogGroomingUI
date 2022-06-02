@@ -25,12 +25,20 @@ const Reservations = () => {
   }, []);
 
   const getRoomRate = (reservation) => {
-    const roomRate = roomType.find((rt) => (rt.id === reservation.id));
-    if (roomRate === undefined) {
+    const roomObject = roomType.find((rt) => (rt.id === reservation.id));
+    if (roomObject === undefined) {
       return undefined;
     }
-    const totalRate = ((roomRate.rate) * (reservation.numberOfNights));
+    const totalRate = ((roomObject.rate) * (reservation.numberOfNights));
     return totalRate;
+  };
+
+  const getRoomTypeName = (reservation) => {
+    const roomObject = roomType.find((rt) => (rt.id === reservation.id));
+    if (roomObject === undefined) {
+      return undefined;
+    }
+    return roomObject.name;
   };
 
   return (
@@ -58,6 +66,7 @@ const Reservations = () => {
                   updateReservations={updateReservationList}
                   reservation={reservation}
                   roomRate={getRoomRate(reservation)}
+                  roomName={getRoomTypeName(reservation)}
                 />
               ))}
 
@@ -74,7 +83,9 @@ const Reservations = () => {
 * @returns component
  */
 
-const TableData = ({ reservation, roomRate, updateReservations }) => {
+const TableData = ({
+  reservation, roomRate, updateReservations, roomName
+}) => {
   /**
    * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
    * @returns a pencil icon.
@@ -131,10 +142,10 @@ const TableData = ({ reservation, roomRate, updateReservations }) => {
 
       </td>
       <td>{reservation.guestEmail}</td>
-      <td>{reservation.roomTypeId}</td>
+      <td>{roomName}</td>
       <td>{reservation.checkInDate}</td>
       <td>{reservation.numberOfNights}</td>
-      <td>{roomRate}</td>
+      <td>{`$${roomRate}`}</td>
     </tr>
   );
 };
