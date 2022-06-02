@@ -27,11 +27,15 @@ const EditReservationPage = () => {
   const rereoute = useNavigate();
   const { id } = useParams();
 
-  const [roomType, setRoomType] = useState([]);
-  const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
+  const [roomType, setRoomType] = useState([{}]);
+  // const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
 
   useEffect(() => {
-    fetchRoomTypes();
+    getReservationById(Number(id), setReservationInfo);
+  }, [id]);
+
+  useEffect(() => {
+    fetchAllRoomTypes(setRoomType);
   }, []);
 
   /**
@@ -54,7 +58,7 @@ const EditReservationPage = () => {
    * @returns room names assigned to room id numbers.
    */
   const getRoomTypeName = () => {
-    const roomObject = roomType.find((object) => (object.id === reservation.id));
+    const roomObject = roomType.find((object) => (object.id === reservationInfo.roomTypeId));
     if (roomObject === undefined) {
       return undefined;
     }
@@ -68,10 +72,6 @@ const EditReservationPage = () => {
     }
     return roomObject.id;
   };
-
-  useEffect(() => {
-    getReservationById(Number(id), setReservationInfo);
-  }, [id]);
 
   /**
    * @description Allows form input boxes to be typed into
@@ -170,7 +170,7 @@ const EditReservationPage = () => {
                       onChange={onRoomTypeChange}
                       value={roomTypeName}
                       options={getActiveRooms()}
-                      defaultValue={getRoomTypeName(reservationInfo)}
+                      defaultValue={getRoomTypeName()}
                     />
                   </span>
                 </div>
