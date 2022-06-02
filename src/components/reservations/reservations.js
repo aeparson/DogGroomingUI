@@ -29,7 +29,7 @@ const Reservations = () => {
     if (roomObject === undefined) {
       return undefined;
     }
-    const totalRate = ((roomObject.rate) * (reservation.numberOfNights));
+    const totalRate = ((roomObject.rate) * (reservation.numberOfNights)).toFixed(2);
     return totalRate;
   };
 
