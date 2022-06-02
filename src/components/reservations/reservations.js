@@ -36,7 +36,7 @@ const Reservations = () => {
    * @returns total room cost after calculating nightly rate times nights stayed.
    */
   const getRoomRate = (reservation) => {
-    const roomObject = roomType.find((object) => (object.id === reservation.id));
+    const roomObject = roomType.find((object) => (object.id === reservation.roomTypeId));
     if (roomObject === undefined) {
       return undefined;
     }
@@ -50,11 +50,12 @@ const Reservations = () => {
    * @returns room names assigned to room id numbers.
    */
   const getRoomTypeName = (reservation) => {
-    const roomObject = roomType.find((object) => (object.id === reservation.id));
+    const roomObject = roomType.find((object) => (object.id === reservation.roomTypeId));
     if (roomObject === undefined) {
       return undefined;
     }
-    return roomObject.name;
+    const roomName = (roomObject.name);
+    return roomName;
   };
 
   return (
