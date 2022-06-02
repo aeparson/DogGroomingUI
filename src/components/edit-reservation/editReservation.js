@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import { Box } from '@mui/system';
 import validateReservation from '../../utils/validation/reservationValidation';
 import { getReservationById, updateReservationById } from '../../utils/service-pages/reservationService';
+import { fetchAllRoomTypes } from '../../utils/service-pages/roomService';
 import styles from './reservationForm.module.css';
 import Constants from '../../utils/constants';
 import FormItem from '../form/FormItem';
@@ -21,10 +22,52 @@ const EditReservationPage = () => {
   const [reservationInfo, setReservationInfo] = useState({
     user: '', guestEmail: '', roomTypeId: '', checkInDate: '', numberOfNights: ''
   });
+  const [roomTypeName, setRoomTypeName] = useState('');
   const [fieldErrors, setFieldErrors] = useState([]);
-  const roomTypes = [1, 2, 3, 4, 5, 6, 7];
   const rereoute = useNavigate();
   const { id } = useParams();
+
+  const [roomType, setRoomType] = useState([]);
+  const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
+
+  useEffect(() => {
+    fetchRoomTypes();
+  }, []);
+
+  /**
+   * Calculates the total cost of the reservation
+   * @param {object} reservation
+   * @returns total room cost after calculating nightly rate times nights stayed.
+   */
+  const getActiveRooms = () => {
+    const roomObject = roomType.filter((object) => (object.active === true));
+    if (roomObject === undefined) {
+      return undefined;
+    }
+    const activeRooms = ([...roomObject].map((r) => (r.name)));
+    return activeRooms;
+  };
+
+  /**
+   * Allows room type id numbers to be matched to names for ease of reading reservation information.
+   * @param {object} reservation
+   * @returns room names assigned to room id numbers.
+   */
+  const getRoomTypeName = () => {
+    const roomObject = roomType.find((object) => (object.id === reservation.id));
+    if (roomObject === undefined) {
+      return undefined;
+    }
+    return roomObject.name;
+  };
+
+  const getRoomTypeId = (name) => {
+    const roomObject = roomType.find((object) => (object.name === name));
+    if (roomObject === undefined) {
+      return undefined;
+    }
+    return roomObject.id;
+  };
 
   useEffect(() => {
     getReservationById(Number(id), setReservationInfo);
@@ -38,6 +81,13 @@ const EditReservationPage = () => {
   };
 
   /**
+   * @description Allows form input boxes to be typed into
+   */
+  const onRoomTypeChange = (e) => {
+    setRoomTypeName(e.target.value);
+  };
+
+  /**
    * @description Packet of information being sent to database for put request.
    * If information has been entered into a form box, it will be read and added
    * to the packet, otherwise what is sent is the reservations's existing information.
@@ -47,7 +97,7 @@ const EditReservationPage = () => {
     id: reservation.id,
     user: 'user@mail.com',
     guestEmail: reservationInfo.guestEmail,
-    roomTypeId: reservationInfo.roomTypeId,
+    roomTypeId: (getRoomTypeId(roomTypeName)),
     checkInDate: reservationInfo.checkInDate,
     numberOfNights: reservationInfo.numberOfNights
   };
@@ -116,11 +166,11 @@ const EditReservationPage = () => {
                 >
                   <span className={styles.input}>
                     <FormItemDropdown
-                      id="roomTypeId"
-                      onChange={onReservationChange}
-                      value={reservationPacket.roomTypeId}
-                      options={roomTypes}
-                      defaultValue={reservationInfo.roomTypeId}
+                      id="roomTypeName"
+                      onChange={onRoomTypeChange}
+                      value={roomTypeName}
+                      options={getActiveRooms()}
+                      defaultValue={getRoomTypeName(reservationInfo)}
                     />
                   </span>
                 </div>
