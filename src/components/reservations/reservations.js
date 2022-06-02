@@ -3,34 +3,35 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import { toast } from 'react-toastify';
 import styles from './reservations.module.css';
 import TableHeadings from './reservationTableHeadings';
-import { deleteReservationById, fetchAllReservations } from './reservationsService';
+import { deleteReservationById, fetchAllReservations, fetchAllRoomTypes } from './reservationsService';
 import Constants from '../../utils/constants';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
   const [apiError, setApiError] = useState(false);
+  const [roomType, setRoomType] = useState([]);
 
   const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
+  const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
 
   useEffect(() => {
     updateReservationList(setReservations);
   }, []);
 
-  // useEffect(() => {
-  //   fetchRoomTypes();
-  // }, []);
+  useEffect(() => {
+    fetchRoomTypes();
+  }, []);
 
-  // const roomRate = (reservation) => {
-  //   fetchAllRoomTypes(reservation.roomTypeId, setRoomType);
-  //   // eslint-disable-next-line no-plusplus
-  //   for (let r = 0; r < roomType.length; r++) {
-  //     // return setRoomType.rate;
-  //     console.log(roomType[r]);
-  //   }
-  // };
+  const getRoomRate = (reservation) => {
+    const roomRate = roomType.find((rt) => (rt.id === reservation.id));
+    if (roomRate === undefined) {
+      return undefined;
+    }
+    const totalRate = ((roomRate.rate) * (reservation.numberOfNights));
+    return totalRate;
+  };
 
   return (
     <>
@@ -56,6 +57,7 @@ const Reservations = () => {
                   key={reservation.id}
                   updateReservations={updateReservationList}
                   reservation={reservation}
+                  roomRate={getRoomRate(reservation)}
                 />
               ))}
 
@@ -103,11 +105,9 @@ const TableData = ({ reservation, roomRate, updateReservations }) => {
       deleteReservationById(reservation.id)
         .then(() => {
           updateReservations();
-          // toast.success(`Reservation with Guest Email ${reservation.guestEmail} successfully deleted.`);
         })
         .catch(() => {
           updateReservations();
-          // toast.error('A server error occurred, reservation has not been deleted.');
         });
     };
     return (
@@ -134,47 +134,8 @@ const TableData = ({ reservation, roomRate, updateReservations }) => {
       <td>{reservation.roomTypeId}</td>
       <td>{reservation.checkInDate}</td>
       <td>{reservation.numberOfNights}</td>
-      <td>{roomRate * reservation.numberOfNights}</td>
+      <td>{roomRate}</td>
     </tr>
   );
 };
 export default Reservations;
-
-// const DeleteButton = () => {
-//   const [clickable] = useState(true);
-
-//   const deleteReservation = () => {
-//     if (clickable) {
-//       deleteReservationById(reservation.id)
-//         .then(() => {
-//           updateReservations();
-//           toast.success(`Reservation for ${reservation.guestEmail} has been successfully deleted.`);
-//         })
-//         .catch(() => {
-//           updateReservations(); // Account for errors caused by backend changes since page render
-//           toast.error('A server error occurred. The reservation has not been deleted.');
-//         });
-//     }
-//   };
-
-//   return (
-//     <IconButton color="inherit" size="small" className={styles.rightButton} data-testid={`delete ${reservation.id}`}>
-//       <DeleteIcon />
-//     </IconButton>
-//   );
-// };
-
-//  <TableData
-//             // key={res.id}
-//             // updateReservations={updateReservationList}
-//             // reservation={res}
-//           />
-
-// const [reservations, setReservations] = useState([]);
-// const [apiError, setApiError] = useState(false);
-
-// const updateReservationList = () => fetchAllReservations(setReservations, setApiError);
-
-// useEffect(() => {
-//   updateReservationList();
-// }, []);
