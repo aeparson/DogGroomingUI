@@ -74,6 +74,7 @@ async function updateReservationById(updatedReservation, reservation) {
   await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'PUT', updatedReservation)
     .then((response) => {
       if (response.ok) {
+        toast.success('Reservation successfully updated.');
         return response.json();
       }
       if (response.status === 400) {
@@ -106,8 +107,6 @@ async function createNewReservation(reservationPacket) {
       toast.error('A server error occured');
     });
 }
-
-export default createNewReservation;
 
 export {
   getAllReservations, deleteReservationById, updateReservationById,

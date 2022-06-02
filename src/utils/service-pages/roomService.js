@@ -54,6 +54,7 @@ async function updateRoomInfo(updatedRoom, room) {
   await HttpHelper(`${Constants.ROOM_TYPES_ENDPOINT}/${room.id}`, 'PUT', updatedRoom)
     .then((response) => {
       if (response.ok) {
+        toast.success('Room successfully updated.');
         return response.json();
       }
       if (response.status === 400) {
