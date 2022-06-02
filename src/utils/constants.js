@@ -10,8 +10,6 @@ module.exports = Object.freeze({
 
   ROOM_TYPES_ENDPOINT: '/room-types',
 
-  CREATE_ROOM_TYPES_ENDPOINT: '/room-types/create',
-
-  EDIT_ROOM_TYPES_ENDPOINT: '/room-types/edit'
+  CREATE_ROOM_TYPES_ENDPOINT: '/room-types/create'
 
 });

@@ -22,33 +22,13 @@ const EditReservationPage = () => {
     user: '', guestEmail: '', roomTypeId: '', checkInDate: '', numberOfNights: ''
   });
   const [fieldErrors, setFieldErrors] = useState([]);
-  // const [roomType, setRoomType] = useState([]);
   const roomTypes = [1, 2, 3, 4, 5, 6, 7];
   const rereoute = useNavigate();
   const { id } = useParams();
 
-  // const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
-
-  // useEffect(() => {
-  //   fetchRoomTypes();
-  // }, []);
-
   useEffect(() => {
     fetchReservationById(Number(id), setReservationInfo);
   }, [id]);
-
-  // const getRoomActiveStatus = () => {
-  //   const activeRooms = [];
-  //   const roomObject = roomType.find((object) => (object.id === reservation.id));
-  //   if (roomObject === undefined) {
-  //     return undefined;
-  //   }
-  //   const activeStatus = roomObject.active;
-  //   if (activeStatus === true) {
-  //     activeRooms.push(roomObject.id);
-  //   }
-  //   return activeRooms;
-  // };
 
   /**
    * @description Allows form input boxes to be typed into
@@ -159,12 +139,12 @@ const EditReservationPage = () => {
                   <span className={styles.input}>
 
                     <FormItem
-                      placeholder={reservation.checkInDate}
-                      defaultValue={reservation.checkInDate}
+                      placeholder={reservationInfo.checkInDate}
+                      defaultValue={reservationInfo.checkInDate}
                       type="text"
                       id="checkInDate"
                       onChange={onReservationChange}
-                      value={reservationInfo.checkInDate}
+                      value={reservationPacket.checkInDate}
                     />
                   </span>
                 </div>
