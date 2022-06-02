@@ -11,6 +11,7 @@ import EditReservations from '../edit-reservation/editReservation';
 import CreateReservationPage from '../create-reservation/CreateReservation';
 import RoomTypes from '../roomtypes/roomtypes';
 import EditRoomTypes from '../edit-roomtype/editRoomtype';
+import CreateRoomPage from '../create-roomtype/createRoomtype';
 import Header from '../header/Header';
 import Footer from '../footer/footer';
 import PageNotFound from '../../utils/page-not-found/PageNotFound';
@@ -28,6 +29,7 @@ const App = () => (
         <Route path="/reservations/create" element={<CreateReservationPage />} />
         <Route exact path="/room-types" element={<RoomTypes />} />
         <Route path="/room-types/edit/:id" element={<EditRoomTypes />} />
+        <Route path="/room-types/create" element={<CreateRoomPage />} />
         <Route exact path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer

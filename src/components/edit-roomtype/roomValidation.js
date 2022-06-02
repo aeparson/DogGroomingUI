@@ -1,15 +1,25 @@
+const isEmpty = (field) => {
+  if (field === undefined || field === null || field.trim().length === 0) {
+    return true;
+  }
+  return false;
+};
+
 /**
  * Validates than an email address only has alphanumeric characters in the username
  * and only alphabetical characters in the domain name.
- * @param {string} email
+ * @param {string} name
  * @returns
  */
-// const validateName = (name) => {
-//   if (name.length >= 3) {
-//     return '';
-//   }
-//   return 'Name must be at least 3 characters';
-// };
+const validateName = (name) => {
+  if (isEmpty(name)) {
+    return 'Name must be at least 3 characters';
+  }
+  if (name.length >= 3) {
+    return '';
+  }
+  return 'Name must be at least 3 characters';
+};
 
 /**
  * Validates that the nights stayed must be greater than zero.
@@ -24,14 +34,14 @@ const validateRate = (rate) => {
 };
 
 const checkRoom = ({
-  rate
+  rate, name
 }) => {
   const invalidFields = {};
 
-  //   const NameValidation = validateName(name);
-  //   if (NameValidation) {
-  //     invalidFields.name = NameValidation;
-  //   }
+  const NameValidation = validateName(name);
+  if (NameValidation) {
+    invalidFields.name = NameValidation;
+  }
 
   const rateValidation = validateRate(rate);
   if (rateValidation) {

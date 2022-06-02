@@ -25,7 +25,7 @@ const RoomTypes = () => {
       </p>
       )}
       <div className={styles.create}>
-        <NavLink to="/roomType/create">
+        <NavLink to="/room-types/create">
           <button className={styles.button} type="button">Create</button>
         </NavLink>
       </div>
