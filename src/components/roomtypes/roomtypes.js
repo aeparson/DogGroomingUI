@@ -1,44 +1,21 @@
-/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import styles from './roomtypes.module.css';
 import fetchAllRoomTypes from './roomtypesService';
+import TableHeadings from './roomtypesTableHeadings';
 import Constants from '../../utils/constants';
 
 const RoomTypes = () => {
-  const [reservations, setReservations] = useState([]);
   const [apiError, setApiError] = useState(false);
-  const [roomType, setRoomType] = useState([]);
+  const [roomTypes, setRoomTypes] = useState([]);
 
-  const updateReservationList = () => getAllReservations(setReservations, setApiError);
-  const fetchRoomTypes = () => fetchAllRoomTypes(setRoomType, setApiError);
-
-  useEffect(() => {
-    updateReservationList(setReservations);
-  }, []);
+  const updateRoomTypes = () => fetchAllRoomTypes(setRoomTypes, setApiError);
 
   useEffect(() => {
-    fetchRoomTypes();
+    updateRoomTypes(setRoomTypes);
   }, []);
-
-  const getRoomRate = (reservation) => {
-    const roomObject = roomType.find((object) => (object.id === reservation.id));
-    if (roomObject === undefined) {
-      return undefined;
-    }
-    const totalRate = ((roomObject.rate) * (reservation.numberOfNights)).toFixed(2);
-    return totalRate;
-  };
-
-  const getRoomTypeName = (reservation) => {
-    const roomObject = roomType.find((object) => (object.id === reservation.id));
-    if (roomObject === undefined) {
-      return undefined;
-    }
-    return roomObject.name;
-  };
 
   return (
     <>
@@ -48,24 +25,22 @@ const RoomTypes = () => {
       </p>
       )}
       <div className={styles.create}>
-        <NavLink to="/reservations/create">
+        <NavLink to="/roomType/create">
           <button className={styles.button} type="button">Create</button>
         </NavLink>
       </div>
-      <div className={styles.reservationTable}>
+      <div className={styles.roomTypeTable}>
         <table>
           <thead>
             <TableHeadings />
           </thead>
           <tbody>
-            {reservations.sort((reservationA, reservationB) => reservationA.id - reservationB.id)
-              .map((reservation) => (
+            {roomTypes.sort((roomTypeA, roomTypeB) => roomTypeA.id - roomTypeB.id)
+              .map((roomType) => (
                 <TableData
-                  key={reservation.id}
-                  updateReservations={updateReservationList}
-                  reservation={reservation}
-                  roomRate={getRoomRate(reservation)}
-                  roomName={getRoomTypeName(reservation)}
+                  key={roomType.id}
+                  updateRoomTypes={updateRoomTypes}
+                  roomType={roomType}
                 />
               ))}
 
@@ -78,21 +53,20 @@ const RoomTypes = () => {
 
 /**
  * @description a row of table data for a reservation
- * @param reservation will pull all of the reservations
+ * @param reservation will pull all of the roomType
 * @returns component
  */
 
-const TableData = ({
-  reservation, roomRate, updateReservations, roomName
-}) => {
+const TableData = ({ roomType }) => {
   /**
-   * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
+   * @description displays a pencil icon. When clicked, you are redirected to a page
+   *  to edit a reservation.
    * @returns a pencil icon.
    */
   const EditButton = () => {
     const navigate = useNavigate();
     const routeChange = () => {
-      const path = `/reservations/edit/${reservation.id}`;
+      const path = `/room-types/edit/${roomType.id}`;
       navigate(path);
     };
 
@@ -106,45 +80,19 @@ const TableData = ({
     );
   };
 
-  /**
-   * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
-   * @returns a pencil icon.
-   */
-  const DeleteButton = () => {
-    const onClick = () => {
-      deleteReservationById(reservation.id)
-        .then(() => {
-          updateReservations();
-        })
-        .catch(() => {
-          updateReservations();
-        });
-    };
-    return (
-      <FontAwesomeIcon
-        onClick={onClick}
-        icon={faTrash}
-        size="2x"
-        className={styles.rightButton}
-      />
-    );
-  };
-
   return (
     <tr>
       <td>
         <EditButton />
-        <DeleteButton
-          reservation={reservation}
-          updateReservations={updateReservations}
-        />
+      </td>
+      <td>{roomType.name}</td>
+      <td>{roomType.description}</td>
+      <td>{roomType.rate}</td>
+      <td>
+        {(roomType.active ? 'Active' : 'Inactive'
+        )}
 
       </td>
-      <td>{reservation.guestEmail}</td>
-      <td>{roomName}</td>
-      <td>{reservation.checkInDate}</td>
-      <td>{reservation.numberOfNights}</td>
-      <td>{`$${roomRate}`}</td>
     </tr>
   );
 };
