@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import styles from './reservations.module.css';
 import TableHeadings from './reservationTableHeadings';
 import { deleteReservationById, fetchAllReservations } from './reservationsService';
@@ -102,12 +102,12 @@ const TableData = ({ reservation, roomRate, updateReservations }) => {
     const onClick = () => {
       deleteReservationById(reservation.id)
         .then(() => {
-          toast.success(`Reservation with Guest Email ${reservation.guestEmail} successfully deleted.`);
           updateReservations();
+          // toast.success(`Reservation with Guest Email ${reservation.guestEmail} successfully deleted.`);
         })
         .catch(() => {
           updateReservations();
-          toast.error('A server error occurred, reservation has not been deleted.');
+          // toast.error('A server error occurred, reservation has not been deleted.');
         });
     };
     return (

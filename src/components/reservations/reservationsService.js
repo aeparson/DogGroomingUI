@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import HttpHelper from '../../utils/HttpHelper';
 import Constants from '../../utils/constants';
 
@@ -50,6 +51,7 @@ async function deleteReservationById(reservationId) {
   await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservationId}`, 'DELETE')
     .then((response) => {
       if (response.ok) {
+        toast.success('Reservation successfully deleted.');
         return response.json();
       }
       if (response.status === 400) {
@@ -69,10 +71,11 @@ async function updateReservationById(reservation, updatedReservation) {
   await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'PUT', updatedReservation)
     .then((response) => {
       if (response.ok) {
+        toast.success(`Reservation for ${reservation.guestEmail} has been updated.`);
         return response.json();
       }
       if (response.status === 400) {
-        throw new Error('A server error occurred. Your updates have not been saved');
+        throw new Error('A server error occurred. Your updates have not been saved.');
       }
       throw new Error(Constants.API_ERROR);
     });
