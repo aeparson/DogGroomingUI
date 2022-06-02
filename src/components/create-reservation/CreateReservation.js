@@ -20,7 +20,6 @@ const CreateReservationPage = () => {
   });
   const [fieldErrors, setFieldErrors] = useState([]);
   const roomTypes = [1, 2, 3, 4, 5, 6, 7];
-  // const [roomTypes, setRoomTypes] = useState({});
   const rereoute = useNavigate();
 
   /**
@@ -29,18 +28,6 @@ const CreateReservationPage = () => {
   const onReservationCreate = (e) => {
     setReservationInfo({ ...reservationInfo, [e.target.id]: e.target.value });
   };
-
-  // const updateRoomList = () => fetchAllRoomTypes(setRoomTypes);
-
-  // useEffect(() => {
-  //   updateRoomList();
-  // }, []);
-
-  // const getRoomTypeId = (roomTypeName) => {
-  //   const roomTypeObject = roomTypes.find((rt) => (rt.name === roomTypeName));
-  //   console.log(roomTypeObject.id);
-  //   return roomTypeObject.id;
-  // };
 
   /**
    * @description Packet of information being sent to database for put request.
@@ -80,7 +67,7 @@ const CreateReservationPage = () => {
         <div className={styles.reservationInfoContainer}>
           <div className={styles.reservationContainer}>
             <h3 className={styles.title}>
-              Create Reservation
+              Reservation
               <hr />
             </h3>
             <h4>
@@ -94,6 +81,7 @@ const CreateReservationPage = () => {
                     <FormItem
                       type="email"
                       id="guestEmail"
+                      placeholder={reservationInfo.guestEmail}
                       value={reservationPacket.guestEmail}
                       onChange={onReservationCreate}
                     />
@@ -126,7 +114,7 @@ const CreateReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Check In Date
+              Check In Date:
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.checkInDate === undefined
@@ -148,7 +136,7 @@ const CreateReservationPage = () => {
               </div>
             </h4>
             <h4>
-              Number of Nights
+              Number of Nights:
               {' '}
               <div className={styles.inputContainer}>
                 <div className={fieldErrors.numberOfNights === undefined
@@ -178,7 +166,7 @@ const CreateReservationPage = () => {
                 size="small"
                 data-testid="save-spot"
               >
-                Create
+                Save
               </Button>
             </Box>
           </div>

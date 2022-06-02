@@ -72,7 +72,7 @@ const Reservations = () => {
 * @returns component
  */
 
-const TableData = ({ reservation, roomRate, updateReservationList }) => {
+const TableData = ({ reservation, roomRate, updateReservations }) => {
   /**
    * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
    * @returns a pencil icon.
@@ -99,19 +99,16 @@ const TableData = ({ reservation, roomRate, updateReservationList }) => {
    * @returns a pencil icon.
    */
   const DeleteButton = () => {
-    const deleteProduct = () => {
+    const onClick = () => {
       deleteReservationById(reservation.id)
         .then(() => {
-          updateReservationList();
           toast.success(`Reservation with Guest Email ${reservation.guestEmail} successfully deleted.`);
+          updateReservations();
         })
         .catch(() => {
-          updateReservationList();
+          updateReservations();
           toast.error('A server error occurred, reservation has not been deleted.');
         });
-    };
-    const onClick = () => {
-      deleteProduct();
     };
     return (
       <FontAwesomeIcon
@@ -129,7 +126,7 @@ const TableData = ({ reservation, roomRate, updateReservationList }) => {
         <EditButton />
         <DeleteButton
           reservation={reservation}
-          updateReservations={updateReservationList}
+          updateReservations={updateReservations}
         />
 
       </td>

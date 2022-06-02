@@ -52,6 +52,9 @@ async function deleteReservationById(reservationId) {
       if (response.ok) {
         return response.json();
       }
+      if (response.status === 400) {
+        throw new Error('A server error occurred. Your updates have not been saved');
+      }
       throw new Error(Constants.API_ERROR);
     });
 }
