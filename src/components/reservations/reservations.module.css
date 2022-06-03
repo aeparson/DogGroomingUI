@@ -4,11 +4,15 @@
     border: 2px solid #231651;
     border-radius: 10px;
     color: #231651;
-    font-weight: bold;
+    font-weight: 700;
     margin: 10px 1px 10px 10px;
     padding: 8px;
     font-size: 20px;
     width: 20em;
+}
+
+a {
+    text-decoration: none;
 }
 
 .reservationTable {

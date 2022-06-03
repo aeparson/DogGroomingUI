@@ -11,6 +11,10 @@
     width: 20em;
 }
 
+a {
+    text-decoration: none;
+}
+
 .roomTypeTable {
     overflow: auto;
 }
