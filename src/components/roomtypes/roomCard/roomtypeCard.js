@@ -8,7 +8,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@mui/icons-material/Edit';
-// import CardActions from '@material-ui/core/CardActions';
 import { useNavigate } from 'react-router-dom';
 import assignImage from '../../../utils/AssignImages';
 
@@ -22,11 +21,14 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     width: 'var(--card-width)'
   },
+  title: {
+    fontSize: 20
+  },
   cardContent: {
     paddingBottom: 'auto'
   },
   rate: {
-    marginBottom: 'auto'
+    marginBottom: 0
   },
   media: {
     height: 0,
@@ -55,7 +57,7 @@ const RoomCard = ({ roomType }) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const Reroute = () => {
-    const path = `/reservations/edit/${roomType.id}`;
+    const path = `/room-types/edit/${roomType.id}`;
     navigate(path);
   };
 
@@ -74,6 +76,7 @@ const RoomCard = ({ roomType }) => {
             </IconButton>
           )}
           title={roomType.name}
+          classes={{ title: classes.title }}
         />
         <CardMedia
           className={classes.media}
@@ -81,13 +84,17 @@ const RoomCard = ({ roomType }) => {
           title="product image"
         />
         <CardContent className={classes.cardContent}>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body1" color="textSecondary" component="p">
             {roomType.description}
           </Typography>
           <br />
-          <Typography className={classes.rate} variant="body2" color="textSecondary" component="p">
+          <Typography className={classes.rate} variant="body2" color="textSecondary">
             Nightly Rate: $
             {roomType.rate.toFixed(2)}
+          </Typography>
+          <Typography className={classes.rate} variant="body2" color="textSecondary">
+            {(roomType.active ? 'Active' : 'Inactive'
+        )}
           </Typography>
         </CardContent>
       </Card>
