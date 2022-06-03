@@ -69,7 +69,7 @@ const CreateRoomPage = () => {
         <div className={styles.roomInfoContainer}>
           <div className={styles.roomContainer}>
             <h3 className={styles.title}>
-              Edit Room
+              Create Room
               <hr />
             </h3>
             <h4>
@@ -151,7 +151,7 @@ const CreateRoomPage = () => {
                 size="small"
                 data-testid="edit-spot"
               >
-                Save
+                Create
               </Button>
             </Box>
           </div>

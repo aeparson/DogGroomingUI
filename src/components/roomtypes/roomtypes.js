@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import styles from './roomtypes.module.css';
 import { fetchAllRoomTypes } from '../../utils/service-pages/roomService';
-import TableHeadings from './roomtypesTableHeadings';
+// import TableHeadings from './roomtypesTableHeadings';
 import Constants from '../../utils/constants';
+import RoomCardGrid from './roomCard/roomtypeGrid';
 
 /**
  * This large function calls on helper functions to fetch and display all
@@ -34,7 +35,8 @@ const RoomTypes = () => {
           <button className={styles.button} type="button">Create</button>
         </NavLink>
       </div>
-      <div className={styles.roomTypeTable}>
+      <RoomCardGrid roomTypes={roomTypes} />
+      {/* <div className={styles.roomTypeTable}>
         <table>
           <thead>
             <TableHeadings />
@@ -51,7 +53,7 @@ const RoomTypes = () => {
 
           </tbody>
         </table>
-      </div>
+      </div> */}
     </>
   );
 };
@@ -62,43 +64,43 @@ const RoomTypes = () => {
 * @returns component
  */
 
-const TableData = ({ roomType }) => {
-  /**
-   * @description displays a pencil icon. When clicked, you are redirected to a page
-   *  to edit a reservation.
-   * @returns a pencil icon.
-   */
-  const EditButton = () => {
-    const navigate = useNavigate();
-    const routeChange = () => {
-      const path = `/room-types/edit/${roomType.id}`;
-      navigate(path);
-    };
+// const TableData = ({ roomType }) => {
+//   /**
+//    * @description displays a pencil icon. When clicked, you are redirected to a page
+//    *  to edit a reservation.
+//    * @returns a pencil icon.
+//    */
+//   const EditButton = () => {
+//     const navigate = useNavigate();
+//     const routeChange = () => {
+//       const path = `/room-types/edit/${roomType.id}`;
+//       navigate(path);
+//     };
 
-    return (
-      <FontAwesomeIcon
-        onClick={routeChange}
-        icon={faPencil}
-        size="2x"
-        className={styles.leftButton}
-      />
-    );
-  };
+//     return (
+//       <FontAwesomeIcon
+//         onClick={routeChange}
+//         icon={faPencil}
+//         size="2x"
+//         className={styles.leftButton}
+//       />
+//     );
+//   };
 
-  return (
-    <tr>
-      <td>
-        <EditButton />
-      </td>
-      <td>{roomType.name}</td>
-      <td>{roomType.description}</td>
-      <td>{roomType.rate}</td>
-      <td>
-        {(roomType.active ? 'Active' : 'Inactive'
-        )}
+//   return (
+//     <tr>
+//       <td>
+//         <EditButton />
+//       </td>
+//       <td>{roomType.name}</td>
+//       <td>{roomType.description}</td>
+//       <td>{roomType.rate}</td>
+//       <td>
+//         {(roomType.active ? 'Active' : 'Inactive'
+//         )}
 
-      </td>
-    </tr>
-  );
-};
+//       </td>
+//     </tr>
+//   );
+// };
 export default RoomTypes;
