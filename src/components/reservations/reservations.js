@@ -120,6 +120,7 @@ const TableData = ({
         icon={faPencil}
         size="2x"
         className={styles.leftButton}
+        data-testid="edit-spot"
       />
     );
   };
