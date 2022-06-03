@@ -4,7 +4,7 @@
   align-items: center;
   top: 0px;
   height: 50px;
-  background-color: #5CE1E6;
+  background-color: #231651;
 }
 
 .footerText {
@@ -14,6 +14,6 @@
     font-weight: bold;
     font-size: 20px;
     padding-left: 15px;
-    text-shadow: 1px 1px #179297;
-    border: 5px solid #5CE1E6;
+    /* text-shadow: 1px 1px whitesmoke; */
+    border: 5px solid #231651;
 }

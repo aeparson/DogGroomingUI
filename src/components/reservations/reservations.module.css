@@ -1,0 +1,61 @@
+.button {
+    display: block;
+    background-color: #d6fff6;
+    border: 2px solid #231651;
+    border-radius: 10px;
+    color: #231651;
+    font-weight: 700;
+    margin: 10px 1px 10px 10px;
+    padding: 8px;
+    font-size: 20px;
+    width: 20em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.reservationTable {
+    overflow: auto;
+}
+
+.reservationTable table {
+    color: #231651;
+    width: 100vw;
+    height: calc(100vh - 180px);
+    font-weight: 800;
+    font-size: 1em;
+}
+
+.reservationTable th {
+    position: sticky;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: #FF8484;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+.reservationTable tr {
+    background-color: #D6fff6;
+    color: #231651;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.reservationTable td {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: auto;
+
+}
+
+.leftButton {
+    padding-left: 3px;
+}
+
+.rightButton {
+    padding-left: 6px;
+}

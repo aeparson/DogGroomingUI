@@ -1,0 +1,8 @@
+.homepageImage {
+    display: block;
+    height: calc(100vh - 160px) ;
+    width: 100vw;
+    overflow:hidden;
+}
+
+
