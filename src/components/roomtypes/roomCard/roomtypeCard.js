@@ -7,7 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
+// import CardActions from '@material-ui/core/CardActions';
+import { useNavigate } from 'react-router-dom';
 import assignImage from '../../../utils/AssignImages';
 
 /**
@@ -51,6 +53,11 @@ const useStyles = makeStyles((theme) => ({
  */
 const RoomCard = ({ roomType }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const Reroute = () => {
+    const path = `/reservations/edit/${roomType.id}`;
+    navigate(path);
+  };
 
   return (
     <>
@@ -62,8 +69,8 @@ const RoomCard = ({ roomType }) => {
             </Avatar>
           )}
           action={(
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
+            <IconButton aria-label="edit">
+              <EditIcon onClick={Reroute} />
             </IconButton>
           )}
           title={roomType.name}
