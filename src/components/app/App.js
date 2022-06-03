@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {
   BrowserRouter, Route, Routes
 } from 'react-router-dom';
-import Homepage from '../homepage/Homepage';
+import Homepage from '../homepage/homepage';
 import Reservations from '../reservations/reservations';
 import EditReservations from '../edit-reservation/editReservation';
 import CreateReservationPage from '../create-reservation/CreateReservation';
@@ -48,13 +48,3 @@ const App = () => (
   </BrowserRouter>
 );
 export default App;
-
-// const [reservation, setReservation] = useState('');
-
-// useEffect(() => {
-//   const existingReservation = localStorage.getItem('reservation');
-//   if (existingReservation !== undefined && existingReservation !== null) {
-//     const foundReservation = JSON.parse(existingReservation);
-//     setReservation(foundReservation);
-//   }
-// }, []);
