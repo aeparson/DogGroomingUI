@@ -237,7 +237,7 @@ const EditReservationPage = () => {
                 onClick={AttemptReservationChange}
                 variant="contained"
                 disableElevation
-                size="small"
+                size="large"
                 data-testid="edit-spot"
               >
                 Save

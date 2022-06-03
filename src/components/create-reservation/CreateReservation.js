@@ -203,7 +203,7 @@ const CreateReservationPage = () => {
                 onClick={AttemptReservationCreate}
                 variant="contained"
                 disableElevation
-                size="small"
+                size="large"
                 data-testid="save-spot"
               >
                 Create

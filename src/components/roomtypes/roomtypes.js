@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import styles from './roomtypes.module.css';
 import { fetchAllRoomTypes } from '../../utils/service-pages/roomService';
-// import TableHeadings from './roomtypesTableHeadings';
 import Constants from '../../utils/constants';
 import RoomCardGrid from './roomCard/roomtypeGrid';
 
@@ -36,24 +33,6 @@ const RoomTypes = () => {
         </NavLink>
       </div>
       <RoomCardGrid roomTypes={roomTypes} />
-      {/* <div className={styles.roomTypeTable}>
-        <table>
-          <thead>
-            <TableHeadings />
-          </thead>
-          <tbody>
-            {roomTypes.sort((roomTypeA, roomTypeB) => roomTypeA.id - roomTypeB.id)
-              .map((roomType) => (
-                <TableData
-                  key={roomType.id}
-                  updateRoomTypes={updateRoomTypes}
-                  roomType={roomType}
-                />
-              ))}
-
-          </tbody>
-        </table>
-      </div> */}
     </>
   );
 };
@@ -64,43 +43,4 @@ const RoomTypes = () => {
 * @returns component
  */
 
-// const TableData = ({ roomType }) => {
-//   /**
-//    * @description displays a pencil icon. When clicked, you are redirected to a page
-//    *  to edit a reservation.
-//    * @returns a pencil icon.
-//    */
-//   const EditButton = () => {
-//     const navigate = useNavigate();
-//     const routeChange = () => {
-//       const path = `/room-types/edit/${roomType.id}`;
-//       navigate(path);
-//     };
-
-//     return (
-//       <FontAwesomeIcon
-//         onClick={routeChange}
-//         icon={faPencil}
-//         size="2x"
-//         className={styles.leftButton}
-//       />
-//     );
-//   };
-
-//   return (
-//     <tr>
-//       <td>
-//         <EditButton />
-//       </td>
-//       <td>{roomType.name}</td>
-//       <td>{roomType.description}</td>
-//       <td>{roomType.rate}</td>
-//       <td>
-//         {(roomType.active ? 'Active' : 'Inactive'
-//         )}
-
-//       </td>
-//     </tr>
-//   );
-// };
 export default RoomTypes;

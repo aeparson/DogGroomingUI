@@ -148,7 +148,7 @@ const CreateRoomPage = () => {
                 onClick={AttemptRoomCreate}
                 variant="contained"
                 disableElevation
-                size="small"
+                size="large"
                 data-testid="edit-spot"
               >
                 Create

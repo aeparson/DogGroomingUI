@@ -7,16 +7,17 @@
      display: grid;
      width: 50%;
      border-radius: 2px;
-     border-color: #666666;
+     border-color: #231651;
      padding: 1em;
      margin: 50px;
      box-shadow: .2em .2em .2em rgba(0, 0, 0, 0.23);
      background: #fff;
-     height: 717px;
- } 
+     height: 55vh;
+ }
+
  .title {
      text-transform: uppercase;
-     color: #666666;
+     color: #231651;
      margin: 0 0 1em 0;
  }
 
@@ -31,7 +32,7 @@
  }
 
  h4 {
-     color: #666666;
+     color: #231651;
      margin-top: 14px;
  }
 
@@ -48,4 +49,9 @@
      color: red;
      font-size: 14px;
      margin: 0px 2px 4px 4px;
+ }
+
+ .button {
+     display: block;
+     margin: auto;
  }

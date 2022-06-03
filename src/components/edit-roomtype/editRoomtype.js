@@ -165,7 +165,7 @@ const EditRoomTypePage = () => {
                 onClick={AttemptRoomChange}
                 variant="contained"
                 disableElevation
-                size="small"
+                size="large"
                 data-testid="edit-spot"
               >
                 Save
