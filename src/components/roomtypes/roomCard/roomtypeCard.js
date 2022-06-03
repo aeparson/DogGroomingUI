@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     width: 'var(--card-width)'
   },
   cardContent: {
-    paddingBottom: 0
+    paddingBottom: 'auto'
   },
   rate: {
-    marginBottom: '0.5rem'
+    marginBottom: 'auto'
   },
   media: {
     height: 0,
@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: 'rotate(180deg)'
   }
-  // avatar: {
-  //   image: avatar
-  // }
+
 }));
 
 /**
