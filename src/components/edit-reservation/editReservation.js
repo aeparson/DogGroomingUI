@@ -101,7 +101,7 @@ const EditReservationPage = () => {
     id: reservation.id,
     user: 'user@mail.com',
     guestEmail: reservationInfo.guestEmail,
-    roomTypeId: (getRoomTypeId(roomTypeName)),
+    roomTypeId: roomTypeName ? getRoomTypeId(roomTypeName) : reservationInfo.roomTypeId,
     checkInDate: reservationInfo.checkInDate,
     numberOfNights: reservationInfo.numberOfNights
   };
@@ -113,6 +113,7 @@ const EditReservationPage = () => {
    */
 
   const AttemptReservationChange = () => {
+    console.log(getRoomTypeName(reservationInfo.roomTypeId));
     const invalidInfo = validateReservation(reservationPacket);
     if (Object.keys(invalidInfo).length === 0) {
       updateReservationById(reservationPacket, { id }, setApiError)
@@ -174,7 +175,7 @@ const EditReservationPage = () => {
                       onChange={onRoomTypeChange}
                       value={roomTypeName}
                       options={getActiveRooms()}
-                      defaultValue={getRoomTypeName()}
+                      defaultValue={getRoomTypeName(reservationInfo.roomTypeId)}
                     />
                   </span>
                 </div>
