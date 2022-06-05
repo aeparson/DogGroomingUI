@@ -113,7 +113,6 @@ const EditReservationPage = () => {
    */
 
   const AttemptReservationChange = () => {
-    console.log(getRoomTypeName(reservationInfo.roomTypeId));
     const invalidInfo = validateReservation(reservationPacket);
     if (Object.keys(invalidInfo).length === 0) {
       updateReservationById(reservationPacket, { id }, setApiError)
