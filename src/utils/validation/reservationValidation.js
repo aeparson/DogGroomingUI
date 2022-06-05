@@ -28,11 +28,11 @@ const validateDate = (checkInDate) => {
  * @param {string} field
  * @returns an empty string if valid, otherwise an error message
 */
-const validateRoomType = (roomType) => {
-  if (roomType == null || roomType === '') {
-    return '';
+const validateRoomType = (roomTypeId) => {
+  if (roomTypeId === undefined) {
+    return 'Must select a room type';
   }
-  return 'Must select a room type';
+  return '';
 };
 
 /**
@@ -48,7 +48,7 @@ const validateNightsStayed = (numberOfNights) => {
 };
 
 const checkReservation = ({
-  guestEmail, checkInDate, roomType, numberOfNights
+  guestEmail, checkInDate, roomTypeId, numberOfNights
 }) => {
   const invalidFields = {};
 
@@ -62,10 +62,9 @@ const checkReservation = ({
     invalidFields.checkInDate = dateValidation;
   }
 
-  const roomTypeValidation = validateRoomType(roomType);
+  const roomTypeValidation = validateRoomType(roomTypeId);
   if (roomTypeValidation) {
     invalidFields.roomType = roomTypeValidation;
-    return invalidFields;
   }
 
   const nightsValidation = validateNightsStayed(numberOfNights);
