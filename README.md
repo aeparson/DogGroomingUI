@@ -34,7 +34,7 @@ Double check your key bindings for linting, but the standard way to lint your fi
 It is important to lint frequently as ESLint will cause the application not to build if you have linting errors. You can also right click on areas with red underlines to see what other errors might be there and to select to fix anything that can be auto-fixed for you.
 
 ## Dependencies
-* Hotel Book Project api must be running. The constants file has been set up to direct your code to ping off a deployed version of this api. If you have a copy and prefer to work off a local copy of the API, simply comment out the code directing to the deployed and re-initiate the line that is pointing to a local version.
+* Hotel Booking Project api must be running. The constants file has been set up to direct your code to ping off a deployed version of this api. If you have a copy and prefer to work off a local copy of the API, simply comment out the code directing to the deployed and re-initiate the line that is pointing to a local version.
 
 ## Testing
 * You can run tests with coverage via `npm run test:coverage`

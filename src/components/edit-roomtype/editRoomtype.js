@@ -24,9 +24,8 @@ const EditRoomTypePage = () => {
   const rereoute = useNavigate();
   const { id } = useParams();
 
-  const [checked, setChecked] = useState(false);
   const handleCheck = () => {
-    setChecked(!checked);
+    setRoomInfo({ ...roomInfo, active: !roomInfo.active });
   };
   useEffect(() => {
     fetchRoomById(Number(id), setRoomInfo);
@@ -44,13 +43,12 @@ const EditRoomTypePage = () => {
    * If information has been entered into a form box, it will be read and added
    * to the packet, otherwise what is sent is the room's existing information.
    */
-  const activeStatus = checked;
   const roomPacket = {
     id: room.id,
     name: roomInfo.name,
     description: roomInfo.description,
     rate: roomInfo.rate,
-    active: activeStatus
+    active: roomInfo.active
   };
 
   /**
@@ -153,7 +151,7 @@ const EditRoomTypePage = () => {
                     type="checkbox"
                     id="active"
                     onChange={handleCheck}
-                    value={checked}
+                    checked={roomInfo.active}
                   />
                   Active
                   {' '}
