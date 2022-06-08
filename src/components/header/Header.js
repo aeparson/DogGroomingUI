@@ -15,7 +15,7 @@ const Header = () => (
       </NavLink>
     </div>
     <div className={styles.reservations}>
-      <NavLink to="/Reservations">
+      <NavLink to="/reservations">
         Reservations
       </NavLink>
     </div>

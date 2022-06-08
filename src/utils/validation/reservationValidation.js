@@ -41,10 +41,10 @@ const validateRoomType = (roomTypeId) => {
  * @returns an empty string if valid, otherwise an error message
 */
 const validateNightsStayed = (numberOfNights) => {
-  if (numberOfNights > 0) {
+  if (numberOfNights - Math.floor(numberOfNights) === 0 && numberOfNights > 0) {
     return '';
   }
-  return 'Must be a number greater than zero.';
+  return 'Must be a whole number greater than zero.';
 };
 
 const checkReservation = ({

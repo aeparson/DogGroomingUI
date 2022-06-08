@@ -240,7 +240,7 @@ const EditReservationPage = () => {
                 size="large"
                 data-testid="edit-spot"
               >
-                Save
+                Update
               </Button>
             </Box>
           </div>
