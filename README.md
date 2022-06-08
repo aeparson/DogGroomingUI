@@ -38,7 +38,11 @@ Double check your key bindings for linting, but the standard way to lint your fi
 It is important to lint frequently as ESLint will cause the application not to build if you have linting errors. You can also right click on areas with red underlines to see what other errors might be there and to select to fix anything that can be auto-fixed for you.
 
 ## Dependencies
-* Hotel Booking Project api must be running. The constants file has been set up to direct your code to ping off a deployed version of this api at https://arcadia-hotel-booking-project.herokuapp.com. In order to deploy your own version of the api, you can follow the directions below: 
+* Hotel Booking Project api must be running. The constants file has been set up to direct your code to ping off a deployed version of this api at https://arcadia-hotel-booking-project.herokuapp.com. 
+
+* If you prefer to deploy your own version, clone down a copy of the API here https://gitlab.ce.catalyte.io/training/cycleworkinggroups/nationwide/group-projects/team-16/hotel-api
+
+* In order to deploy your own version of the api, you can follow the directions below: 
     1. Log into or create an account at https://id.heroku.com/login
     2. Create a new application by selecting the ‘New’ button, and then selecting the ‘Create new app’ option from the dropdown. 
     3. Input the URL you would like to use for the application, and then select the ‘Create app’ button once you have entered the desired name (note: this name must be unique between ALL Heroku applications)
