@@ -5,10 +5,10 @@ This is a starter project for a Hotel Company that was bootstrapped with [Create
 ## Install Prerequisites
 Ensure that you have ESLint installed to your code editor. In the packate-lock.json file, make sure that you have the following line <"eslint-config-airbnb": "^18.2.1"> to configure your ESLint.
 
-## Linting
-Once you have ESLint installed, to lint files you will click:
-    --PC: Alt + Shift + F
-    --Mac: Option + Shift + F
+### Linting
+* Once you have ESLint installed, to lint files you will click:
+    -PC: Alt + Shift + F
+    -Mac: Option + Shift + F
 
 ### Node Version Manager (NVM)
 
@@ -19,8 +19,8 @@ Follow the Installation Steps for [NVM on GitHub](https://github.com/coreybutler
 ## Getting Started
 
 1. Clone this project locally.
-1. CD into the root folder
-1. Run `npm install` in the root folder to install dependencies.
+2. CD into the root folder
+3. Run `npm install` in the root folder to install dependencies.
 
 This command installs a package, and any packages that it depends on.
 
