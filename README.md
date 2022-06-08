@@ -6,9 +6,9 @@ This is a starter project for a Hotel Company that was bootstrapped with [Create
 Ensure that you have ESLint installed to your code editor. In the packate-lock.json file, make sure that you have the following line <"eslint-config-airbnb": "^18.2.1"> to configure your ESLint.
 
 ### Linting
-* Once you have ESLint installed, to lint files you will click:
-    -PC: Alt + Shift + F
-    -Mac: Option + Shift + F
+- Once you have ESLint installed, to lint files you will click:
+    - PC: Alt + Shift + F
+    - Mac: Option + Shift + F
 
 ### Node Version Manager (NVM)
 
