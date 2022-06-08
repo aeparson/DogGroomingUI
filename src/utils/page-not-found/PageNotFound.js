@@ -5,7 +5,8 @@ import styles from './PageNotFound.module.css';
 
 /**
  * creates a reirect page when a url is not found.
- * @returns an image that links back to the home page.
+ * @returns an image that tells the user that the url is not
+ * an active one and links back to the home page.
  */
 const PageNotFound = () => (
   <div>

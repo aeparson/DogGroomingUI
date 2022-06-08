@@ -10,7 +10,6 @@ import FormItem from '../form/FormItem';
 /**
  * @name CreateRoomPage
  * @description allows you to create a new instance of a room type.
- * @param {room, setRoom}
  * @returns component
  */
 const CreateRoomPage = () => {
@@ -33,8 +32,8 @@ const CreateRoomPage = () => {
   };
 
   /**
-   * @description Packet of information being sent to database for put request.
-   * Information entered into a form box will be read and added
+   * @description Packet of information being sent to database for POST request.
+   * Information entered into form fields will be read and added
    * to the packet.
    */
   const activeStatus = checked;
@@ -46,9 +45,9 @@ const CreateRoomPage = () => {
   };
 
   /**
-   * @description Event handler that sends POST request to database on clicking Save. Validation is
-   * initially checked, and either field errors are set where necessary, or information packet is
-   * sent to database and changes are persisted.
+   * @description Event handler that sends POST request to database on clicking Create.
+   * Validation is initially checked, and either field errors are set where necessary, or
+   * information packet is sent to database and new room type is persisted.
    */
 
   const AttemptRoomCreate = () => {

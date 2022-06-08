@@ -12,7 +12,6 @@ import FormItemDropdown from '../form/FormItemDropdown';
 /**
  * @name CreateReservationPage
  * @description allows you to submit a new instance of a reservation to the database
- * @param {reservation, setReservation}
  * @returns component
  */
 const CreateReservationPage = () => {
@@ -35,7 +34,7 @@ const CreateReservationPage = () => {
   };
 
   /**
-   * @description Allows form input boxes to be typed into
+   * @description Allows the active chekbox to be checked and unchecked.
    */
   const onRoomTypeChange = (e) => {
     setRoomTypeName(e.target.value);
@@ -69,8 +68,8 @@ const CreateReservationPage = () => {
   };
 
   /**
-   * @description Packet of information being sent to database for put request.
-   * Information entered into a form box will be read and added
+   * @description Packet of information being sent to database for POST request.
+   * Information entered into form fields will be read and added
    * to the packet.
    */
 
@@ -83,9 +82,9 @@ const CreateReservationPage = () => {
   };
 
   /**
-   * @description Event handler that sends POST request to database on clicking Save. Validation is
-   * initially checked, and either field errors are set where necessary, or information packet is
-   * sent to database and changes are persisted.
+   * @description Event handler that sends POST request to database on clicking Create.
+   * Validation is initially checked, and either field errors are set where necessary, or
+   * information packet is sent to database and new reservation is persisted.
    */
 
   const AttemptReservationCreate = () => {

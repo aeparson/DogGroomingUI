@@ -33,6 +33,13 @@ const validateRate = (rate) => {
   return 'Must be a number greater than zero.';
 };
 
+/**
+ * Calls all the validation helper functions and creates an invalidFields
+ * object of relevant errors.
+ * @param {rate} number entered for nightly room rate.
+ * @param {name} string room type name entered.
+ * @returns invalidFields object of relevant errors.
+ */
 const checkRoom = ({
   rate, name
 }) => {
@@ -51,6 +58,12 @@ const checkRoom = ({
   return invalidFields;
 };
 
+/**
+ * Runs the checkRoom validation function against a specificed set of
+ * room information
+ * @param {roomInfo} roomInfo
+ * @returns errors fields, if any
+ */
 const validateRoom = (roomInfo) => {
   const invalidRoom = checkRoom(roomInfo);
   return invalidRoom;

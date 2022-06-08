@@ -13,7 +13,6 @@ import FormItemDropdown from '../form/FormItemDropdown';
 /**
  * @name EditReservationPage
  * @description fetches reservation information based on reservation id & allows editing via a form.
- * @param {reservation, setReservation}
  * @returns component
  */
 const EditReservationPage = () => {
@@ -85,16 +84,16 @@ const EditReservationPage = () => {
   };
 
   /**
-   * @description Allows form input boxes to be typed into
+   * @description Allows active checkbox to be checked and unchecked.
    */
   const onRoomTypeChange = (e) => {
     setRoomTypeName(e.target.value);
   };
 
   /**
-   * @description Packet of information being sent to database for put request.
-   * If information has been entered into a form box, it will be read and added
-   * to the packet, otherwise what is sent is the reservations's existing information.
+   * @description Packet of information being sent to database for PUT request.
+   * Information entered into form fields will be read and added
+   * to the packet.
    */
 
   const reservationPacket = {
@@ -107,9 +106,9 @@ const EditReservationPage = () => {
   };
 
   /**
-   * @description Event handler that sends PUT request to database on clicking Save. Validation is
-   * initially checked, and either field errors are set where necessary, or information packet is
-   * sent to database and changes are persisted.
+   * @description Event handler that sends PUT request to database on clicking Update.
+   * Validation is initially checked, and either field errors are set where necessary, or
+   * information packet is sent to database updates are persisted.
    */
 
   const AttemptReservationChange = () => {

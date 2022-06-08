@@ -9,9 +9,8 @@ import Constants from '../../utils/constants';
 import FormItem from '../form/FormItem';
 
 /**
- * @name EditRoomPage
+ * @name EditRoomTypePage
  * @description fetches room information based on room id & allows editing via a form.
- * @param {room, setRoom}
  * @returns component
  */
 const EditRoomTypePage = () => {
@@ -39,9 +38,9 @@ const EditRoomTypePage = () => {
   };
 
   /**
-   * @description Packet of information being sent to database for put request.
-   * If information has been entered into a form box, it will be read and added
-   * to the packet, otherwise what is sent is the room's existing information.
+   * @description Packet of information being sent to database for PUT request.
+   * Information entered into form fields will be read and added
+   * to the packet.
    */
   const roomPacket = {
     id: room.id,
@@ -52,9 +51,9 @@ const EditRoomTypePage = () => {
   };
 
   /**
-   * @description Event handler that sends PUT request to database on clicking Save. Validation is
-   * initially checked, and either field errors are set where necessary, or information packet is
-   * sent to database and changes are persisted.
+   * @description Event handler that sends PUT request to database on clicking Update.
+   * Validation is initially checked, and either field errors are set where necessary, or
+   * information packet is sent to database and updates are persisted.
    */
 
   const AttemptRoomChange = () => {

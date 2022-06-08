@@ -8,7 +8,7 @@ import RoomCardGrid from './roomCard/roomtypeGrid';
 /**
  * This large function calls on helper functions to fetch and display all
  * relavent room type data.
- * @returns a table with all the current room types and their data.
+ * @returns a grid of individual cards with all the current room types and their data.
  */
 const RoomTypes = () => {
   const [apiError, setApiError] = useState(false);

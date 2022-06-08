@@ -5,8 +5,8 @@ import styles from './roomCardGrid.module.css';
 /**
  * @name RoomCardGrid
  * @description A presentational component that contains
- *  a collection of product cards arranged in a grid.
- * @param {object} roomTypes An array of products to display cards for.
+ *  a collection of roomType cards arranged in a grid.
+ * @param {object} roomTypes An array of roomTypes to display cards for.
  * @returns component
  */
 const RoomCardGrid = ({ roomTypes }) => (

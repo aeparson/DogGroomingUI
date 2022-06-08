@@ -6,9 +6,9 @@ import Constants from '../constants';
  *
  * @name fetchAllRoomTypes
  * @description Utilizes HttpHelper to make a get request to an API
- * @param {*} setRoomTypes sets state for reservations
+ * @param {*} setRoomType sets state for roomType
  * @param {*} setApiError sets error if response other than 200 is returned
- * @returns sets state for reservations if 200 response, else sets state for apiError
+ * @returns sets state for roomTypes if 200 response, else sets state for apiError
  */
 async function fetchAllRoomTypes(setRoomType, setApiError) {
   await HttpHelper(Constants.ROOM_TYPES_ENDPOINT, 'GET')
@@ -27,9 +27,9 @@ async function fetchAllRoomTypes(setRoomType, setApiError) {
 /**
  * @name fetchRoomById
  * @description Utilizes HttpHelper to make a get request to an API
- * @param {*} setPurchase sets state for data
- * @param {*} setApiError sets error if response other than 200 is returned
- * @returns sets state for data if 200 response, else sets state for apiError
+ * @param {*} roomid indicates which room to fetch.
+ * @param {*} setRoomInfo sets state for room information.
+ * @returns sets state for data if 200 response, else throws an error.
  */
 async function fetchRoomById(roomid, setRoomInfo) {
   await HttpHelper(`${Constants.ROOM_TYPES_ENDPOINT}/${roomid}`, 'GET')
@@ -47,8 +47,7 @@ async function fetchRoomById(roomid, setRoomInfo) {
  * can update information in a selected room
  * @param {*} updatedRoom information pulled from room page input
  * @param {*} room unique room in database
- * @param {*} setApiError sets error if response other than 200 is returned
- * @returns sets state for data if 200 response, else sets state for apiError
+ * @returns sets state for data if 200 response, else throws an error.
  */
 async function updateRoomInfo(updatedRoom, room) {
   await HttpHelper(`${Constants.ROOM_TYPES_ENDPOINT}/${room.id}`, 'PUT', updatedRoom)
@@ -66,11 +65,10 @@ async function updateRoomInfo(updatedRoom, room) {
 /**
  *
  * @name postNewRoom
- * @description Utilizes HttpHelper to make a get request to an API
- * @param {object} NewRoomForm takes in input from form elements.
- * @returns sets state for reservations if 200 response, else sets state for apiError
+ * @description creates a HTTP helper function to post the new room type to the API
+ * @param {object} roomPacket takes in input from form elements.
+ * @returns sets state for roomTypes if 200 response, else throws an error.
  */
-/// summary- creates a HTTP helper function to post the new product to the API
 
 async function createNewRoom(roomPacket) {
   await HttpHelper(Constants.ROOM_TYPES_ENDPOINT, 'POST', roomPacket)

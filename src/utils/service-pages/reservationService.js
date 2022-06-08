@@ -26,8 +26,8 @@ async function getAllReservations(setReservations, setApiError) {
 /**
  * @name getReservationById
  * @description Utilizes HttpHelper to make a get request to an API
- * @param {*} setPurchase sets state for data
- * @param {*} setApiError sets error if response other than 200 is returned
+ * @param {*} reservationid indicates which reservation to fetch.
+ * @param {*} setReservationInfo sets state for reservation information.
  * @returns sets state for data if 200 response, else sets state for apiError
  */
 async function getReservationById(reservationid, setReservationInfo) {
@@ -65,10 +65,9 @@ async function deleteReservationById(reservationId) {
  * @name updateReservationById
  * @description Utilizes HttpHelper to make a put request to an API so user
  * can update information in a selected reservation
- * @param {*} reservationInfo information pulled from reservation page input
+ * @param {*} updatedReservation information pulled from reservation page input
  * @param {*} reservation unique reservation in database
- * @param {*} setApiError sets error if response other than 200 is returned
- * @returns sets state for data if 200 response, else sets state for apiError
+ * @returns sets state for data if 200 response, else throws an error.
  */
 async function updateReservationById(updatedReservation, reservation) {
   await HttpHelper(`${Constants.RESERVATIONS_ENDPOINT}/${reservation.id}`, 'PUT', updatedReservation)
@@ -87,11 +86,10 @@ async function updateReservationById(updatedReservation, reservation) {
 /**
  *
  * @name postNewReservation
- * @description Utilizes HttpHelper to make a get request to an API
- * @param {object} NewReservationForm takes in input from form elements.
+ * @description creates a HTTP helper function to post the new reservation to the API
+ * @param {object} reservationPacket takes in input from form elements.
  * @returns sets state for reservations if 200 response, else sets state for apiError
  */
-/// summary- creates a HTTP helper function to post the new product to the API
 
 async function createNewReservation(reservationPacket) {
   await HttpHelper(Constants.RESERVATIONS_ENDPOINT, 'POST', reservationPacket)

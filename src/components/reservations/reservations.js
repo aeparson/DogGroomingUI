@@ -11,7 +11,7 @@ import Constants from '../../utils/constants';
 
 /**
  * This large function calls on helper functions to fetch and display all
- * relavent reservation data.
+ * relevant reservation data.
  * @returns a table with all the current reservations and their data.
  */
 const Reservations = () => {
@@ -95,8 +95,11 @@ const Reservations = () => {
 };
 
 /**
- * @description a row of table data for a reservation
- * @param reservation will pull all of the reservations
+ * @description a row of table data for a reservation.
+ * @param reservation will pull all of the reservations.
+ * @param roomRate will pull the room rate from the roomType object.
+ * @param updateReservations will allow for reservations to be deleted on this page.
+ * @param roomName will pull the room name mapped from the roomType object.
 * @returns component
  */
 
@@ -104,7 +107,8 @@ const TableData = ({
   reservation, roomRate, updateReservations, roomName
 }) => {
   /**
-   * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation.
+   * @description displays a pencil icon. When clicked, you are redirected to a page to edit a reservation
+   * based on that reservation's id.
    * @returns a pencil icon.
    */
   const EditButton = () => {
@@ -126,7 +130,8 @@ const TableData = ({
   };
 
   /**
-   * @description displays a trash can button. When clicked, you delete a reservation.
+   * @description displays a trash can button. When clicked, you delete the reservation
+   * sharing the row with the delete button.
    * @returns a trashcan button.
    */
   const DeleteButton = () => {
