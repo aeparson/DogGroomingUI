@@ -45,8 +45,10 @@ It is important to lint frequently as ESLint will cause the application not to b
     4. If you haven’t done so, download the Heroku CLI for your OS from here: https://devcenter.heroku.com/articles/heroku-cli
     5. Deploying the Application:
         -In a Git terminal, enter and continue through prompts in the terminal. (‘heroku login’ Note: This may pull up a login interface in your default internet browser).
-        - Ensure you are on the branch you would like to deploy to Heroku, and then add the Heroku remote with the following command: heroku git: . (remote -a <heroku-application-name> Note: You can verify the git remote is connected with the command ‘ ’ and verify it’s pointing git remote -v at the heroku remote application)
-        - Add the files to push to the Heroku remote application running ‘ ' git add . note: This will add all files that aren’t being ignored the .gitignore files( ). Commit the changes by running ‘ ’ Finally push the changes to Heroku running the command: git commit -m <commit-message>  ‘git push heroku <branch-to-push>:main’ .
+        - Ensure you are on the branch you would like to deploy to Heroku, and then add the Heroku remote with the following command: 'heroku git: .' (remote -a <heroku-application-name> 
+            - Note: You can verify the git remote is connected with the command ‘git remote -v ’ and verify it’s pointing git remote -v at the heroku remote application)
+        - Add the files to push to the Heroku remote application running 'git add .' 
+            - note: This will add all files that aren’t being ignored the .gitignore files( ). Commit the changes by running ‘ ’ Finally push the changes to Heroku running the command: git commit -m <commit-message>  ‘git push heroku <branch-to-push>:main’ .
         - If you haven’t done so already run the command to activate dynos.'heroku ps:scale web=1’ 
         - After Heroku finishes building and applying the changes, you should be able to navigate to 
         https://<heroku-application-name>.herokuapp.com and utilize the application.
