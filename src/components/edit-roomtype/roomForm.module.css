@@ -7,7 +7,7 @@
      display: grid;
      width: 50%;
      border-radius: 2px;
-     border-color: #231651;
+     border-color: #0FA3B1;
      padding: 1em;
      margin: 50px;
      box-shadow: .2em .2em .2em rgba(0, 0, 0, 0.23);
@@ -17,7 +17,7 @@
 
  .title {
      text-transform: uppercase;
-     color: #231651;
+     color: #0FA3B1;
      margin: 0 0 1em 0;
  }
 
@@ -32,7 +32,7 @@
  }
 
  h4 {
-     color: #231651;
+     color: #0FA3B1;
      margin-top: 14px;
  }
 

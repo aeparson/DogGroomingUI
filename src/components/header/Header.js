@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
-import companyLogo from './hotel-header-image.png';
+import companyLogo from './health-header-image.png';
 /**
  * @name Header
  * @description Displays the navigation header
